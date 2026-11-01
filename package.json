@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "data:split": "node scripts/split-madrasa-data.js",
     "data:validate": "node scripts/validate-master-database.js",
     "seo:sitemap": "node scripts/generate-sitemap.js"
   },

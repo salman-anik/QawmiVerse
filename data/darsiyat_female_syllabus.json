@@ -1,0 +1,194 @@
+{
+  "id": "darsiyat_female_central_exam",
+  "title_bn": "কেন্দ্রীয় পরীক্ষার নেসাব (দরসিয়াত: ছাত্রী)",
+  "title_en": "Central examination syllabus (Darsiyat: female students)",
+  "source_note_bn": "ব্যবহারকারীর দেওয়া দুই পৃষ্ঠার সিলেবাস থেকে বিষয়, কিতাব ও নির্ধারিত পরিমাণ প্রতিলিপি করা হয়েছে। এটি কোনো পূর্ণাঙ্গ বা সর্বজনীন জাতীয় পাঠ্যক্রম নয়; অস্পষ্ট কিতাবের নাম মূল বানানের কাছাকাছি রাখা হয়েছে।",
+  "source_note_en": "Subjects, books and assigned portions are transcribed from the user-provided two-page syllabus. This is not a complete or universal national curriculum; unclear book names are kept close to the source spelling.",
+  "stages": [
+    {
+      "id": "marhalatul-khamisah",
+      "name_bn": "আল-মারহালাতুল খামিসাত (স্নাতক ডিগ্রি)",
+      "name_en": "Al-Marhalatul Khamisah (Bachelor degree)",
+      "subjects": [
+        {
+          "name_bn": "হাদীস",
+          "books": [
+            { "name_bn": "মিশকাতুল মাসাবীহ", "portion_bn": "১ম খণ্ড পূর্ণ" },
+            { "name_bn": "মিশকাতুল মাসাবীহ", "portion_bn": "২য় খণ্ড পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "তাফসীর",
+          "books": [
+            { "name_bn": "তাফসীরুল জালালাইন", "portion_bn": "প্রথমার্ধ পূর্ণ" },
+            { "name_bn": "তাফসীরুল জালালাইন", "portion_bn": "দ্বিতীয়ার্ধ পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "ফিকহ",
+          "books": [
+            { "name_bn": "আল-হিদায়া", "portion_bn": "৩য় খণ্ড পূর্ণ" },
+            { "name_bn": "আল-হিদায়া", "portion_bn": "৪র্থ খণ্ড পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "আকাঈদ",
+          "books": [
+            { "name_bn": "আকীদাতুত তাহাবী", "portion_bn": "পূর্ণ" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sanabiyatul-ulia",
+      "name_bn": "আল-মারহালাতুস সানাবিয়াতুল উলিয়া (উচ্চ মাধ্যমিক)",
+      "name_en": "Al-Marhalatus Sanabiyatul Ulia (Higher secondary)",
+      "subjects": [
+        {
+          "name_bn": "বালাগাত",
+          "books": [
+            { "name_bn": "দুরূসুল বালাগাত", "portion_bn": "পূর্ণ" },
+            { "name_bn": "মুখতাসারুল মা'আনী", "portion_bn": "ফুসুল মা'আনী" }
+          ]
+        },
+        {
+          "name_bn": "ফিকহ",
+          "books": [
+            { "name_bn": "শরহুল বিকায়া", "portion_bn": "১ম ও ২য় খণ্ড পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "উসূলুল ফিকহ",
+          "books": [
+            { "name_bn": "নূরুল আনওয়ার", "portion_bn": "কিতাবুল্লাহ" }
+          ]
+        },
+        {
+          "name_bn": "আরবী আদব",
+          "books": [
+            { "name_bn": "মাকামাতে হারীরী", "portion_bn": "মুকাদ্দিমাসহ ১-১০ মাকামাহ" },
+            { "name_bn": "মুখতারাত", "portion_bn": "১ম খণ্ড পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "তরজমা",
+          "books": [
+            { "name_bn": "তরজমাতুল কুরআন", "portion_bn": "প্রথম ১৫ পারা" }
+          ]
+        },
+        {
+          "name_bn": "ইনশা",
+          "books": [
+            { "name_bn": "আত-তারীক ইলাল ইনশা", "portion_bn": "৩য় খণ্ড পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "নাহব",
+          "books": [
+            { "name_bn": "কাফিয়া ইবনে হাজিব", "portion_bn": "পূর্ণ" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mutawassitat",
+      "name_bn": "আল-মারহালাতুল মুতাওয়াসসিতাত (নিম্নমাধ্যমিক)",
+      "name_en": "Al-Marhalatul Mutawassitat (Lower secondary)",
+      "subjects": [
+        {
+          "name_bn": "নাহব",
+          "books": [
+            { "name_bn": "নাহবেমীর", "portion_bn": "পূর্ণ" },
+            { "name_bn": "শরহে মিয়াত আমেল", "portion_bn": "পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "সরফ",
+          "books": [
+            { "name_bn": "পাঞ্জেগঞ্জ", "portion_bn": "খাসিয়াতের পূর্ব পর্যন্ত" },
+            { "name_bn": "ইলমুস সরফ", "portion_bn": "৩য় ও ৪র্থ খণ্ড (খাসিয়াতের পূর্ব পর্যন্ত)" }
+          ]
+        },
+        {
+          "name_bn": "আরবী সাহিত্য",
+          "books": [
+            { "name_bn": "রওজাতুল আদব", "portion_bn": "১-৬ বাব" }
+          ]
+        },
+        {
+          "name_bn": "ফিকহ",
+          "books": [
+            { "name_bn": "মালাবুদ্দা মিনহু", "portion_bn": "পূর্ণ" },
+            { "name_bn": "আল-ফিকহুল মুয়াসসার", "portion_bn": "পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "সীরাত",
+          "books": [
+            { "name_bn": "সীরাতে খাতামুল আম্বিয়া", "portion_bn": "পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "বাংলা সাহিত্য ও ব্যাকরণ",
+          "books": [
+            { "name_bn": "সাহিত্য সংকলন", "portion_bn": "২য় ভাগ পূর্ণ" },
+            { "name_bn": "সরল বাংলা ব্যাকরণ", "portion_bn": "৭ম শ্রেণি" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ibtidaiya",
+      "name_bn": "আল-মারহালাতুল ইবতিদাইয়া (প্রাথমিক/এবতেদায়ি)",
+      "name_en": "Al-Marhalatul Ibtidaiya (Primary/Ibtidai)",
+      "subjects": [
+        {
+          "name_bn": "কুরআন মজীদ",
+          "books": [
+            { "name_bn": "কুরআন মজীদ (নাযেরা) তাজবিদসহ", "portion_bn": "পূর্ণ কুরআন মজীদ" }
+          ]
+        },
+        {
+          "name_bn": "ফিকহ",
+          "books": [
+            { "name_bn": "তালীমুল ইসলাম", "portion_bn": "৪র্থ খণ্ড পূর্ণ" },
+            { "name_bn": "ইসলামী তাহযীব", "portion_bn": "৫ম অধ্যায়" }
+          ]
+        },
+        {
+          "name_bn": "আরবী সাহিত্য",
+          "books": [
+            { "name_bn": "এসো আরবি শিখি", "portion_bn": "১ম খণ্ড" }
+          ]
+        },
+        {
+          "name_bn": "ইংরেজি ও গ্রামার",
+          "books": [
+            { "name_bn": "মাই ইংলিশ বুক-এম", "portion_bn": "৫ম শ্রেণি পূর্ণ" },
+            { "name_bn": "আইডিয়াল ইংলিশ গ্রামার", "portion_bn": "৫ম শ্রেণি পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "বাংলা সাহিত্য ও ব্যাকরণ",
+          "books": [
+            { "name_bn": "আদর্শ বাংলা পাঠ", "portion_bn": "৫ম ভাগ পূর্ণ" },
+            { "name_bn": "আদর্শ বাংলা ব্যাকরণ", "portion_bn": "৫ম শ্রেণি" }
+          ]
+        },
+        {
+          "name_bn": "গণিত",
+          "books": [
+            { "name_bn": "প্রাথমিক গণিত", "portion_bn": "৫ম শ্রেণি পূর্ণ" }
+          ]
+        },
+        {
+          "name_bn": "ইতিহাস, ভূগোল ও সমাজ",
+          "books": [
+            { "name_bn": "ইতিহাস পাঠ", "portion_bn": "৫ম শ্রেণি পূর্ণ" },
+            { "name_bn": "ভূগোল ও সমাজ পরিচিতি", "portion_bn": "৫ম শ্রেণি পূর্ণ" }
+          ]
+        }
+      ]
+    }
+  ]
+}

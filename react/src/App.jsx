@@ -1,90 +1,49 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import {
   Link,
+  Navigate,
   useLocation,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import databaseUrl from "../../data/qawmi_madrasa_database_v1_3_1.json?url";
+import darsiyatFemaleSyllabus from "../../data/darsiyat_female_syllabus.json";
+import {
+  BANGLADESH_DISTRICTS,
+  BANGLADESH_DIVISIONS,
+  districtFromAddress,
+  normalizeDigits,
+  normalizeText,
+} from "../../data/bangladesh-divisions.js";
+import knowledgeBaseUrl from "../../data/knowledge_base.json?url";
+import madrasaManifestUrl from "../../data/madrasas/manifest.json?url";
+import barishalRecordsUrl from "../../data/madrasas/by-division/barishal.json?url";
+import chattogramRecordsUrl from "../../data/madrasas/by-division/chattogram.json?url";
+import dhakaRecordsUrl from "../../data/madrasas/by-division/dhaka.json?url";
+import khulnaRecordsUrl from "../../data/madrasas/by-division/khulna.json?url";
+import mymensinghRecordsUrl from "../../data/madrasas/by-division/mymensingh.json?url";
+import rajshahiRecordsUrl from "../../data/madrasas/by-division/rajshahi.json?url";
+import rangpurRecordsUrl from "../../data/madrasas/by-division/rangpur.json?url";
+import sylhetRecordsUrl from "../../data/madrasas/by-division/sylhet.json?url";
+import unclassifiedRecordsUrl from "../../data/madrasas/by-division/unclassified.json?url";
 
 const DatabaseContext = createContext(null);
 const EMPTY = "—";
-
-const DISTRICT_GROUPS = [
-  {
-    division: { slug: "barishal", en: "Barishal", bn: "বরিশাল" },
-    districts: [["Barguna", "বরগুনা"], ["Barishal", "বরিশাল"], ["Bhola", "ভোলা"], ["Jhalokati", "ঝালকাঠি"], ["Patuakhali", "পটুয়াখালী"], ["Pirojpur", "পিরোজপুর"]],
-  },
-  {
-    division: { slug: "chattogram", en: "Chattogram", bn: "চট্টগ্রাম" },
-    districts: [["Bandarban", "বান্দরবান"], ["Brahmanbaria", "ব্রাহ্মণবাড়িয়া", "বি-বাড়িয়া"], ["Chandpur", "চাঁদপুর"], ["Chattogram", "চট্টগ্রাম"], ["Cumilla", "কুমিল্লা"], ["Cox's Bazar", "কক্সবাজার"], ["Feni", "ফেনী"], ["Khagrachhari", "খাগড়াছড়ি"], ["Lakshmipur", "লক্ষ্মীপুর", "ল²ীপুর"], ["Noakhali", "নোয়াখালী"], ["Rangamati", "রাঙামাটি"]],
-  },
-  {
-    division: { slug: "dhaka", en: "Dhaka", bn: "ঢাকা" },
-    districts: [["Dhaka", "ঢাকা"], ["Faridpur", "ফরিদপুর"], ["Gazipur", "গাজীপুর"], ["Gopalganj", "গোপালগঞ্জ"], ["Kishoreganj", "কিশোরগঞ্জ"], ["Madaripur", "মাদারীপুর"], ["Manikganj", "মানিকগঞ্জ"], ["Munshiganj", "মুন্সিগঞ্জ"], ["Narayanganj", "নারায়ণগঞ্জ"], ["Narsingdi", "নরসিংদী"], ["Rajbari", "রাজবাড়ী"], ["Shariatpur", "শরীয়তপুর"], ["Tangail", "টাঙ্গাইল"]],
-  },
-  {
-    division: { slug: "khulna", en: "Khulna", bn: "খুলনা" },
-    districts: [["Bagerhat", "বাগেরহাট"], ["Chuadanga", "চুয়াডাঙ্গা"], ["Jashore", "যশোর"], ["Jhenaidah", "ঝিনাইদহ"], ["Khulna", "খুলনা"], ["Kushtia", "কুষ্টিয়া"], ["Magura", "মাগুরা"], ["Meherpur", "মেহেরপুর"], ["Narail", "নড়াইল"], ["Satkhira", "সাতক্ষীরা"]],
-  },
-  {
-    division: { slug: "mymensingh", en: "Mymensingh", bn: "ময়মনসিংহ" },
-    districts: [["Jamalpur", "জামালপুর"], ["Mymensingh", "ময়মনসিংহ", "মোমেনশাহী"], ["Netrokona", "নেত্রকোনা"], ["Sherpur", "শেরপুর"]],
-  },
-  {
-    division: { slug: "rajshahi", en: "Rajshahi", bn: "রাজশাহী" },
-    districts: [["Bogura", "বগুড়া"], ["Joypurhat", "জয়পুরহাট"], ["Naogaon", "নওগাঁ"], ["Natore", "নাটোর"], ["Chapainawabganj", "চাঁপাইনবাবগঞ্জ"], ["Pabna", "পাবনা"], ["Rajshahi", "রাজশাহী"], ["Sirajganj", "সিরাজগঞ্জ"]],
-  },
-  {
-    division: { slug: "rangpur", en: "Rangpur", bn: "রংপুর" },
-    districts: [["Dinajpur", "দিনাজপুর"], ["Gaibandha", "গাইবান্ধা"], ["Kurigram", "কুড়িগ্রাম"], ["Lalmonirhat", "লালমনিরহাট"], ["Nilphamari", "নীলফামারী"], ["Panchagarh", "পঞ্চগড়"], ["Rangpur", "রংপুর"], ["Thakurgaon", "ঠাকুরগাঁও"]],
-  },
-  {
-    division: { slug: "sylhet", en: "Sylhet", bn: "সিলেট" },
-    districts: [["Habiganj", "হবিগঞ্জ"], ["Moulvibazar", "মৌলভীবাজার", "মৌলভী বাজার"], ["Sunamganj", "সুনামগঞ্জ"], ["Sylhet", "সিলেট"]],
-  },
-];
-
-const BANGLADESH_DIVISIONS = DISTRICT_GROUPS.map(({ division }) => division);
-const BANGLADESH_DISTRICTS = DISTRICT_GROUPS.flatMap(({ division, districts }) =>
-  districts.map(([en, bn, ...aliases]) => ({
-    slug: en.toLowerCase().replace(/[^a-z]+/g, "-"),
-    en,
-    bn,
-    aliases: [en, bn, ...aliases],
-    division: division.slug,
-  })),
-);
-
-function districtFromAddress(address) {
-  const segments = String(address || "")
-    .split(/[,،;|/]+/)
-    .map((segment) => normalizeText(segment))
-    .filter(Boolean);
-  const matches = BANGLADESH_DISTRICTS.filter((district) => {
-    const names = district.aliases.map(normalizeText);
-    return segments.some((segment) => names.some((name) => segment === name || segment.endsWith(name)));
-  });
-  return matches.length === 1 ? matches[0] : null;
-}
+const recordPartitionUrls = {
+  barishal: barishalRecordsUrl,
+  chattogram: chattogramRecordsUrl,
+  dhaka: dhakaRecordsUrl,
+  khulna: khulnaRecordsUrl,
+  mymensingh: mymensinghRecordsUrl,
+  rajshahi: rajshahiRecordsUrl,
+  rangpur: rangpurRecordsUrl,
+  sylhet: sylhetRecordsUrl,
+  unclassified: unclassifiedRecordsUrl,
+};
 
 function useDatabase() {
   const value = useContext(DatabaseContext);
   if (!value) throw new Error("Knowledge-base data is not available");
   return value;
-}
-
-function normalizeDigits(value) {
-  return String(value)
-    .replace(/[০-৯]/g, (digit) => String("০১২৩৪৫৬৭৮৯".indexOf(digit)))
-    .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)));
-}
-
-function normalizeText(value) {
-  return normalizeDigits(value)
-    .normalize("NFKC")
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, "");
 }
 
 function getLocalized(value, english) {
@@ -210,8 +169,7 @@ function SiteHeader({ english, path }) {
   const prefix = pagePrefix(english);
   const links = [
     ["/madrasas", english ? "Directory" : "মাদরাসা"],
-    ["/education", english ? "Education" : "শিক্ষাব্যবস্থা"],
-    ["/compare", english ? "Compare" : "তুলনা"],
+    ["/education", english ? "Education & comparison" : "শিক্ষাব্যবস্থা ও তুলনা"],
     ["/history", english ? "History & boards" : "ইতিহাস ও বোর্ড"],
     ["/syllabus", english ? "Syllabi" : "সিলেবাস"],
     ["/statistics", english ? "Data & statistics" : "তথ্য ও পরিসংখ্যান"],
@@ -223,18 +181,23 @@ function SiteHeader({ english, path }) {
       <div className="site-bar">
         <Link className="brand" to={`${prefix}/`}>
           <span className="brand-mark" aria-hidden="true">ق</span>
-          <span>
+          <span className="brand-text">
             <b>{english ? "Qawmi Knowledge" : "কওমি জ্ঞানভান্ডার"}</b>
             <small>{english ? "Bangladesh · learning, sources, directory" : "বাংলাদেশ · শিক্ষা, তথ্যসূত্র ও ডিরেক্টরি"}</small>
           </span>
         </Link>
         <nav className="menu" aria-label={english ? "Main navigation" : "প্রধান নেভিগেশন"}>
-          {links.map(([href, label]) => (
-            <Link key={href} to={`${prefix}${href}`}>{label}</Link>
-          ))}
-          <Link className="lang" to={otherLanguage}>{english ? "বাংলা" : "EN"}</Link>
+          {links.map(([href, label]) => {
+            const isActive = location.pathname === `${prefix}${href}` || (href !== "/" && location.pathname.startsWith(`${prefix}${href}`));
+            return (
+              <Link key={href} to={`${prefix}${href}`} className={isActive ? "active" : ""}>{label}</Link>
+            );
+          })}
+          <Link className="lang" to={otherLanguage} title={english ? "বাংলা সংস্করণে যান" : "Switch to English"}>
+            <span className="lang-icon" aria-hidden="true">🌐</span> {english ? "বাংলা" : "EN"}
+          </Link>
           <button
-            className="icon"
+            className="icon theme-toggle-btn"
             type="button"
             aria-label={english ? "Toggle dark mode" : "ডার্ক মোড"}
             onClick={() => {
@@ -243,7 +206,7 @@ function SiteHeader({ english, path }) {
               localStorage.setItem("theme", next);
             }}
           >
-            ◐
+            <span className="theme-toggle-icon" aria-hidden="true">◐</span>
           </button>
         </nav>
       </div>
@@ -265,8 +228,7 @@ function SiteFooter({ english }) {
         <div>
           <b>{english ? "Explore" : "আরও জানুন"}</b>
           <Link to={`${prefix}/madrasas`}>{english ? "Madrasa directory" : "মাদরাসা ডিরেক্টরি"}</Link>
-          <Link to={`${prefix}/education`}>{english ? "Education system" : "শিক্ষাব্যবস্থা"}</Link>
-          <Link to={`${prefix}/compare`}>{english ? "Compare systems" : "শিক্ষাধারা তুলনা"}</Link>
+          <Link to={`${prefix}/education`}>{english ? "Education & comparison" : "শিক্ষাব্যবস্থা ও তুলনা"}</Link>
           <Link to={`${prefix}/resources`}>{english ? "Sources & data" : "তথ্যসূত্র ও ডেটা"}</Link>
         </div>
         <div>
@@ -359,27 +321,60 @@ function SearchHero({ english }) {
   return (
     <form className="hero-search" onSubmit={submit}>
       <label htmlFor="hero-query">
+        <span className="search-label-icon" aria-hidden="true">🔍</span>
         {english ? "Find a madrasa or explore the Qawmi education system" : "মাদরাসা খুঁজুন অথবা কওমি শিক্ষাব্যবস্থা সম্পর্কে জানুন"}
       </label>
       <div className="search-control">
-        <input
-          id="hero-query"
-          type="search"
-          list="knowledge-suggestions"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder={english ? "Name, address, ilhak number…" : "নাম, ঠিকানা বা ইলহাক নম্বর…"}
-        />
+        <div className="search-input-wrapper">
+          <svg className="search-icon-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="5.5" />
+            <path d="M13 13l4.5 4.5" strokeLinecap="round" />
+          </svg>
+          <input
+            id="hero-query"
+            type="search"
+            list="knowledge-suggestions"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={english ? "Name, address, ilhak number…" : "নাম, ঠিকানা বা ইলহাক নম্বর…"}
+          />
+          {query && (
+            <button type="button" className="search-clear-btn" onClick={() => setQuery("")} aria-label={english ? "Clear" : "মুছুন"}>✕</button>
+          )}
+        </div>
         <datalist id="knowledge-suggestions">
           {[...new Set(suggestions)].map((suggestion) => <option value={suggestion} key={suggestion} />)}
         </datalist>
-        <button className="btn btn-primary" type="submit">{english ? "Search everything" : "সবখানে খুঁজুন"} <span aria-hidden="true">→</span></button>
+        <button className="btn btn-primary" type="submit">
+          <span>{english ? "Search everything" : "সবখানে খুঁজুন"}</span>
+          <span aria-hidden="true">→</span>
+        </button>
       </div>
-      <span className="hero-search-note">
-        {english
-          ? `${database.madrasa_directory.imported_record_count.toLocaleString("en")} source records · Search supports Bengali and English digits`
-          : `${database.madrasa_directory.imported_record_count.toLocaleString("bn-BD")}টি তথ্যসূত্রভিত্তিক রেকর্ড · বাংলা ও ইংরেজি অঙ্কে খুঁজুন`}
-      </span>
+      <div className="hero-search-footer">
+        <span className="hero-search-note">
+          {english
+            ? `${database.madrasa_directory.imported_record_count.toLocaleString("en")} source records · Bengali & English search`
+            : `${database.madrasa_directory.imported_record_count.toLocaleString("bn-BD")}টি তথ্যসূত্রভিত্তিক রেকর্ড · বাংলা ও ইংরেজি নম্বরে প্রযোজ্য`}
+        </span>
+        <div className="quick-tags">
+          <span className="quick-label">{english ? "Quick search:" : "দ্রুত অনুসন্ধান:"}</span>
+          {suggestions.slice(0, 4).map((item) => (
+            <button
+              key={item}
+              type="button"
+              className="quick-chip"
+              onClick={() => {
+                setQuery(item);
+                const params = new URLSearchParams();
+                params.set("q", item);
+                navigate(`${prefix}/search?${params}`);
+              }}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+      </div>
     </form>
   );
 }
@@ -400,8 +395,7 @@ function HomePage({ english }) {
   );
   const sections = [
     { href: "/madrasas", icon: "⌕", title: english ? "Find a madrasa" : "মাদরাসা খুঁজুন", text: english ? "Search source records by name, address, affiliation code and the details available in each listing." : "নাম, ঠিকানা, ইলহাক কোড ও প্রতিটি তালিকায় থাকা তথ্য দিয়ে খুঁজুন।" },
-    { href: "/education", icon: "⌘", title: english ? "Understand the system" : "শিক্ষাব্যবস্থা জানুন", text: english ? "A careful overview of reported study stages, curriculum domains and qualification pathways." : "শিক্ষার ধাপ, পাঠ্যক্ষেত্র ও সনদের পথ সম্পর্কে তথ্যসূত্রভিত্তিক পরিচিতি।" },
-    { href: "/compare", icon: "⇄", title: english ? "Compare systems" : "শিক্ষাধারা তুলনা", text: english ? "See what the source database can—and cannot—substantiate about Qawmi, Alia and general education." : "কওমি, আলিয়া ও সাধারণ শিক্ষা সম্পর্কে তথ্যসূত্র কী বলে—আর কী বলে না—দেখুন।" },
+    { href: "/education", icon: "⌘", title: english ? "Education & comparison" : "শিক্ষাব্যবস্থা ও তুলনা", text: english ? "Explore Qawmi stages and curriculum, the verified level table, system comparisons and cited legal recognition." : "কওমি শিক্ষার ধাপ ও পাঠ্যক্রম, যাচাইকৃত স্তর-সারণি, শিক্ষাধারার তুলনা ও আইনি স্বীকৃতি জানুন।" },
     { href: "/history", icon: "◷", title: english ? "History & governance" : "ইতিহাস ও পরিচালনা", text: english ? "Explore a cited timeline, education boards and the scope of legal recognition." : "তথ্যসূত্রসহ সময়রেখা, শিক্ষা বোর্ড ও আইনি স্বীকৃতির পরিধি জানুন।" },
     { href: "/syllabus", icon: "▤", title: english ? "Explore syllabi" : "সিলেবাস দেখুন", text: english ? "Review the specialist syllabus records and their source and verification notes." : "বিশেষায়িত সিলেবাস এবং সেগুলোর উৎস ও যাচাই-সংক্রান্ত নোট দেখুন।" },
     { href: "/statistics", icon: "▥", title: english ? "Read the data" : "পরিসংখ্যান জানুন", text: english ? "See what the directory contains and why published national estimates differ." : "ডিরেক্টরির তথ্যের পরিসর ও বিভিন্ন জাতীয় হিসাবের পার্থক্য বুঝুন।" },
@@ -413,7 +407,10 @@ function HomePage({ english }) {
     <>
       <section className="home-hero">
         <div className="hero-copy">
-          <span className="eyebrow">{english ? "A guide to Qawmi education in Bangladesh" : "বাংলাদেশের কওমি শিক্ষার পরিচিতি"}</span>
+          <div className="hero-pill-badge">
+            <span className="hero-pill-dot" />
+            <span>{english ? "Independent Guide to Qawmi Education in Bangladesh" : "বাংলাদেশের কওমি শিক্ষার স্বতন্ত্র তথ্যনির্দেশিকা"}</span>
+          </div>
           <h1>{english ? <>Learn the system.<br /><em>Find the sources.</em></> : <>শিক্ষাব্যবস্থা জানুন।<br /><em>তথ্যসূত্র খুঁজুন।</em></>}</h1>
           <p className="lead">
             {english
@@ -421,16 +418,38 @@ function HomePage({ english }) {
               : "অনুসন্ধানযোগ্য মাদরাসা ডিরেক্টরি এবং তথ্যসূত্রনির্ভর শিক্ষামূলক নির্দেশিকা—একটি স্বতন্ত্র জ্ঞানভান্ডারে।"}
           </p>
           <div className="hero-links">
-            <Link className="btn btn-primary" to={`${pagePrefix(english)}/madrasas`}>{english ? "Explore directory" : "ডিরেক্টরি দেখুন"} <span aria-hidden="true">→</span></Link>
-            <Link className="text-link" to={`${pagePrefix(english)}/education`}>{english ? "Start with the basics" : "শিক্ষাব্যবস্থার পরিচিতি"} <span aria-hidden="true">↗</span></Link>
+            <Link className="btn btn-primary" to={`${pagePrefix(english)}/madrasas`}>
+              <span>{english ? "Explore directory" : "ডিরেক্টরি দেখুন"}</span>
+              <span aria-hidden="true">→</span>
+            </Link>
+            <Link className="btn btn-secondary" to={`${pagePrefix(english)}/education`}>
+              <span>{english ? "System overview" : "শিক্ষাব্যবস্থার রূপরেখা"}</span>
+              <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         </div>
         <div className="hero-aside" aria-label={english ? "Knowledge base record" : "তথ্যভান্ডারের পরিচিতি"}>
-          <span className="aside-label">{english ? "KNOWLEDGE BASE" : "তথ্যভান্ডার"}</span>
-          <strong>Qawmi<br />Education</strong>
+          <div className="aside-glow" aria-hidden="true" />
+          <div className="aside-badge">
+            <span className="live-dot" />
+            <span>{english ? "KNOWLEDGE BASE" : "তথ্যভান্ডার"}</span>
+          </div>
+          <div className="aside-main">
+            <strong>Qawmi<br />Education</strong>
+          </div>
           <div className="aside-rule" />
-          <p>{english ? "Directory · History · Study · Sources" : "ডিরেক্টরি · ইতিহাস · পাঠ্যক্রম · সূত্র"}</p>
-          <small>{english ? `Version ${database.metadata.version} · ${sourceDate}` : `সংস্করণ ${database.metadata.version} · ${sourceDate}`}</small>
+          <div className="aside-tags">
+            <span>{english ? "Directory" : "ডিরেক্টরি"}</span>
+            <span>·</span>
+            <span>{english ? "History" : "ইতিহাস"}</span>
+            <span>·</span>
+            <span>{english ? "Study" : "পাঠ্যক্রম"}</span>
+            <span>·</span>
+            <span>{english ? "Sources" : "সূত্র"}</span>
+          </div>
+          <div className="aside-footer">
+            <small>{english ? `Version ${database.metadata.version} · ${sourceDate}` : `সংস্করণ ${database.metadata.version} · ${sourceDate}`}</small>
+          </div>
         </div>
       </section>
       <SearchHero english={english} />
@@ -448,7 +467,7 @@ function HomePage({ english }) {
             ? "These records preserve the supplied source wording. Many entries have not been independently verified, and missing details are left blank."
             : "রেকর্ডগুলো সরবরাহকৃত সূত্রের ভাষা অক্ষুণ্ণ রাখে। অনেক তথ্য স্বাধীনভাবে যাচাই করা হয়নি; অনুপস্থিত তথ্য ফাঁকা রাখা হয়েছে।"}
         </p>
-        <Link to={`${pagePrefix(english)}/resources`}>{english ? "Read data notes" : "ডেটা নোট পড়ুন"} →</Link>
+        <Link to={`${pagePrefix(english)}/resources`} className="trust-link">{english ? "Read data notes" : "ডেটা নোট পড়ুন"} →</Link>
       </section>
       <section className="explore-section">
         <SectionHeading
@@ -459,8 +478,11 @@ function HomePage({ english }) {
         <div className="explore-grid">
           {sections.map((section) => (
             <Link className="explore-card" key={section.href} to={`${pagePrefix(english)}${section.href}`}>
-              <span className="explore-icon" aria-hidden="true">{section.icon}</span>
-              <span className="explore-title">{section.title}<span aria-hidden="true"> ↗</span></span>
+              <div className="explore-header">
+                <span className="explore-icon" aria-hidden="true">{section.icon}</span>
+                <span className="explore-arrow" aria-hidden="true">↗</span>
+              </div>
+              <span className="explore-title">{section.title}</span>
               <span className="explore-text">{section.text}</span>
             </Link>
           ))}
@@ -478,14 +500,27 @@ function MadrasaCard({ record, english }) {
       : (english ? "Gender not stated" : "ধরন উল্লেখ নেই");
   return (
     <article className="madrasa-card">
-      <div className="record-id">{record.id}</div>
-      <Link className="madrasa-name" to={`${pagePrefix(english)}/madrasa/${record.id}`}>{record.name_bn}</Link>
-      <p className="madrasa-address">{record.address_original || (english ? "Address not stated in source" : "তথ্যসূত্রে ঠিকানা উল্লেখ নেই")}</p>
+      <div className="madrasa-card-header">
+        <span className="record-id">{record.id}</span>
+        <span className={`tag ${record.gender === "women" ? "tag-women" : record.gender === "men" ? "tag-men" : ""}`}>{gender}</span>
+      </div>
+      <Link className="madrasa-name" to={`${pagePrefix(english)}/madrasa/${record.id}`}>
+        {record.name_bn}
+      </Link>
+      <p className="madrasa-address">
+        <svg className="location-pin" viewBox="0 0 20 20" fill="currentColor" width="14" height="14" aria-hidden="true">
+          <path fillRule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clipRule="evenodd" />
+        </svg>
+        <span>{record.address_original || (english ? "Address not stated in source" : "তথ্যসূত্রে ঠিকানা উল্লেখ নেই")}</span>
+      </p>
       <div className="tag-row">
-        <span className={`tag ${record.gender === "women" ? "tag-women" : ""}`}>{gender}</span>
         {record.affiliation_code && <span className="tag tag-code">{english ? "Ilhak" : "ইলহাক"} · {record.affiliation_code}</span>}
         {record.contact_numbers.length > 0 && <span className="tag tag-contact">{english ? "Contact listed" : "যোগাযোগ আছে"}</span>}
-        {record.possible_duplicate_of?.length > 0 && <span className="tag">{english ? "Possible duplicate · review" : "সম্ভাব্য সদৃশ · যাচাই বাকি"}</span>}
+        {record.possible_duplicate_of?.length > 0 && <span className="tag tag-duplicate">{english ? "Possible duplicate · review" : "সম্ভাব্য সদৃশ · যাচাই বাকি"}</span>}
+      </div>
+      <div className="card-action">
+        <span>{english ? "View record profile" : "রেকর্ড প্রোফাইল দেখুন"}</span>
+        <span className="card-arrow" aria-hidden="true">→</span>
       </div>
     </article>
   );
@@ -596,62 +631,86 @@ function DirectoryPage({ english }) {
       />
       <section className="directory-tools">
         <label className="sr-only" htmlFor="directory-query">{english ? "Search directory" : "ডিরেক্টরিতে খুঁজুন"}</label>
-        <input
-          id="directory-query"
-          type="search"
-          value={query}
-          onChange={(event) => updateFilters({ q: event.target.value })}
-          placeholder={english ? "Search name, address, ilhak code or record ID…" : "নাম, ঠিকানা, ইলহাক কোড বা রেকর্ড আইডি লিখুন…"}
-        />
+        <div className="directory-search-wrapper">
+          <svg className="search-icon-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="5.5" />
+            <path d="M13 13l4.5 4.5" strokeLinecap="round" />
+          </svg>
+          <input
+            id="directory-query"
+            type="search"
+            value={query}
+            onChange={(event) => updateFilters({ q: event.target.value })}
+            placeholder={english ? "Search name, address, ilhak code or record ID…" : "নাম, ঠিকানা, ইলহাক কোড বা রেকর্ড আইডি লিখুন…"}
+          />
+          {query && (
+            <button type="button" className="search-clear-btn" onClick={() => updateFilters({ q: "" })} aria-label={english ? "Clear" : "মুছুন"}>✕</button>
+          )}
+        </div>
+        <div className="directory-quick-bar">
+          <span className="quick-bar-label">{english ? "Gender:" : "ধরন:"}</span>
+          <div className="quick-pill-group">
+            {[
+              ["", english ? "All" : "সব"],
+              ["men", english ? "Men" : "পুরুষ"],
+              ["women", english ? "Women" : "মহিলা"],
+              ["unspecified", english ? "Unspecified" : "অনির্দিষ্ট"],
+            ].map(([val, label]) => (
+              <button
+                key={val}
+                type="button"
+                className={`quick-pill ${gender === val ? "active" : ""}`}
+                onClick={() => updateFilters({ gender: val })}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <label className="check-filter-pill">
+            <input type="checkbox" checked={contactOnly} onChange={(event) => updateFilters({ contact: event.target.checked ? "1" : "" })} />
+            <span>📞 {english ? "Phone listed" : "ফোন নম্বর আছে"}</span>
+          </label>
+        </div>
         <div className="directory-filters">
           <label>
-            {english ? "Division (matched from address)" : "বিভাগ (ঠিকানা থেকে মেলানো)"}
+            <span className="filter-label-text">{english ? "Division" : "বিভাগ"}</span>
             <select value={division} onChange={(event) => updateFilters({ division: event.target.value, district: "", upazila: "" })}>
               <option value="">{english ? "All divisions" : "সব বিভাগ"}</option>
               {BANGLADESH_DIVISIONS.map((entry) => (
                 <option value={entry.slug} key={entry.slug}>
-                  {entry[english ? "en" : "bn"]} · {countForDivision(entry.slug).toLocaleString(english ? "en" : "bn-BD")}
+                  {entry[english ? "en" : "bn"]} ({countForDivision(entry.slug).toLocaleString(english ? "en" : "bn-BD")})
                 </option>
               ))}
               <option value="unclassified">
-                {english ? "Not identifiable from address" : "ঠিকানা থেকে শনাক্ত করা যায়নি"} · {unclassifiedCount.toLocaleString(english ? "en" : "bn-BD")}
+                {english ? "Unclassified address" : "অশ্রেণিবদ্ধ ঠিকানা"} ({unclassifiedCount.toLocaleString(english ? "en" : "bn-BD")})
               </option>
             </select>
           </label>
           <label>
-            {english ? "District (matched from address)" : "জেলা (ঠিকানা থেকে মেলানো)"}
+            <span className="filter-label-text">{english ? "District" : "জেলা"}</span>
             <select value={district} onChange={(event) => updateFilters({ district: event.target.value, upazila: "" })}>
               <option value="">{english ? "All districts" : "সব জেলা"}</option>
               {districtOptions.map((entry) => (
                 <option value={entry.slug} key={entry.slug}>
-                  {entry[english ? "en" : "bn"]} · {districtCounts.get(entry.slug).toLocaleString(english ? "en" : "bn-BD")}
+                  {entry[english ? "en" : "bn"]} ({districtCounts.get(entry.slug).toLocaleString(english ? "en" : "bn-BD")})
                 </option>
               ))}
               {(!division || division === "unclassified") && (
                 <option value="unclassified">
-                  {english ? "Not identifiable from address" : "ঠিকানা থেকে শনাক্ত করা যায়নি"} · {unclassifiedCount.toLocaleString(english ? "en" : "bn-BD")}
+                  {english ? "Unclassified" : "অশ্রেণিবদ্ধ"} ({unclassifiedCount.toLocaleString(english ? "en" : "bn-BD")})
                 </option>
               )}
             </select>
           </label>
           <label>
-            {english ? "Gender (as recorded)" : "ধরন (তথ্যসূত্র অনুযায়ী)"}
-            <select value={gender} onChange={(event) => updateFilters({ gender: event.target.value })}>
-              <option value="">{english ? "All records" : "সব রেকর্ড"}</option>
-              <option value="men">{english ? "Men" : "পুরুষ"}</option>
-              <option value="women">{english ? "Women" : "মহিলা"}</option>
-              <option value="unspecified">{english ? "Not specified" : "উল্লেখ নেই"}</option>
-            </select>
-          </label>
-          <label>
-            {english ? "Upazila / thana (source-stated)" : "উপজেলা / থানা (সূত্রে উল্লিখিত)"}
+            <span className="filter-label-text">{english ? "Upazila / thana" : "উপজেলা / থানা"}</span>
             <select value={upazila} onChange={(event) => updateFilters({ upazila: event.target.value })}>
-              <option value="">{english ? "All stated areas" : "সব উল্লিখিত এলাকা"}</option>
+              <option value="">{english ? "All stated areas" : "সব এলাকা"}</option>
               {upazilas.map((area) => <option value={area} key={area}>{area}</option>)}
             </select>
           </label>
           <label>
-            {english ? "Union / village / locality" : "ইউনিয়ন / গ্রাম / এলাকা"}
+            <span className="filter-label-text">{english ? "Union / village / locality" : "ইউনিয়ন / গ্রাম / এলাকা"}</span>
             <input
               type="search"
               value={locality}
@@ -660,25 +719,25 @@ function DirectoryPage({ english }) {
             />
           </label>
           <label>
-            {english ? "Affiliation / ilhak code" : "অধিভুক্তি / ইলহাক কোড"}
+            <span className="filter-label-text">{english ? "Affiliation / ilhak code" : "অধিভুক্তি / ইলহাক কোড"}</span>
             <input
               type="search"
               value={affiliation}
               onChange={(event) => updateFilters({ affiliation: event.target.value })}
-              placeholder={english ? "Enter the exact code" : "সঠিক কোড লিখুন"}
+              placeholder={english ? "Enter exact code" : "সঠিক কোড লিখুন"}
             />
           </label>
-          <label className="check-filter">
-            <input type="checkbox" checked={contactOnly} onChange={(event) => updateFilters({ contact: event.target.checked ? "1" : "" })} />
-            {english ? "Has listed phone" : "ফোন নম্বর আছে"}
-          </label>
-          <button className="ghost" type="button" onClick={() => updateFilters({ q: "", division: "", district: "", gender: "", upazila: "", locality: "", affiliation: "", contact: "" })}>
-            {english ? "Clear filters" : "ফিল্টার মুছুন"}
-          </button>
+          {(query || division || district || gender || upazila || locality || affiliation || contactOnly) && (
+            <button className="ghost clear-all-btn" type="button" onClick={() => updateFilters({ q: "", division: "", district: "", gender: "", upazila: "", locality: "", affiliation: "", contact: "" })}>
+              ✕ {english ? "Reset filters" : "ফিল্টার মুছুন"}
+            </button>
+          )}
         </div>
         <div className="results-meta" aria-live="polite">
-          <strong>{results.length.toLocaleString(english ? "en" : "bn-BD")}</strong> {english ? "matching records" : "টি মিল পাওয়া রেকর্ড"}
-          <span>{english ? "Filters are saved in the URL." : "ফিল্টারগুলো URL-এ সংরক্ষিত থাকে।"}</span>
+          <div className="results-count">
+            <strong>{results.length.toLocaleString(english ? "en" : "bn-BD")}</strong> {english ? "matching records" : "টি মিল পাওয়া রেকর্ড"}
+          </div>
+          <span className="results-url-note">{english ? "Filters synced to URL" : "ফিল্টার URL-এ সংরক্ষিত"}</span>
         </div>
         <p className="filter-note">
           {english
@@ -853,7 +912,7 @@ function humanize(key) {
   return String(key).replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
-function ComparePage({ english }) {
+function EducationComparisonSection({ english }) {
   const { database, sources } = useDatabase();
   const overview = database.overview;
   const education = database.education_system;
@@ -881,50 +940,7 @@ function ComparePage({ english }) {
       url: "https://bmeb.gov.bd/pages/static-pages/691997bf933eb65569ddec81",
     },
   ];
-  usePageMeta(
-    english ? "Qawmi Madrasa Equivalency Table: PSC, JSC, SSC, HSC | Qawmi Knowledge" : "কওমি মাদরাসার সমমান: PSC, JSC, SSC, HSC | কওমি জ্ঞানভান্ডার",
-    english ? "Compare Bangladesh general, Alia Madrasa and Qawmi education stages, PSC/JSC/SSC/HSC references, and the precise legal scope of Taqmil recognition." : "বাংলাদেশের সাধারণ, আলিয়া ও কওমি শিক্ষার ধাপ, PSC/JSC/SSC/HSC রেফারেন্স এবং তাকমিলের আইনি স্বীকৃতির সুনির্দিষ্ট পরিধি তুলনা করুন।",
-  );
   const qawmiRecords = suppliedTable.records;
-  const qawmiLevelFor = (index) => qawmiRecords[index]?.level_name_bn || (english ? "Not stated in supplied table" : "সরবরাহকৃত সারণিতে স্তরের নাম নেই");
-  const comparisonRows = [
-    {
-      stage: english ? "Primary · PSC reference" : "প্রাথমিক · PSC রেফারেন্স",
-      general: english ? "Primary" : "প্রাথমিক",
-      alia: english ? "Ibtidaiya" : "ইবতেদায়ি",
-      qawmiIndex: 0,
-    },
-    {
-      stage: english ? "Lower secondary · JSC reference" : "নিম্ন-মাধ্যমিক · JSC রেফারেন্স",
-      general: english ? "Lower secondary" : "নিম্ন-মাধ্যমিক",
-      alia: english ? "Lower-secondary / Dakhil path" : "নিম্ন-মাধ্যমিক / দাখিল ধারা",
-      qawmiIndex: 1,
-    },
-    {
-      stage: english ? "Secondary · SSC reference" : "মাধ্যমিক · SSC রেফারেন্স",
-      general: english ? "SSC" : "SSC",
-      alia: english ? "Dakhil" : "দাখিল",
-      qawmiIndex: 2,
-    },
-    {
-      stage: english ? "Higher secondary · HSC reference" : "উচ্চ-মাধ্যমিক · HSC রেফারেন্স",
-      general: english ? "HSC" : "HSC",
-      alia: english ? "Alim" : "আলিম",
-      qawmiIndex: 3,
-    },
-    {
-      stage: english ? "Bachelor / Honours stage" : "স্নাতক / অনার্স পর্যায়",
-      general: english ? "Bachelor / Honours" : "স্নাতক / অনার্স",
-      alia: english ? "Fazil" : "ফাজিল",
-      qawmiIndex: 4,
-    },
-    {
-      stage: english ? "Master’s / postgraduate stage" : "মাস্টার্স / স্নাতকোত্তর পর্যায়",
-      general: english ? "Master’s / postgraduate" : "মাস্টার্স / স্নাতকোত্তর",
-      alia: english ? "Kamil" : "কামিল",
-      qawmiIndex: 5,
-    },
-  ];
   const qawmiFacts = [
     [english ? "Education stream" : "শিক্ষাধারা", getLocalized(overview.definition, english)],
     [english ? "Stages and curriculum" : "ধাপ ও পাঠ্যক্রম", getLocalized(education.general_description, english)],
@@ -949,60 +965,55 @@ function ComparePage({ english }) {
   ];
   return (
     <>
-      <PageIntro english={english} eyebrow={english ? "STAGE-BY-STAGE COMPARISON" : "স্তরভিত্তিক তুলনা"} title={english ? "Where do Qawmi levels fit?" : "কওমি স্তরের সঙ্গে কোন ধাপের তুলনা করা হয়?"} description={english ? "Compare the supplied stage table with familiar PSC/JSC/SSC/HSC and degree-level references—while keeping reported equivalence distinct from official recognition." : "সরবরাহকৃত স্তর-সারণির সঙ্গে পরিচিত PSC/JSC/SSC/HSC ও ডিগ্রি-পর্যায়ের ধাপ তুলনা করুন—তবে সারণিতে বলা সমমান ও সরকারি স্বীকৃতিকে আলাদা রাখুন।"} />
+      <section className="block-section">
+        <SectionHeading
+          eyebrow={english ? "LEVELS & EQUIVALENCIES" : "স্তর ও সমমান"}
+          title={english ? "Qawmi madrasa stages, equivalencies, duration & main subjects" : suppliedTable.title_bn}
+          description={english
+            ? "A clear presentation of the six Qawmi stages, equivalent levels, duration and main subjects from the user-verified table."
+            : "ব্যবহারকারীর যাচাইকৃত সারণির ছয়টি কওমি স্তর, সমমান, মেয়াদ ও মূল বিষয় পরিষ্কারভাবে সাজানো হয়েছে।"}
+        />
+      </section>
       <div className="callout callout-warning">
-        <strong>{english ? "Stage comparison is not automatic certificate equivalence" : "শিক্ষার ধাপের তুলনা মানেই সনদের স্বয়ংক্রিয় সমমান নয়"}</strong>
-        <p>{english ? "PSC/JSC are included as familiar exam references only. The supplied image gives general stage labels; its claimed Qawmi equivalences are unverified. Only the specific Taqmil recognition shown below is supported by the cited Act." : "PSC/JSC শুধু পরিচিত পরীক্ষার রেফারেন্স হিসেবে আছে। সরবরাহকৃত ছবিতে সাধারণ স্তরের নাম দেওয়া হয়েছে; সেখানে লেখা কওমি সমমান স্বাধীনভাবে যাচাই করা নয়। নিচে দেখানো নির্দিষ্ট তাকমিল স্বীকৃতিটিই উদ্ধৃত আইনে সমর্থিত।"}</p>
+        <strong>{english ? "The table has been checked by the user" : "সারণির তথ্য ব্যবহারকারী যাচাই করেছেন"}</strong>
+        <p>{english
+          ? "The equivalency column reflects that verified table. The separate legal note below describes the scope of statutory Taqmil recognition."
+          : "সমমানের কলামে সেই যাচাইকৃত সারণির তথ্যই দেওয়া হয়েছে। নিচের আইনি নোটে তাকমিলের আইনগত স্বীকৃতির পরিধি আলাদাভাবে বলা হয়েছে।"}</p>
       </div>
       <section className="content-panel block-section equivalency-section">
         <SectionHeading
-          eyebrow={english ? "SIDE-BY-SIDE EDUCATION PATHWAYS" : "পাশাপাশি শিক্ষার ধারা"}
-          title={english ? "General, Alia & Qawmi stage comparison" : "সাধারণ, আলিয়া ও কওমি শিক্ষার স্তরভিত্তিক তুলনা"}
-          description={english ? "General-curriculum links and Alia board information were checked against official NCTB and BMEB pages on 1 November 2026. Qawmi labels and durations come from the supplied image." : "সাধারণ শিক্ষাক্রম ও আলিয়া বোর্ডের তথ্য ১ নভেম্বর ২০২৬ তারিখে এনসিটিবি ও মাদরাসা বোর্ডের সরকারি পেজে যাচাই করা হয়েছে। কওমি স্তরের নাম ও মেয়াদ সরবরাহকৃত ছবি থেকে নেওয়া।"}
+          eyebrow={english ? "USER-VERIFIED TABLE" : "ব্যবহারকারী-যাচাইকৃত সারণি"}
+          title={english ? "Stages, equivalencies, duration & main subjects" : suppliedTable.title_bn}
+          description={english ? "Six rows from the checked source table, shown without adding unlisted stage names or subjects." : "যাচাইকৃত মূল সারণির ছয়টি ধাপ—অতিরিক্ত স্তরের নাম বা বিষয় অনুমান করে যোগ করা হয়নি।"}
         />
         <div className="table-scroll">
-          <table className="comparison-table">
+          <table className="comparison-table qawmi-level-table">
             <thead>
               <tr>
-                <th scope="col">{english ? "Stage reference" : "ধাপের রেফারেন্স"}</th>
-                <th scope="col">{english ? "General" : "সাধারণ"}</th>
-                <th scope="col">{english ? "Alia" : "আলিয়া"}</th>
-                <th scope="col">{english ? "Qawmi stage¹" : "কওমি স্তর¹"}</th>
-                <th scope="col">{english ? "Duration (years)¹" : "মেয়াদ (বছর)¹"}</th>
-                <th scope="col">{english ? "Comparison in supplied table¹" : "সরবরাহকৃত সারণির তুলনা¹"}</th>
+                <th scope="col">{english ? "Qawmi stage" : "কওমি স্তর"}</th>
+                <th scope="col">{english ? "Equivalent level" : "সমমান"}</th>
+                <th scope="col">{english ? "Duration" : "মেয়াদ"}</th>
+                <th scope="col">{english ? "Main subjects" : "মূল বিষয়"}</th>
               </tr>
             </thead>
             <tbody>
-              {comparisonRows.map((row) => {
-                const record = qawmiRecords[row.qawmiIndex];
-                return (
-                  <tr key={row.stage}>
-                    <th scope="row" data-label={english ? "Stage reference" : "ধাপের রেফারেন্স"}>{row.stage}</th>
-                    <td data-label={english ? "General" : "সাধারণ"}>{row.general}</td>
-                    <td data-label={english ? "Alia" : "আলিয়া"}>{row.alia}</td>
-                    <td data-label={english ? "Qawmi stage¹" : "কওমি স্তর¹"}>
-                      {qawmiLevelFor(row.qawmiIndex)}
-                      {record?.main_subjects_bn && <small className="table-cell-note">{record.main_subjects_bn}</small>}
-                    </td>
-                    <td data-label={english ? "Duration (years)¹" : "মেয়াদ (বছর)¹"} className="duration-cell">
-                      {record?.duration_bn || EMPTY}
-                    </td>
-                    <td data-label={english ? "Comparison in supplied table¹" : "সরবরাহকৃত সারণির তুলনা¹"}>
-                      {record?.equivalent_level_bn || (english ? "Not stated" : "উল্লেখ নেই")}
-                    </td>
-                  </tr>
-                );
-              })}
+              {qawmiRecords.map((record, index) => (
+                <tr key={`${record.level_name_bn}-${index}`}>
+                  <th scope="row" data-label={english ? "Qawmi stage" : "কওমি স্তর"}>{record.level_name_bn || (english ? "Not named in source table" : "সারণিতে স্তরের নাম উল্লেখ নেই")}</th>
+                  <td data-label={english ? "Equivalent level" : "সমমান"}>{record.equivalent_level_bn}</td>
+                  <td data-label={english ? "Duration" : "মেয়াদ"} className="duration-cell">{record.duration_bn}</td>
+                  <td data-label={english ? "Main subjects" : "মূল বিষয়"}>{record.main_subjects_bn}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <p className="table-footnote">¹ {english
-          ? "Stage names, durations and comparison labels are transcribed from supplied image table S13 and are not independently verified. Blank Qawmi stage names are left unstated; reported comparisons are not automatic certificate equivalencies."
-          : "¹ স্তরের নাম, মেয়াদ ও তুলনার তথ্য সরবরাহকৃত ছবির সারণি S13 থেকে প্রতিলিপি করা; স্বাধীনভাবে যাচাই করা হয়নি। ফাঁকা কওমি স্তরের নাম অনুমান করা হয়নি, আর সারণির তুলনা স্বয়ংক্রিয় সনদ-সমমান নয়।"}</p>
+        <p className="table-footnote">{english
+          ? "Three stage-name cells are blank in the source table and are shown as such; all other listed details follow the user-verified table."
+          : "মূল সারণিতে তিনটি স্তরের নাম ফাঁকা—তাই সেগুলো ফাঁকা হিসেবেই দেখানো হয়েছে; বাকি তথ্য ব্যবহারকারী-যাচাইকৃত সারণি অনুযায়ী।"}</p>
         <details className="table-source-notes">
           <summary>{english ? "Source and transcription notes" : "তথ্যসূত্র ও প্রতিলিপি-সংক্রান্ত নোট"}</summary>
-          <DataValue value={suppliedTable.notes_bn} english={english} />
-          <DataValue value={suppliedTable.records} english={english} />
+          <p>{english ? "The table details were checked by the user against the supplied source. The statutory Taqmil recognition is explained separately below." : "ব্যবহারকারী সরবরাহকৃত মূল সূত্রের সঙ্গে মিলিয়ে সারণির তথ্য যাচাই করেছেন। তাকমিলের আইনগত স্বীকৃতি নিচে আলাদাভাবে ব্যাখ্যা করা হয়েছে।"}</p>
           {sources.get(suppliedTable.source_id) && <p>{suppliedTable.source_id} · {sources.get(suppliedTable.source_id).title}</p>}
         </details>
       </section>
@@ -1209,10 +1220,15 @@ function OverviewPage({ english }) {
   const overview = database.overview;
   const system = database.education_system;
   const stages = system.stages_as_reported_in_research || [];
-  usePageMeta(english ? "Qawmi Education System | Qawmi Knowledge" : "কওমি শিক্ষাব্যবস্থা | কওমি জ্ঞানভান্ডার", getLocalized(overview.definition, english));
+  usePageMeta(
+    english ? "Qawmi Education System & Comparison | Qawmi Knowledge" : "কওমি শিক্ষাব্যবস্থা ও তুলনা | কওমি জ্ঞানভান্ডার",
+    english
+      ? "Explore Qawmi study stages, curriculum, verified equivalencies, comparisons with Alia and general education, and cited legal recognition."
+      : "কওমি শিক্ষার ধাপ, পাঠ্যক্রম, যাচাইকৃত সমমান, আলিয়া ও সাধারণ শিক্ষার সঙ্গে তুলনা এবং আইনি স্বীকৃতি জানুন।",
+  );
   return (
     <>
-      <PageIntro english={english} eyebrow={english ? "LEARN" : "জানুন"} title={english ? "The Qawmi education system" : "কওমি শিক্ষাব্যবস্থা"} description={getLocalized(system.general_description, english)} />
+      <PageIntro english={english} eyebrow={english ? "LEARN & COMPARE" : "জানুন ও তুলনা করুন"} title={english ? "Qawmi education system & comparison" : "কওমি শিক্ষাব্যবস্থা ও তুলনা"} description={getLocalized(system.general_description, english)} />
       <div className="two-column">
         <section className="content-panel">
           <h2>{english ? "What is a Qawmi madrasa?" : "কওমি মাদরাসা কী?"}</h2>
@@ -1252,16 +1268,8 @@ function OverviewPage({ english }) {
           ))}
         </div>
       </section>
-      {system.equivalency_pathway_from_user_image && (
-        <section className="content-panel block-section">
-          <h2>{getLocalized(system.equivalency_pathway_from_user_image.title_en ? { en: system.equivalency_pathway_from_user_image.title_en, bn: system.equivalency_pathway_from_user_image.title_bn } : "", english) || (english ? "Reported equivalency pathway" : "উল্লিখিত সমমানের পথ")}</h2>
-          <div className="callout callout-warning">
-            {english ? "Transcribed from a supplied image; not independently verified. Treat as a reference, not official admission or equivalency advice." : "সরবরাহকৃত ছবি থেকে প্রতিলিখিত; স্বাধীনভাবে যাচাই করা হয়নি। এটি তথ্যসূত্র, সরকারি ভর্তি বা সমমানের পরামর্শ নয়।"}
-          </div>
-          <DataValue value={system.equivalency_pathway_from_user_image.records} english={english} />
-        </section>
-      )}
       <QualificationNote english={english} />
+      <EducationComparisonSection english={english} />
     </>
   );
 }
@@ -1341,11 +1349,50 @@ function HistoryPage({ english }) {
         </div>
       </section>
       {database.boards_and_governance.filter((board) => board.record_type === "historical_board_landscape").map((board) => (
-        <section className="content-panel block-section" key={board.id}>
-          <h2>{english ? "Historical board landscape" : "ঐতিহাসিক বোর্ডচিত্র"}</h2>
-          <div className="callout callout-warning">{board.note_bn || (english ? "These are historical figures and should not be read as a current board register." : "এগুলো ঐতিহাসিক তথ্য; বর্তমান বোর্ডের তালিকা হিসেবে গণ্য করবেন না।")}</div>
-          <DataValue value={board.boards} english={english} />
-          {sources.get(board.source_id)?.url && <p><a href={sources.get(board.source_id).url} target="_blank" rel="noreferrer noopener">{english ? "Open cited source" : "উদ্ধৃত সূত্র খুলুন"} ↗</a></p>}
+        <section className="content-panel block-section historical-board-section" key={board.id}>
+          <SectionHeading
+            eyebrow={english ? `HISTORICAL SNAPSHOT · ${board.as_of_date}` : `ঐতিহাসিক তথ্যচিত্র · ${board.as_of_date}`}
+            title={english ? "Regional Qawmi board landscape in 2013" : "২০১৩ সালের আঞ্চলিক কওমি বোর্ডচিত্র"}
+            description={english
+              ? "A dated snapshot from a 2013 newspaper report, not a current register of boards or affiliated madrasas."
+              : "২০১৩ সালের সংবাদ-নিবন্ধে প্রকাশিত তৎকালীন চিত্র—বর্তমান বোর্ড বা অধিভুক্ত মাদরাসার তালিকা নয়।"}
+          />
+          <div className="callout callout-warning">
+            {english
+              ? "The article gives approximate counts for only two organizations. These are historical source-reported estimates, not a national census; do not add them together or compare them with current counts."
+              : "নিবন্ধে কেবল দুটি সংগঠনের আনুমানিক সংখ্যা দেওয়া হয়েছে। এগুলো ঐতিহাসিক সূত্রে-উল্লিখিত অনুমান, জাতীয় জরিপ নয়; সংখ্যা যোগ করে মোট বা বর্তমান হিসাব হিসেবে দেখবেন না।"}
+          </div>
+          <div className="historical-board-grid">
+            {board.boards.map((historicalBoard) => (
+              <article className="historical-board-card" key={historicalBoard.name_en}>
+                <h3>{english ? historicalBoard.name_en : historicalBoard.name_bn}</h3>
+                {historicalBoard.base_bn && (
+                  <p>
+                    <strong>{english ? "Based at" : "কেন্দ্র"}</strong>
+                    <span>{historicalBoard.base_bn}</span>
+                  </p>
+                )}
+                <p>
+                  <strong>{english ? "Reported area" : "প্রতিবেদনে উল্লিখিত এলাকা"}</strong>
+                  <span>{historicalBoard.coverage_bn}</span>
+                </p>
+                {Number.isFinite(historicalBoard.reported_madrasa_count) && (
+                  <div className="historical-board-count">
+                    <strong>≈{historicalBoard.reported_madrasa_count.toLocaleString(english ? "en" : "bn-BD")}</strong>
+                    <span>{english ? "madrasas (approx. in source)" : "মাদরাসা (সূত্রে আনুমানিক)"}</span>
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+          {sources.get(board.source_id)?.url && (
+            <p className="historical-board-source">
+              {english ? "Source:" : "তথ্যসূত্র:"} {sources.get(board.source_id).publisher} ·{" "}
+              <a href={sources.get(board.source_id).url} target="_blank" rel="noreferrer noopener">
+                {english ? "Read the 2013 report" : "২০১৩ সালের প্রতিবেদন পড়ুন"} ↗
+              </a>
+            </p>
+          )}
         </section>
       ))}
       <section className="content-panel block-section">
@@ -1366,60 +1413,214 @@ function HistoryPage({ english }) {
 
 function SyllabusPage({ english }) {
   const { database } = useDatabase();
-  usePageMeta(english ? "Syllabi & Study Resources | Qawmi Knowledge" : "সিলেবাস ও পাঠ্য-রিসোর্স | কওমি জ্ঞানভান্ডার", english ? "Browse specialist Qawmi syllabus records with source and verification notes." : "তথ্যসূত্র ও যাচাই-সংক্রান্ত নোটসহ কওমি শিক্ষার বিশেষায়িত সিলেবাস দেখুন।");
+  usePageMeta(english ? "Syllabi & Study Resources | Qawmi Knowledge" : "সিলেবাস ও পাঠ্য-রিসোর্স | কওমি জ্ঞানভান্ডার", english ? "Browse Qawmi Darsiyat examination syllabus by stage, subject, kitab and assigned portion." : "দরসিয়াতের কেন্দ্রীয় পরীক্ষার সিলেবাস স্তর, বিষয়, কিতাব ও নির্ধারিত পরিমাণ অনুযায়ী দেখুন।");
   return (
     <>
       <PageIntro
         english={english}
         eyebrow={english ? "STUDY" : "পাঠ্যক্রম"}
         title={english ? "Syllabi & study resources" : "সিলেবাস ও পাঠ্য-রিসোর্স"}
-        description={english ? "The supplied knowledge base contains selected specialist and examination syllabus records—not a complete, universal curriculum." : "সরবরাহকৃত তথ্যভান্ডারে নির্বাচিত বিশেষায়িত ও পরীক্ষার সিলেবাস আছে—এগুলো পূর্ণাঙ্গ বা সর্বজনীন পাঠ্যক্রম নয়।"}
+        description={english ? "Browse the supplied Darsiyat examination syllabus as searchable page content, alongside selected specialist syllabus records. These are not a complete, universal curriculum." : "সরবরাহকৃত দরসিয়াত পরীক্ষার নেসাব এখন ওয়েবপেজের পাঠযোগ্য তথ্য হিসেবে দেখুন। পাশাপাশি বিশেষায়িত সিলেবাসও রয়েছে; এগুলো পূর্ণাঙ্গ বা সর্বজনীন পাঠ্যক্রম নয়।"}
       />
       <div className="callout callout-warning">
         {english ? "Always check the issuing madrasa or board for the current syllabus. Verification labels and source notes are shown with each record." : "বর্তমান সিলেবাস সংশ্লিষ্ট মাদরাসা বা বোর্ড থেকে যাচাই করুন। প্রতিটি রেকর্ডের সঙ্গে যাচাইয়ের অবস্থা ও তথ্যসূত্রের নোট রয়েছে।"}
       </div>
-      <section className="syllabus-card syllabus-pdf-card">
-        <div className="syllabus-pdf-heading">
-          <div>
-            <span className="eyebrow">{english ? "USER-PROVIDED SYLLABUS" : "ব্যবহারকারীর দেওয়া সিলেবাস"}</span>
-            <h2>{english ? "Central examination syllabus · Darsiyat (female students)" : "কেন্দ্রীয় পরীক্ষার নেসাব · দরসিয়াত (ছাত্রী)"}</h2>
-            <p className="syllabus-audience">
-              {english
-                ? "The PDF includes the class, subject, kitab and portion details shown in the source document. It is not represented as a complete national curriculum."
-                : "PDF-টিতে মূল নথিতে থাকা শ্রেণি, বিষয়, কিতাব ও পরিমাণের বিবরণ রয়েছে। এটিকে পূর্ণাঙ্গ জাতীয় পাঠ্যক্রম হিসেবে উপস্থাপন করা হচ্ছে না।"}
-            </p>
-          </div>
-          <div className="syllabus-pdf-actions">
-            <a className="btn btn-secondary" href="/syllabi/central-examination-darsiyat-female.pdf" target="_blank" rel="noreferrer noopener">
-              {english ? "Open PDF" : "PDF খুলুন"} ↗
-            </a>
-            <a className="btn btn-primary" href="/syllabi/central-examination-darsiyat-female.pdf" download>
-              {english ? "Download" : "ডাউনলোড"}
-            </a>
-          </div>
-        </div>
-        <iframe
-          className="syllabus-pdf-preview"
-          src="/syllabi/central-examination-darsiyat-female.pdf"
-          title={english ? "Central examination syllabus for Darsiyat female students" : "দরসিয়াত ছাত্রীদের কেন্দ্রীয় পরীক্ষার নেসাব"}
-          loading="lazy"
+      <section className="block-section">
+        <SectionHeading
+          eyebrow={english ? "CENTRAL EXAMINATION · DARSIYAT" : "কেন্দ্রীয় পরীক্ষা · দরসিয়াত"}
+          title={english ? darsiyatFemaleSyllabus.title_en : darsiyatFemaleSyllabus.title_bn}
+          description={english ? darsiyatFemaleSyllabus.source_note_en : darsiyatFemaleSyllabus.source_note_bn}
         />
+        <div className="syllabus-stage-list">
+          {darsiyatFemaleSyllabus.stages.map((stage) => (
+            <section className="syllabus-stage-card" key={stage.id}>
+              <h2>{english ? stage.name_en : stage.name_bn}</h2>
+              <div className="table-scroll">
+                <table className="syllabus-data-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">{english ? "Subject" : "বিষয়"}</th>
+                      <th scope="col">{english ? "Book (kitab)" : "কিতাব"}</th>
+                      <th scope="col">{english ? "Assigned portion" : "পরিমাণ"}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {stage.subjects.flatMap((subject) => subject.books.map((book, index) => (
+                      <tr key={`${subject.name_bn}-${book.name_bn}-${index}`}>
+                        {index === 0 && <th scope="row" rowSpan={subject.books.length}>{subject.name_bn}</th>}
+                        <td>{book.name_bn}</td>
+                        <td>{book.portion_bn}</td>
+                      </tr>
+                    )))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          ))}
+        </div>
       </section>
       <div className="syllabus-list">
         {database.specialized_syllabi.map((syllabus) => (
-          <details className="syllabus-card" key={syllabus.id} open>
+          <details className="syllabus-card" key={syllabus.id}>
             <summary>
               <span className="eyebrow">{syllabus.category || syllabus.id}</span>
               <h2>{getLocalized(syllabus.title, english) || syllabus.title}</h2>
               <span className="syllabus-audience">{getLocalized(syllabus.audience, english)}</span>
             </summary>
             <div className="syllabus-content">
-              <DataValue value={Object.fromEntries(Object.entries(syllabus).filter(([key]) => !["id", "title", "source_ids"].includes(key)))} english={english} />
+              {syllabus.id === "syllabus_tahfizul_quran_students" ? (
+                <TahfizSyllabusDetails syllabus={syllabus} english={english} />
+              ) : syllabus.id === "syllabus_ilm_ut_tajwid_wal_qiraat" ? (
+                <AdvancedTajwidSyllabus syllabus={syllabus} english={english} />
+              ) : (
+                <DataValue value={Object.fromEntries(Object.entries(syllabus).filter(([key]) => !["id", "title", "source_ids"].includes(key)))} english={english} />
+              )}
               <div className="source-chips">{(syllabus.source_ids || []).map((id) => <span className="source-chip" key={id}>{id}</span>)}</div>
             </div>
           </details>
         ))}
       </div>
+    </>
+  );
+}
+
+function TahfizSyllabusDetails({ syllabus, english }) {
+  const exam = syllabus.exam;
+  const subjectNames = new Map(syllabus.subjects.map((subject) => [
+    subject.id,
+    english ? subject.name_en || subject.name_bn : subject.name_bn,
+  ]));
+  const label = (bn, en) => english ? en : bn;
+
+  return (
+    <>
+      <p className="muted">{english ? "Four curriculum subjects; the listed oral examination assesses three subjects." : "পাঠ্যবিষয় চারটি; বর্ণিত মৌখিক পরীক্ষায় পরীক্ষ্য বিষয় তিনটি।"}</p>
+      <div className="syllabus-subject-list">
+        {syllabus.subjects.map((subject) => (
+          <section className="syllabus-subject-card" key={subject.id}>
+            <h3>{english ? subject.name_en || subject.name_bn : subject.name_bn}</h3>
+            <p>{subject.content_bn}</p>
+            {subject.subtopics && (
+              <ul>
+                {subject.subtopics.map((subtopic) => (
+                  <li key={subtopic.name_bn}><strong>{subtopic.name_bn}:</strong> {subtopic.method_bn}</li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
+      </div>
+      <section className="block-section">
+        <h3>{label("মৌখিক পরীক্ষা", "Oral examination")}</h3>
+        <p>{label("পরীক্ষ্য বিষয়", "Examined subjects")}: {exam.examined_subject_count.toLocaleString(english ? "en" : "bn-BD")} · {label("মোট নম্বর", "Total marks")}: {exam.total_marks.toLocaleString(english ? "en" : "bn-BD")}</p>
+        <div className="table-scroll">
+          <table className="syllabus-exam-table">
+            <thead>
+              <tr>
+                <th>{label("বিষয়", "Subject")}</th>
+                <th>{label("প্রশ্ন", "Questions")}</th>
+                <th>{label("উত্তর দিতে হবে", "Answers required")}</th>
+                <th>{label("নম্বর", "Marks")}</th>
+                <th>{label("পাস নম্বর", "Pass marks")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {exam.components.map((component) => (
+                <tr key={component.subject_id}>
+                  <th>{subjectNames.get(component.subject_id)}</th>
+                  <td>{component.questions.toLocaleString(english ? "en" : "bn-BD")}</td>
+                  <td>{component.answers_required?.toLocaleString(english ? "en" : "bn-BD") || EMPTY}</td>
+                  <td>{component.marks.toLocaleString(english ? "en" : "bn-BD")}</td>
+                  <td>{component.pass_marks.toLocaleString(english ? "en" : "bn-BD")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section className="block-section">
+        <h3>{label("বিভাগ ও তিলাওয়াত (ইয়াদ) নম্বর", "Division and tilawat (memorized recitation) marks")}</h3>
+        <div className="table-scroll">
+          <table className="syllabus-exam-table">
+            <thead>
+              <tr>
+                <th>{label("বিভাগ", "Division")}</th>
+                <th>{label("তিলাওয়াত (ইয়াদ)", "Tilawat (memorized)")}</th>
+                <th>{label("মোট নম্বর", "Total marks")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {exam.division_and_tilawat_yad.map((result) => (
+                <tr key={result.division_bn}>
+                  <th>{result.division_bn}</th>
+                  <td>{result.tilawat_yad_marks.toLocaleString(english ? "en" : "bn-BD")}</td>
+                  <td>{result.total_marks.toLocaleString(english ? "en" : "bn-BD")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function AdvancedTajwidSyllabus({ syllabus, english }) {
+  const formatNumber = (value) => value.toLocaleString(english ? "en" : "bn-BD");
+  return (
+    <>
+      <dl className="record-details">
+        <div>
+          <dt>{english ? "Riwayah" : "রেওয়ায়েত"}</dt>
+          <dd>{syllabus.recitation_riwayah_bn}</dd>
+        </div>
+        <div>
+          <dt>{english ? "Eligibility · male students" : "ভর্তির যোগ্যতা · ছাত্র"}</dt>
+          <dd>{syllabus.admission_eligibility.students_bn}</dd>
+        </div>
+        <div>
+          <dt>{english ? "Eligibility · female students" : "ভর্তির যোগ্যতা · ছাত্রী"}</dt>
+          <dd>{syllabus.admission_eligibility.female_students_bn}</dd>
+        </div>
+        <div>
+          <dt>{english ? "Duration" : "মেয়াদ"}</dt>
+          <dd>{formatNumber(syllabus.duration_years)} {english ? "years" : "বছর"}</dd>
+        </div>
+        <div>
+          <dt>{english ? "Class period" : "প্রতি ঘণ্টার দৈর্ঘ্য"}</dt>
+          <dd>{formatNumber(syllabus.class_period_minutes)} {english ? "minutes" : "মিনিট"}</dd>
+        </div>
+      </dl>
+      {syllabus.years.map((year) => (
+        <section className="syllabus-year-card" key={year.year}>
+          <h3>{english ? `Year ${formatNumber(year.year)}` : `${formatNumber(year.year)}${year.year === 1 ? "ম" : "য়"} বর্ষ`}</h3>
+          {year.subjects.map((subject, index) => {
+            const subjectName = subject.name_bn
+              || (english ? "Subject name unclear in supplied text" : "সরবরাহকৃত পাঠে বিষয়-শিরোনাম অস্পষ্ট");
+            return (
+              <article className="syllabus-year-subject" key={`${subjectName}-${index}`}>
+                <strong>{subjectName}</strong>
+                {subject.content_bn && <p>{subject.content_bn}</p>}
+                {subject.text_bn && <p>{subject.text_bn}</p>}
+                <p>
+                  {english ? "Exam marks" : "পরীক্ষার নম্বর"}: {formatNumber(subject.exam_marks)}
+                  {subject.daily_hours && ` · ${english ? "Daily" : "প্রতিদিন"} ${formatNumber(subject.daily_hours)} ${english ? "hour" : "ঘণ্টা"}`}
+                  {subject.weekly_hours && ` · ${english ? "Weekly" : "সপ্তাহে"} ${formatNumber(subject.weekly_hours)} ${english ? "hours" : "ঘণ্টা"}`}
+                </p>
+                {subject.mark_breakdown && (
+                  <p>{Object.entries(subject.mark_breakdown).map(([name, marks]) => `${name} ${formatNumber(marks)}`).join(" · ")}</p>
+                )}
+              </article>
+            );
+          })}
+        </section>
+      ))}
+      <div className="callout callout-warning">
+        {english
+          ? "Some words in the supplied text are unclear. Subject names and the first-year Tajwid book title have not been guessed. The text also says one hour per day and that each class hour is 90 minutes; both statements are preserved."
+          : "সরবরাহকৃত পাঠের কিছু শব্দ অস্পষ্ট। বিষয়-শিরোনাম ও প্রথম বর্ষের তাজবীদের একটি বইয়ের নাম অনুমান করে পূরণ করা হয়নি। পাঠে প্রতিদিন ১ ঘণ্টা এবং প্রতি ঘণ্টা ৯০ মিনিট—দুই বক্তব্যই রাখা হয়েছে।"}
+      </div>
+      <p className="table-footnote">{syllabus.attendance_condition_bn}</p>
     </>
   );
 }
@@ -1673,7 +1874,7 @@ function RoutePage({ english, path }) {
   if (path === "/madrasas" || path === "/directory") return <DirectoryPage english={english} />;
   if (path.startsWith("/madrasa/")) return <MadrasaPage english={english} id={decodeURIComponent(path.slice("/madrasa/".length).replace(/\/+$/, ""))} />;
   if (path === "/education" || path === "/about/education") return <OverviewPage english={english} />;
-  if (path === "/compare") return <ComparePage english={english} />;
+  if (path === "/compare") return <Navigate to={`${pagePrefix(english)}/education`} replace />;
   if (path === "/history" || path === "/boards") return <HistoryPage english={english} />;
   if (path === "/syllabus" || path === "/curriculum") return <SyllabusPage english={english} />;
   if (path === "/statistics" || path === "/data") return <StatisticsPage english={english} />;
@@ -1705,14 +1906,38 @@ export default function App() {
 
   useEffect(() => {
     let active = true;
-    fetch(databaseUrl)
-      .then((response) => {
-        if (!response.ok) throw new Error(`Knowledge-base request failed: ${response.status}`);
-        return response.json();
-      })
-      .then((data) => {
+    const fetchJson = async (url, label) => {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`${label} request failed: ${response.status}`);
+      return response.json();
+    };
+    Promise.all([
+      fetchJson(knowledgeBaseUrl, "Knowledge-base"),
+      fetchJson(madrasaManifestUrl, "Madrasa manifest"),
+    ])
+      .then(async ([knowledgeBase, manifest]) => {
+        if (!Array.isArray(manifest?.partitions)) {
+          throw new Error("The madrasa manifest is missing its partitions list");
+        }
+        const partitions = await Promise.all(manifest.partitions.map(async (partition) => {
+          const url = recordPartitionUrls[partition.slug];
+          if (!url || !partition.file) throw new Error(`Unknown madrasa partition: ${partition.slug}`);
+          const records = await fetchJson(url, `Madrasa partition ${partition.slug}`);
+          if (!Array.isArray(records) || records.length !== partition.count) {
+            throw new Error(`Madrasa partition ${partition.slug} does not match its manifest count`);
+          }
+          return records;
+        }));
+        const records = partitions.flat().sort((left, right) => left.id.localeCompare(right.id, "en", { numeric: true }));
+        if (records.length !== knowledgeBase.madrasa_directory?.imported_record_count) {
+          throw new Error("Madrasa partition total does not match the knowledge-base record count");
+        }
+        const data = {
+          ...knowledgeBase,
+          madrasa_directory: { ...knowledgeBase.madrasa_directory, records },
+        };
         if (!data?.madrasa_directory?.records || !Array.isArray(data.madrasa_directory.records)) {
-          throw new Error("The knowledge-base file is missing madrasa_directory.records");
+          throw new Error("The knowledge-base and madrasa partitions are missing madrasa_directory.records");
         }
         if (active) setDatabase(data);
       })

@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "partitions": [
+    {
+      "slug": "barishal",
+      "label": {
+        "en": "Barishal",
+        "bn": "বরিশাল"
+      },
+      "file": "by-division/barishal.json",
+      "count": 40
+    },
+    {
+      "slug": "chattogram",
+      "label": {
+        "en": "Chattogram",
+        "bn": "চট্টগ্রাম"
+      },
+      "file": "by-division/chattogram.json",
+      "count": 183
+    },
+    {
+      "slug": "dhaka",
+      "label": {
+        "en": "Dhaka",
+        "bn": "ঢাকা"
+      },
+      "file": "by-division/dhaka.json",
+      "count": 798
+    },
+    {
+      "slug": "khulna",
+      "label": {
+        "en": "Khulna",
+        "bn": "খুলনা"
+      },
+      "file": "by-division/khulna.json",
+      "count": 152
+    },
+    {
+      "slug": "mymensingh",
+      "label": {
+        "en": "Mymensingh",
+        "bn": "ময়মনসিংহ"
+      },
+      "file": "by-division/mymensingh.json",
+      "count": 182
+    },
+    {
+      "slug": "rajshahi",
+      "label": {
+        "en": "Rajshahi",
+        "bn": "রাজশাহী"
+      },
+      "file": "by-division/rajshahi.json",
+      "count": 42
+    },
+    {
+      "slug": "rangpur",
+      "label": {
+        "en": "Rangpur",
+        "bn": "রংপুর"
+      },
+      "file": "by-division/rangpur.json",
+      "count": 22
+    },
+    {
+      "slug": "sylhet",
+      "label": {
+        "en": "Sylhet",
+        "bn": "সিলেট"
+      },
+      "file": "by-division/sylhet.json",
+      "count": 57
+    },
+    {
+      "slug": "unclassified",
+      "label": {
+        "en": "Unclassified address",
+        "bn": "ঠিকানা থেকে বিভাগ নির্ধারণ করা যায়নি"
+      },
+      "file": "by-division/unclassified.json",
+      "count": 496
+    }
+  ]
+}

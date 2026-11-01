@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { loadDatabase } from "./database.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const siteUrl = process.env.SITE_URL;
@@ -17,14 +18,13 @@ if (parsedSiteUrl.search || parsedSiteUrl.hash) {
   throw new Error("SITE_URL must not include a query string or fragment.");
 }
 
-const database = JSON.parse(await readFile(path.join(root, "data", "qawmi_madrasa_database_v1_3_1.json"), "utf8"));
+const database = await loadDatabase(root);
 const baseUrl = `${parsedSiteUrl.origin}${parsedSiteUrl.pathname.replace(/\/+$/, "")}`;
 const lastmod = database.metadata.updated_at || database.metadata.created_at;
 const pagePaths = [
   "/",
   "/madrasas",
   "/education",
-  "/compare",
   "/history",
   "/syllabus",
   "/statistics",

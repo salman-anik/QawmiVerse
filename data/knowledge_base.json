@@ -1,0 +1,2139 @@
+{
+  "metadata": {
+    "title": {
+      "en": "Qawmi Madrasa Knowledge Base — Bangladesh",
+      "bn": "কওমি মাদরাসা জ্ঞানভান্ডার — বাংলাদেশ"
+    },
+    "description": {
+      "en": "A sourced starter knowledge base about the Qawmi madrasa education tradition in Bangladesh. It distinguishes legal facts, academic descriptions, historical estimates and claims that require further verification.",
+      "bn": "বাংলাদেশের কওমি মাদরাসা শিক্ষা-ব্যবস্থা সম্পর্কে সূত্রসম্বলিত প্রাথমিক জ্ঞানভান্ডার। এতে আইনগত তথ্য, গবেষণাভিত্তিক বর্ণনা, ঐতিহাসিক পরিসংখ্যান এবং আরও যাচাই প্রয়োজন এমন দাবিকে আলাদা রাখা হয়েছে।"
+    },
+    "scope": "Bangladesh-focused; bilingual where practical",
+    "created_at": "2026-11-01",
+    "updated_at": "2026-11-01",
+    "version": "1.3.1",
+    "language_codes": [
+      "bn",
+      "en"
+    ],
+    "coverage_note": "This is not an exhaustive census or a complete list of every madrasa, scholar, book or syllabus. Public web sources are incomplete and figures vary by year, definition and reporting body.",
+    "verification_policy": "Each factual record should retain its source, source date, evidence type and confidence. Do not merge incompatible estimates into one definitive number.",
+    "change_log": [
+      {
+        "version": "0.2.0",
+        "date": "2026-11-01",
+        "changes": [
+          "Added 1,826 madrasa directory records from the uploaded directory text.",
+          "Added the full attributed Bengali commentary article about Qawmi syllabus and teaching methods.",
+          "Added source records and data-quality notes for both uploads."
+        ]
+      },
+      {
+        "version": "0.3.0",
+        "date": "2026-11-01",
+        "changes": [
+          "Added a six-row Qawmi madrasa level/equivalency/duration/main-subject table transcribed from the user-provided image.",
+          "Preserved blank level-name cells and added verification cautions."
+        ]
+      },
+      {
+        "version": "1.0.0",
+        "date": "2026-11-01",
+        "changes": [
+          "Created a modular master-database package with a database index and 13 logical collections.",
+          "Preserved the existing knowledge base and its source records.",
+          "Added consistent data schemas and verification/provenance standards.",
+          "Left uncollected books, board-specific syllabi, scholar profiles and admissions/exam data as explicit empty schemas rather than inventing records."
+        ]
+      },
+      {
+        "version": "1.1.0",
+        "date": "2026-11-01",
+        "changes": [
+          "Added user-supplied Tahfizul Qur’an syllabus for male and female students, including subjects and oral examination/marking structure.",
+          "Added user-supplied two-year Ilm al-Tajwid wa al-Qira’at syllabus, admission prerequisites, year-wise content, marks and class duration.",
+          "Added source provenance and retained the original submitted Bengali text; ambiguous OCR/typing fragments are explicitly flagged rather than guessed."
+        ]
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-01",
+        "changes": [
+          "Added user-supplied girls’ Darsiyat and Ibtidaiya syllabi, textbook lists, examination notes and prescribed-book requirements.",
+          "Added Befaqul Madarisil Arabia Bangladesh profile, user-supplied headquarters address, historical functions and notable institutions.",
+          "Added 19 district/region Befaqul office-administrator records and preserved submitted WhatsApp number formatting; incomplete wa.me links are flagged.",
+          "Added Nikhil R. Puri’s 17 June 2013 Daily Star article as a dated historical commentary on Qawmi board divisions, board estimates and Hefazat-e-Islam.",
+          "Added user-supplied historical estimates with date/scope caveats; retained conflicting estimates separately.",
+          "Added source provenance and OCR/data-quality notes; no user-supplied claim was silently upgraded to independently verified fact."
+        ]
+      },
+      {
+        "version": "1.3.0",
+        "date": "2026-11-01",
+        "changes": [
+          "Added 146 new madrasa records (qawmi_bd_1827 onward) from the user-provided Mirpur and Savar lists (new source S19); 7 repeat listings were linked to existing records instead of duplicated.",
+          "Repaired 9 existing records (fused address/code, comma-split names, fused union/thana headings, stray characters, asterisk flags); originals kept in original_as_submitted.",
+          "Removed a personal phone number and a submitter question from the affiliation-code field of one record (privacy).",
+          "Introduced explicit gender value 'men' (only where the source states it) and the verification statuses source_transcribed_structurally_repaired_not_independently_verified and source_transcribed_location_unverified.",
+          "Not done: record-by-record comparison of the first 1,826 records; applying the explicit পুরুষ/মহিলা type to the first 1,596 records; normalising legacy-font encoding artifacts."
+        ]
+      },
+      {
+        "version": "1.3.1",
+        "date": "2026-11-01",
+        "changes": [
+          "Added a contact-enrichment structure to the madrasa directory, preserving the v1.3.0 records and fields.",
+          "Added publicly listed contact numbers for qawmi_bd_0008 (Azampur Darul Uloom Madrasa and Orphanage), with source URL and listing context.",
+          "Added a historical 2018 publicly listed Mohtamim contact for qawmi_bd_0001 (Lower Pennai Jamia Islamia Darul Uloom), explicitly marked as historical and not currently confirmed.",
+          "Recorded public-search outcomes for five additional records where matching directory/board listings were found but no phone number appeared in the retrieved results.",
+          "Contact research remains incomplete; records not yet searched are not represented as having no phone number."
+        ]
+      }
+    ]
+  },
+  "overview": {
+    "name": {
+      "bn": "কওমি মাদরাসা",
+      "en": "Qawmi Madrasa"
+    },
+    "alternate_names": [
+      "Qawmi madrasa",
+      "Qaumi madrasa",
+      "কওমী মাদরাসা"
+    ],
+    "definition": {
+      "en": "A non-governmental Islamic seminary tradition in South Asia. In Bangladesh, Qawmi madrasas are institutionally diverse and commonly associated with the Deobandi intellectual and educational tradition, while governance, curriculum details and affiliations vary among institutions and boards.",
+      "bn": "দক্ষিণ এশিয়ার একটি বেসরকারি ইসলামি শিক্ষাধারা। বাংলাদেশে কওমি মাদরাসাগুলো সাধারণত দেওবন্দি চিন্তা ও শিক্ষাধারার সঙ্গে সম্পর্কিত; তবে প্রতিষ্ঠান, বোর্ড, পরিচালনা ও পাঠ্যক্রমে বৈচিত্র্য রয়েছে।"
+    },
+    "distinction_from_alia": {
+      "en": "Qawmi and Alia are distinct madrasa streams. Alia madrasas operate within the state-recognized Bangladesh Madrasah Education Board framework; Qawmi institutions have historically operated through independent boards and institutional networks. The distinction should not be reduced to a claim that every institution follows an identical curriculum.",
+      "bn": "কওমি ও আলিয়া পৃথক মাদরাসা-ধারা। আলিয়া মাদরাসা রাষ্ট্রীয় বাংলাদেশ মাদরাসা শিক্ষা বোর্ডের কাঠামোর অধীনে চলে; কওমি প্রতিষ্ঠানগুলো ঐতিহাসিকভাবে স্বতন্ত্র বোর্ড ও প্রাতিষ্ঠানিক নেটওয়ার্কের মাধ্যমে পরিচালিত। সব প্রতিষ্ঠানের পাঠ্যক্রম এক—এমন ধারণা সঠিক নয়।"
+    },
+    "core_characteristics": [
+      "Predominantly religious and Islamic scholarly education",
+      "Independent or non-governmental institutional management",
+      "Community donations and charitable support are important funding sources in many institutions",
+      "Multiple education boards and affiliated networks",
+      "Curriculum and stage names can differ between boards and institutions"
+    ]
+  },
+  "history": {
+    "regional_background": {
+      "en": "The modern Qawmi tradition in Bangladesh is connected to the wider South Asian madrasa reform movements and the educational legacy of Darul Uloom Deoband, founded in 1866 in present-day Uttar Pradesh, India. This intellectual connection is explicit in Bangladesh's 2018 law concerning the Dawra-e-Hadith certificate.",
+      "bn": "বাংলাদেশের আধুনিক কওমি ধারার সঙ্গে দক্ষিণ এশিয়ার মাদরাসা সংস্কার আন্দোলন এবং ১৮৬৬ সালে প্রতিষ্ঠিত ভারতের দারুল উলূম দেওবন্দের শিক্ষাগত ঐতিহ্যের সম্পর্ক রয়েছে। ২০১৮ সালের বাংলাদেশের আইনেও দেওবন্দের নীতির উল্লেখ আছে।"
+    },
+    "timeline": [
+      {
+        "date": "1866",
+        "event": {
+          "en": "Darul Uloom Deoband was established in India; it later became a major reference point for Deobandi educational networks across South Asia.",
+          "bn": "ভারতে দারুল উলূম দেওবন্দ প্রতিষ্ঠিত হয়; পরবর্তীতে এটি দক্ষিণ এশিয়ার দেওবন্দি শিক্ষানেটওয়ার্কের গুরুত্বপূর্ণ কেন্দ্র হয়ে ওঠে।"
+        },
+        "evidence_type": "historical_context",
+        "source_ids": [
+          "S6"
+        ]
+      },
+      {
+        "date": "1978",
+        "event": {
+          "en": "Bangladesh Qawmi Madrasa Education Board (Befaq) was founded, according to a peer-reviewed study.",
+          "bn": "একটি গবেষণাপত্র অনুযায়ী বাংলাদেশ কওমি মাদরাসা শিক্ষা বোর্ড (বেফাক) ১৯৭৮ সালে প্রতিষ্ঠিত হয়।"
+        },
+        "evidence_type": "academic_publication",
+        "source_ids": [
+          "S3"
+        ]
+      },
+      {
+        "date": "2017-04-13",
+        "event": {
+          "en": "The government announced recognition of Dawra-e-Hadith (Taqmil) under Al-Haiatul Ulya as equivalent to a master's degree in Islamic Studies and Arabic; the 2018 law later formalized the matter.",
+          "bn": "সরকার আল-হাইআতুল উলয়ার অধীনে দাওরায়ে হাদিস (তাকমিল) সনদের ইসলামিক স্টাডিজ ও আরবিতে মাস্টার্স সমমানের স্বীকৃতি ঘোষণা করে; ২০১৮ সালের আইন বিষয়টি আইনি ভিত্তি দেয়।"
+        },
+        "evidence_type": "law_and_government_action",
+        "source_ids": [
+          "S1",
+          "S2"
+        ]
+      },
+      {
+        "date": "2018-10-08",
+        "event": {
+          "en": "Bangladesh enacted Act No. 48 of 2018 on equivalence of the Dawra-e-Hadith (Taqmil) certificate under Al-Haiatul Ulya.",
+          "bn": "আল-হাইআতুল উলয়ার অধীনে দাওরায়ে হাদিস (তাকমিল) সনদের সমমান বিষয়ে বাংলাদেশে ২০১৮ সালের ৪৮ নম্বর আইন প্রণীত হয়।"
+        },
+        "evidence_type": "primary_legal_source",
+        "source_ids": [
+          "S1",
+          "S2"
+        ]
+      },
+      {
+        "date": "1957",
+        "event_bn": "পাকিস্তানে Wafaq ul Madaris Al-Arabia প্রতিষ্ঠিত হয়—বেফাকের সঙ্গে ধারাবাহিকতার দাবি ব্যবহারকারী-প্রদত্ত বিবরণে উল্লেখিত।",
+        "source_ids": [
+          "S17"
+        ],
+        "verification_status": "user_supplied_not_independently_verified"
+      },
+      {
+        "date": "1978-04",
+        "event_bn": "বেফাকুল মাদারিসিল আরাবিয়া বাংলাদেশ প্রতিষ্ঠিত হয় বলে ব্যবহারকারী-প্রদত্ত বিবরণে উল্লেখ আছে।",
+        "source_ids": [
+          "S3",
+          "S17"
+        ],
+        "verification_status": "supported_by_research_and_user_supplied_context"
+      },
+      {
+        "date": "2006",
+        "event_bn": "সম্মিলিত কওমি মাদরাসা শিক্ষা বোর্ড গঠনের উদ্যোগ; ২০১৩ সালের নিবন্ধ অনুযায়ী আঞ্চলিক বোর্ডগুলো যুক্ত হলেও বেফাক যোগ দেয়নি।",
+        "source_ids": [
+          "S16"
+        ],
+        "verification_status": "dated_secondary_source"
+      },
+      {
+        "date": "2013-05-05",
+        "event_bn": "হেফাজতে ইসলামের শাপলা চত্বরের সমাবেশ; ২০১৩ সালের নিবন্ধে সংগঠনের ঐক্য ও অভ্যন্তরীণ নেতৃত্ব-প্রতিযোগিতা বিশ্লেষিত।",
+        "source_ids": [
+          "S16"
+        ],
+        "verification_status": "dated_secondary_source"
+      }
+    ],
+    "historical_caution": "The history of individual Qawmi institutions, regional networks and movements requires institution-specific archival research. Do not infer a single founding date for all Qawmi madrasas in Bangladesh."
+  },
+  "education_system": {
+    "general_description": {
+      "en": "Research describes a progression from early/basic education through intermediate stages to Dawra-e-Hadith (Taqmil). Stage names and the exact number of stages differ across descriptions and boards. A peer-reviewed study describes seven learning stages and notes that basic Bangla, English, mathematics and Islamic studies may appear in earlier levels, while advanced levels emphasize classical Islamic disciplines.",
+      "bn": "গবেষণায় প্রাথমিক স্তর থেকে বিভিন্ন মধ্যবর্তী ধাপ পেরিয়ে দাওরায়ে হাদিস (তাকমিল) পর্যন্ত অগ্রগতির কথা বলা হয়েছে। স্তরের নাম ও মোট ধাপ বোর্ডভেদে ভিন্ন হতে পারে। একটি গবেষণায় সাতটি শিক্ষাস্তরের কথা বলা হয়েছে; প্রাথমিক স্তরে বাংলা, ইংরেজি, গণিত ও ইসলামি শিক্ষা এবং উচ্চতর স্তরে ধ্রুপদি ইসলামি শাস্ত্রের ওপর গুরুত্বের উল্লেখ রয়েছে।"
+    },
+    "stages_as_reported_in_research": [
+      {
+        "name": "Pre-primary / Maktab",
+        "bn": "প্রাক-প্রাথমিক / মক্তব",
+        "note": "Names and placement vary by institution."
+      },
+      {
+        "name": "Ibtidai / Primary",
+        "bn": "ইবতেদাই / প্রাথমিক",
+        "note": "Basic literacy and foundational religious learning; some institutions include general subjects."
+      },
+      {
+        "name": "Mutawassitah",
+        "bn": "মুতাওয়াসসিতাহ",
+        "note": "Intermediate stage; exact equivalence to mainstream grades should not be assumed."
+      },
+      {
+        "name": "Thanawiyah",
+        "bn": "সানাবিয়া",
+        "note": "Secondary/intermediate terminology varies across boards."
+      },
+      {
+        "name": "Fazilat / Fadilat",
+        "bn": "ফজিলত",
+        "note": "Used in some stage structures; verify board-specific syllabus."
+      },
+      {
+        "name": "Takmil / Dawra-e-Hadith",
+        "bn": "তাকমিল / দাওরায়ে হাদিস",
+        "note": "Advanced Hadith stage; the 2018 law addresses this certificate's equivalence."
+      }
+    ],
+    "curriculum_domains": [
+      {
+        "id": "quran",
+        "name": {
+          "en": "Qur'an studies",
+          "bn": "কুরআন শিক্ষা"
+        },
+        "topics": [
+          "recitation",
+          "memorization",
+          "Tafsir"
+        ]
+      },
+      {
+        "id": "hadith",
+        "name": {
+          "en": "Hadith studies",
+          "bn": "হাদিস শিক্ষা"
+        },
+        "topics": [
+          "Hadith texts",
+          "Hadith sciences",
+          "commentary"
+        ]
+      },
+      {
+        "id": "fiqh",
+        "name": {
+          "en": "Islamic jurisprudence",
+          "bn": "ফিকহ"
+        },
+        "topics": [
+          "worship",
+          "transactions",
+          "legal theory"
+        ]
+      },
+      {
+        "id": "arabic",
+        "name": {
+          "en": "Arabic language",
+          "bn": "আরবি ভাষা"
+        },
+        "topics": [
+          "Nahw",
+          "Sarf",
+          "Balaghah",
+          "literature"
+        ]
+      },
+      {
+        "id": "aqidah",
+        "name": {
+          "en": "Aqidah / theology",
+          "bn": "আকাইদ"
+        },
+        "topics": [
+          "Islamic creed",
+          "theology"
+        ]
+      },
+      {
+        "id": "tafsir",
+        "name": {
+          "en": "Qur'anic exegesis",
+          "bn": "তাফসির"
+        },
+        "topics": [
+          "Qur'anic interpretation"
+        ]
+      },
+      {
+        "id": "logic",
+        "name": {
+          "en": "Logic and reasoning traditions",
+          "bn": "মানতিক"
+        },
+        "topics": [
+          "classical logic"
+        ]
+      },
+      {
+        "id": "history",
+        "name": {
+          "en": "Islamic history",
+          "bn": "ইসলামের ইতিহাস"
+        },
+        "topics": [
+          "Prophetic biography",
+          "caliphate history"
+        ]
+      },
+      {
+        "id": "general",
+        "name": {
+          "en": "General subjects",
+          "bn": "সাধারণ বিষয়"
+        },
+        "topics": [
+          "Bangla",
+          "English",
+          "mathematics",
+          "history",
+          "geography"
+        ],
+        "availability_note": "Presence depends on level, institution and syllabus."
+      }
+    ],
+    "curriculum_variation": "The listed subjects are broad domains, not a definitive national syllabus. Exact book lists, class placement, marks and examination rules must be obtained from the relevant board's current official syllabus.",
+    "source_ids": [
+      "S3",
+      "S4"
+    ],
+    "equivalency_pathway_from_user_image": {
+      "title_bn": "কওমি মাদ্রাসার স্তর, সমমান, মেয়াদ ও মূল বিষয়",
+      "title_en": "Qawmi Madrasa Levels, Equivalencies, Duration and Main Subjects",
+      "columns_bn": [
+        "স্তরের নাম",
+        "সমমান",
+        "মেয়াদ",
+        "মূল বিষয়"
+      ],
+      "records": [
+        {
+          "level_name_bn": "ইবতিদাইয়্যাহ",
+          "equivalent_level_bn": "প্রাথমিক",
+          "duration_bn": "৫ বছর",
+          "duration_years": 5,
+          "main_subjects_bn": "কোরআন ও বেসিক শিক্ষা"
+        },
+        {
+          "level_name_bn": "",
+          "equivalent_level_bn": "নিম্ন মাধ্যমিক",
+          "duration_bn": "৩ বছর",
+          "duration_years": 3,
+          "main_subjects_bn": "আরবি ব্যাকরণ (নাহু-ছরফ)"
+        },
+        {
+          "level_name_bn": "সানাবিয়া আম্মাহ",
+          "equivalent_level_bn": "এসএসসি",
+          "duration_bn": "২ বছর",
+          "duration_years": 2,
+          "main_subjects_bn": "উচ্চতর ব্যাকরণ ও সাহিত্য"
+        },
+        {
+          "level_name_bn": "",
+          "equivalent_level_bn": "এইচএসসি",
+          "duration_bn": "২ বছর",
+          "duration_years": 2,
+          "main_subjects_bn": "ফিকহ ও কোরআন তাফসির"
+        },
+        {
+          "level_name_bn": "",
+          "equivalent_level_bn": "ডিগ্রি/অনার্স",
+          "duration_bn": "২ বছর",
+          "duration_years": 2,
+          "main_subjects_bn": "হাদিস ও উচ্চতর ফিকহ"
+        },
+        {
+          "level_name_bn": "তাকমিল",
+          "equivalent_level_bn": "মাস্টার্স",
+          "duration_bn": "১ বছর",
+          "duration_years": 1,
+          "main_subjects_bn": "সিহাহ সিত্তাহ (হাদিস)"
+        }
+      ],
+      "source_id": "S13",
+      "notes_bn": [
+        "ব্যবহারকারী মূল সারণির স্তর, সমমান, মেয়াদ ও মূল বিষয় যাচাই করেছেন।",
+        "মূল সারণিতে কয়েকটি স্তরের নাম ফাঁকা; যাচাইকৃত উৎসে নাম না থাকায় সেগুলো ফাঁকা রাখা হয়েছে।",
+        "সারণির সমমানের তথ্য ব্যবহারকারীর যাচাইকৃত তালিকা অনুযায়ী; তাকমিলের আইনগত স্বীকৃতির পরিধি সংশ্লিষ্ট আইনে আলাদাভাবে নির্ধারিত।"
+      ],
+      "verification_status": "user_verified_against_source"
+    }
+  },
+  "boards_and_governance": [
+    {
+      "id": "befaq",
+      "name": {
+        "bn": "বেফাকুল মাদারিসিল আরাবিয়া বাংলাদেশ",
+        "en": "Befaqul Madarisil Arabia Bangladesh"
+      },
+      "short_name": "Befaq",
+      "description": {
+        "en": "A major Qawmi madrasa education board. A 2020 peer-reviewed article reports that it was founded in 1978 and describes it as approving curriculum and syllabi for affiliated institutions.",
+        "bn": "বাংলাদেশের একটি প্রধান কওমি মাদরাসা শিক্ষা বোর্ড। ২০২০ সালের গবেষণাপত্রে এর প্রতিষ্ঠাবর্ষ ১৯৭৮ উল্লেখ করা হয়েছে এবং অধিভুক্ত প্রতিষ্ঠানের পাঠ্যক্রম অনুমোদনের কথা বলা হয়েছে।"
+      },
+      "source_ids": [
+        "S3",
+        "S16",
+        "S17",
+        "S18"
+      ],
+      "alternate_names": [
+        "Befaqul Madaris",
+        "Befaqul ul Madaris",
+        "Bangladesh Qawmi Madrasah Education Board"
+      ],
+      "arabic_name": "وفاق المدارس العربية بنغلاديش",
+      "founding_date": "1978-04",
+      "founding_context_bn": "ব্যবহারকারী-প্রদত্ত বিবরণ অনুযায়ী, ইসলামী আলেমদের একটি সেমিনারের পর ১৯৭৮ সালের এপ্রিলে প্রতিষ্ঠিত।",
+      "headquarters": {
+        "address_bn": "২০৫, কাজলার পাড় (ভাঙ্গাপ্রেস), যাত্রাবাড়ী, ঢাকা-১২৩৬",
+        "verification_status": "user_supplied_not_independently_verified"
+      },
+      "official_website": "https://befaqbd.org/",
+      "functions_bn": [
+        "কওমি মাদরাসা নিবন্ধন",
+        "নেসাব/পাঠ্যসূচি প্রণয়ন",
+        "শিক্ষার মান যাচাই",
+        "কেন্দ্রীয় পরীক্ষা আয়োজন",
+        "সনদ ও ডিগ্রি প্রদান"
+      ],
+      "membership_bn": "ব্যবহারকারী-প্রদত্ত ঐতিহাসিক বিবরণ অনুযায়ী সদস্যপদ স্বেচ্ছামূলক; বেফাকের অধীনে সনদ/ডিগ্রি স্বীকৃতির ক্ষেত্রে সদস্যপদের প্রয়োজনীয়তার দাবি উৎসে রয়েছে। বর্তমান নিয়ম যাচাই প্রয়োজন।",
+      "historical_relationship_bn": "ব্যবহারকারী-প্রদত্ত বিবরণে ১৯৫৭ সালে প্রতিষ্ঠিত পাকিস্তানের Wafaq ul Madaris Al-Arabia-এর ধারাবাহিকতার সঙ্গে সম্পর্কের কথা বলা হয়েছে।",
+      "notable_institutions_bn": [
+        "আল-জামিয়াতুল আরাবিয়াতুল ইসলামিয়া জিরি",
+        "আল-জামিয়াতুল আহলিয়া দারুল উলুম মঈনুল ইসলাম",
+        "বেফাকুল মাদারিসিল কওমিয়া গওহরডাঙ্গা বাংলাদেশ",
+        "আল-জামিয়াতুল আরাবিয়া হাইলধর",
+        "জামিয়া তাওয়াক্কুলিয়া রেঙ্গা",
+        "জামিয়াতুল উলুম আল-ইসলামিয়া লালখান বাজার",
+        "জামিয়া কুরআনিয়া আরাবিয়া লালবাগ",
+        "আল-জামিয়া আল-ইসলামিয়া পটিয়া",
+        "জামিয়া শরইয়্যাহ মালিবাগ, ঢাকা",
+        "জামিয়া রাহমানিয়া আরাবিয়া ঢাকা",
+        "জামিয়া দারুল মা‘আরিফ আল-ইসলামিয়া"
+      ],
+      "district_office_administrators": [
+        {
+          "serial": 1,
+          "regions_bn": [
+            "গাজীপুর"
+          ],
+          "admin_name_bn": "মাও. ওয়ালী উল্লাহ",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০০৪",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 2,
+          "regions_bn": [
+            "বরিশাল",
+            "ভোলা",
+            "পটুয়াখালী",
+            "ঝালকাঠি",
+            "বরগুনা",
+            "পিরোজপুর",
+            "খুলনা",
+            "বাগেরহাট",
+            "সাতক্ষীরা"
+          ],
+          "admin_name_bn": "মাও. আবু তাহের",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০০৫",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 3,
+          "regions_bn": [
+            "ঢাকা (মহানগর)"
+          ],
+          "admin_name_bn": "মাও. ইব্রাহীম খলীল",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০০৬",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 4,
+          "regions_bn": [
+            "ফরিদপুর",
+            "রাজবাড়ী",
+            "শরীয়তপুর",
+            "মাদারীপুর",
+            "গোপালগঞ্জ"
+          ],
+          "admin_name_bn": "মাও. জাহিদুল ইসলাম",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০০৭",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 5,
+          "regions_bn": [
+            "কুমিল্লা",
+            "চাঁদপুর"
+          ],
+          "admin_name_bn": "মাও. শফিকুল ইসলাম",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০০৮",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 6,
+          "regions_bn": [
+            "ময়মনসিংহ-১: সদর",
+            "মুক্তাগাছা",
+            "ফুলবাড়িয়া",
+            "ত্রিশাল",
+            "ভালুকা"
+          ],
+          "admin_name_bn": "মাও. ওমর ফারুক",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০০৯",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 7,
+          "regions_bn": [
+            "নারায়ণগঞ্জ"
+          ],
+          "admin_name_bn": "মাও. খালেদ সাইফুল্লাহ",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০১১",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 8,
+          "regions_bn": [
+            "লক্ষ্মীপুর",
+            "নোয়াখালী",
+            "ফেনী",
+            "চট্টগ্রাম",
+            "খাগড়াছড়ি",
+            "রাঙামাটি",
+            "কক্সবাজার"
+          ],
+          "admin_name_bn": "মাও. নুরুদ্দীন",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০১২",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 9,
+          "regions_bn": [
+            "ঢাকা: যাত্রাবাড়ী",
+            "সাভার",
+            "আশুলিয়া",
+            "ধামরাই",
+            "দোহার",
+            "নবাবগঞ্জ",
+            "কেরানীগঞ্জ"
+          ],
+          "admin_name_bn": "মাও. সাইফুল ইসলাম খাঁন",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০১৩",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 10,
+          "regions_bn": [
+            "কিশোরগঞ্জ",
+            "ব্রাহ্মণবাড়িয়া"
+          ],
+          "admin_name_bn": "মাও: সালমান ফার্সী",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০১৪",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 11,
+          "regions_bn": [
+            "যশোর",
+            "নড়াইল",
+            "মাগুরা",
+            "ঝিনাইদহ",
+            "চুয়াডাঙ্গা",
+            "মেহেরপুর",
+            "কুষ্টিয়া"
+          ],
+          "admin_name_bn": "মাও. মুবাশ্বির",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০১৫",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 12,
+          "regions_bn": [
+            "হিফয মারকায (সকল জেলা)"
+          ],
+          "admin_name_bn": "মাও: মো. শোয়াইব",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০১৬",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 13,
+          "regions_bn": [
+            "শেরপুর",
+            "জামালপুর"
+          ],
+          "admin_name_bn": "মাও: মাসউদ হাসান",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০১৭",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 14,
+          "regions_bn": [
+            "নাটোর",
+            "রাজশাহী",
+            "চাঁপাইনবাবগঞ্জ",
+            "নওগাঁ",
+            "জয়পুরহাট",
+            "গাইবান্ধা",
+            "কুড়িগ্রাম",
+            "লালমনিরহাট",
+            "রংপুর",
+            "নীলফামারী",
+            "দিনাজপুর",
+            "ঠাকুরগাঁও",
+            "পঞ্চগড়"
+          ],
+          "admin_name_bn": "মাও: জুনাইদ",
+          "whatsapp_number_original": "০১৮০৫৫৬ ৯০১৮",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 15,
+          "regions_bn": [
+            "ময়মনসিংহ-২: গফরগাঁও",
+            "পাগলা",
+            "নান্দাইল",
+            "ঈশ্বরগঞ্জ",
+            "গৌরীপুর",
+            "তারাকান্দা",
+            "ফুলপুর",
+            "হালুয়াঘাট",
+            "ধোবাউড়া"
+          ],
+          "admin_name_bn": "মাও. আরিফ রব্বানী",
+          "whatsapp_number_original": "০১৮০৫৫৬৯০১৯",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 16,
+          "regions_bn": [
+            "নরসিংদী",
+            "মুন্সিগঞ্জ",
+            "মানিকগঞ্জ"
+          ],
+          "admin_name_bn": "মাও: ফয়সাল আহমদ",
+          "whatsapp_number_original": "০১৮০৫৫৬ ৯০২০",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 17,
+          "regions_bn": [
+            "নেত্রকোনা"
+          ],
+          "admin_name_bn": "মাও: নূর মোহাম্মদ",
+          "whatsapp_number_original": "০১৮০৫৫৬ ৯০২১",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 18,
+          "regions_bn": [
+            "সিলেট",
+            "সুনামগঞ্জ",
+            "মৌলভীবাজার",
+            "হবিগঞ্জ"
+          ],
+          "admin_name_bn": "মাও: আনোয়ার হুসাইন",
+          "whatsapp_number_original": "০১৮০৫৫৬ ৯০২২",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        },
+        {
+          "serial": 19,
+          "regions_bn": [
+            "টাঙ্গাইল",
+            "সিরাজগঞ্জ",
+            "পাবনা",
+            "বগুড়া"
+          ],
+          "admin_name_bn": "মাও: মাহদী হাসান মায়মুন",
+          "whatsapp_number_original": "০১৮০৫৫৬ ৯০২৩",
+          "whatsapp_url_submitted": "https://wa.me/88"
+        }
+      ],
+      "verification_status": "partly_supported_by_research_and_user_supplied_details"
+    },
+    {
+      "id": "al_haiatul_ulya",
+      "name": {
+        "bn": "আল-হাইআতুল উলয়া লিল-জামি'আতিল কওমিয়া বাংলাদেশ",
+        "en": "Al-Haiatul Ulya Lil-Jamiatil Qawmia Bangladesh"
+      },
+      "description": {
+        "en": "The coordinating authority named in the 2018 Act for the Dawra-e-Hadith (Taqmil) certificate equivalence arrangement. The law specifies its role in relation to the relevant Qawmi boards.",
+        "bn": "দাওরায়ে হাদিস (তাকমিল) সনদের সমমান সংক্রান্ত ২০১৮ সালের আইনে উল্লিখিত সমন্বয়কারী কর্তৃপক্ষ।"
+      },
+      "legal_role": "Named in Act No. 48 of 2018",
+      "source_ids": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "historical_regional_qawmi_boards_2013",
+      "record_type": "historical_board_landscape",
+      "as_of_date": "2013-06-17",
+      "source_id": "S16",
+      "note_bn": "নিচের বিবরণ ২০১৩ সালের নিবন্ধে বর্ণিত ঐতিহাসিক চিত্র; বর্তমান বোর্ড-অবস্থা হিসেবে ধরে নেওয়া যাবে না।",
+      "boards": [
+        {
+          "name_bn": "ইত্তেহাদুল মাদারিস",
+          "name_en": "Ittehad-ul-Madaris",
+          "base_bn": "আল-জামিয়া আল-ইসলামিয়া পটিয়া, চট্টগ্রাম",
+          "coverage_bn": "চট্টগ্রাম বিভাগ; ফেনী ও নোয়াখালীর কিছু প্রতিষ্ঠান",
+          "reported_madrasa_count": 600,
+          "count_qualifier": "approximately"
+        },
+        {
+          "name_bn": "আজাদ দ্বীনি এদারা-এ-তালীম বাংলাদেশ",
+          "name_en": "Azad Deeni Iddara-e-Talim Bangladesh",
+          "coverage_bn": "সিলেট বিভাগ",
+          "reported_madrasa_count": 500,
+          "count_qualifier": "approximately"
+        },
+        {
+          "name_bn": "তানযীমুল মাদারিস",
+          "name_en": "Tanzeem-ul-Madaris",
+          "base_bn": "জামিল মাদরাসা, বগুড়া",
+          "coverage_bn": "উত্তরবঙ্গ"
+        },
+        {
+          "name_bn": "গওহরডাঙ্গা বোর্ড",
+          "name_en": "Gohardanga board",
+          "coverage_bn": "দক্ষিণবঙ্গ"
+        }
+      ]
+    }
+  ],
+  "law_and_recognition": [
+    {
+      "id": "bd_act_48_2018",
+      "title": {
+        "bn": "কওমি মাদরাসাসমূহের দাওরায়ে হাদিস (তাকমীল)-এর সনদকে মাস্টার্স ডিগ্রি (ইসলামিক স্টাডিজ ও আরবি)-এর সমমান প্রদান আইন, ২০১৮",
+        "en": "Qawmi Madrasas Dawra-e-Hadith (Taqmil) Certificate Equivalence Act, 2018"
+      },
+      "act_number": 48,
+      "date_enacted": "2018-10-08",
+      "key_effect": {
+        "en": "Provides master's-degree equivalence in Islamic Studies and Arabic for the Dawra-e-Hadith (Taqmil) certificate issued under Al-Haiatul Ulya, subject to the Act's terms.",
+        "bn": "আইনের শর্তসাপেক্ষে আল-হাইআতুল উলয়ার অধীনে প্রদত্ত দাওরায়ে হাদিস (তাকমিল) সনদকে ইসলামিক স্টাডিজ ও আরবি বিষয়ে মাস্টার্স ডিগ্রির সমমান প্রদান করে।"
+      },
+      "scope_note": "This is a specific equivalence for the Dawra-e-Hadith (Taqmil) certificate. It should not be described as automatic equivalence for every Qawmi grade, every certificate or every professional qualification.",
+      "primary_source_ids": [
+        "S1",
+        "S2"
+      ]
+    }
+  ],
+  "statistics": {
+    "note": "Different figures are not directly comparable. They come from different years, collection methods and definitions. Treat each as a dated estimate or administrative count, not as a current definitive census.",
+    "estimates": [
+      {
+        "year": 2015,
+        "institutions": 13902,
+        "students": 1398252,
+        "teachers": 73731,
+        "male_institutions": 12693,
+        "female_institutions": 1209,
+        "male_students": 1058636,
+        "female_students": 339616,
+        "evidence_type": "BANBEIS survey as reported by press",
+        "limitations": "A historic survey; not a current census.",
+        "source_ids": [
+          "S5",
+          "S6"
+        ]
+      },
+      {
+        "year": 2026,
+        "institutions_estimate": 25000,
+        "students_estimate": 7000000,
+        "evidence_type": "Education minister's parliamentary statement as reported by The Daily Star",
+        "limitations": "Reported estimate; methodology and institutional inclusion criteria should be checked before use as an official census.",
+        "source_ids": [
+          "S7"
+        ]
+      },
+      {
+        "year": 2023,
+        "qawmi_madrasas_in_primary_census": 107,
+        "evidence_type": "Annual Primary School Census 2023",
+        "limitations": "This is a count of Qawmi madrasas within the census's pre-primary-to-grade-V coverage, not the total number of Qawmi madrasas in Bangladesh.",
+        "source_ids": [
+          "S8"
+        ]
+      },
+      {
+        "year": 2013,
+        "qawmi_deobandi_madrasas_estimate_min": 5500,
+        "qawmi_deobandi_madrasas_estimate_max": 10000,
+        "maktabs_included": false,
+        "evidence_type": "author_estimate_in_Daily_Star_commentary",
+        "limitations": "Nikhil R. Puri-এর ১৭ জুন ২০১৩ নিবন্ধে লেখকের আনুমানিক হিসাব; পূর্ণাঙ্গ census নয়।",
+        "source_ids": [
+          "S16"
+        ]
+      },
+      {
+        "year": 2013,
+        "befaq_member_madrasas_reported": 3600,
+        "ittehad_member_madrasas_reported_approx": 600,
+        "azad_deeni_iddara_madrasas_reported_approx": 500,
+        "evidence_type": "board_membership_figures_reported_in_Daily_Star_commentary",
+        "limitations": "২০১৩ সালের নিবন্ধে উল্লেখিত বোর্ডভিত্তিক সংখ্যা; বর্তমান সদস্যসংখ্যা নয় এবং জাতীয় মোটের সঙ্গে সরাসরি তুলনীয় নয়।",
+        "source_ids": [
+          "S16"
+        ]
+      },
+      {
+        "year": null,
+        "institutions_estimate_min": 65001,
+        "institutions_estimate_qualifier": "more_than",
+        "population": "Qawmi madrasas in Bangladesh",
+        "evidence_type": "user_supplied_encyclopedic_excerpt_claim",
+        "limitations": "The supplied excerpt states “more than 65,000” but does not give a clear reference year or explain the counting method. Do not treat as verified census.",
+        "source_ids": [
+          "S17"
+        ]
+      },
+      {
+        "year": 2013,
+        "befaq_affiliated_madrasas_estimate_min": 20001,
+        "estimate_qualifier": "more_than",
+        "evidence_type": "user_supplied_encyclopedic_excerpt_claim",
+        "limitations": "The supplied excerpt says that as of 2013 more than 20,000 seminaries were affiliated with Befaqul Madaris; this conflicts with the 2013 Daily Star article’s estimate of 3,600 member madrasas. Keep both as separate source-specific claims; do not reconcile without further evidence.",
+        "source_ids": [
+          "S17"
+        ]
+      }
+    ],
+    "interpretation": "Do not present 13,902, 25,000 or 107 as competing counts of the same population without explaining their different dates and scopes."
+  },
+  "student_life_and_institutional_features": {
+    "common_features": [
+      "Residential and non-residential arrangements may both exist.",
+      "Some institutions provide food, accommodation or support for students; availability differs by institution.",
+      "Community donations, zakat, waqf income and charitable contributions may support institutions; funding models vary.",
+      "Admission age, prerequisites, fees, accommodation and academic calendar are institution-specific.",
+      "Male and female institutions exist; access and program availability vary by locality and institution."
+    ],
+    "verification_note": "These are general patterns, not guarantees about every institution. Confirm directly with each madrasa."
+  },
+  "career_and_further_study": {
+    "common_pathways": [
+      {
+        "en": "Teaching in madrasas",
+        "bn": "মাদরাসায় শিক্ষকতা"
+      },
+      {
+        "en": "Imamat and mosque-related roles",
+        "bn": "ইমামতি ও মসজিদ-সংশ্লিষ্ট দায়িত্ব"
+      },
+      {
+        "en": "Khutbah and religious guidance",
+        "bn": "খুতবা ও ধর্মীয় দিকনির্দেশনা"
+      },
+      {
+        "en": "Islamic research, writing and publishing",
+        "bn": "ইসলামি গবেষণা, লেখালেখি ও প্রকাশনা"
+      },
+      {
+        "en": "Further study in Islamic disciplines",
+        "bn": "ইসলামি বিষয়ে উচ্চতর অধ্যয়ন"
+      }
+    ],
+    "qualification_caution": "Employment eligibility and admission to universities or public-sector roles depend on the specific qualification, institution and applicable rules. The 2018 equivalence law is limited to the specified Dawra-e-Hadith certificate and fields."
+  },
+  "terminology": [
+    {
+      "term": "Qawmi",
+      "bn": "কওমি",
+      "definition": {
+        "en": "A term used for community-based or independent madrasa education institutions in South Asia.",
+        "bn": "দক্ষিণ এশিয়ায় কমিউনিটিভিত্তিক বা স্বতন্ত্র মাদরাসা শিক্ষাপ্রতিষ্ঠানের জন্য ব্যবহৃত পরিভাষা।"
+      }
+    },
+    {
+      "term": "Dawra-e-Hadith",
+      "bn": "দাওরায়ে হাদিস",
+      "definition": {
+        "en": "An advanced stage centered on the study of major Hadith collections; in Bangladesh, the Taqmil certificate is the subject of the 2018 equivalence law.",
+        "bn": "প্রধান হাদিসগ্রন্থ অধ্যয়নকেন্দ্রিক উচ্চতর স্তর; বাংলাদেশে তাকমিল সনদ ২০১৮ সালের সমমান আইনের বিষয়।"
+      }
+    },
+    {
+      "term": "Taqmil",
+      "bn": "তাকমিল",
+      "definition": {
+        "en": "A term associated with completion of the advanced Hadith course.",
+        "bn": "উচ্চতর হাদিস কোর্স সম্পন্ন করার সঙ্গে সম্পর্কিত পরিভাষা।"
+      }
+    },
+    {
+      "term": "Hifz",
+      "bn": "হিফজ",
+      "definition": {
+        "en": "Memorization of the Qur'an.",
+        "bn": "পবিত্র কুরআন মুখস্থ করা।"
+      }
+    },
+    {
+      "term": "Nahw",
+      "bn": "নাহু",
+      "definition": {
+        "en": "Arabic syntax and grammatical structure.",
+        "bn": "আরবি বাক্যগঠন ও ব্যাকরণ।"
+      }
+    },
+    {
+      "term": "Sarf",
+      "bn": "সরফ",
+      "definition": {
+        "en": "Arabic morphology and word formation.",
+        "bn": "আরবি শব্দরূপ ও শব্দগঠন।"
+      }
+    },
+    {
+      "term": "Fiqh",
+      "bn": "ফিকহ",
+      "definition": {
+        "en": "Islamic jurisprudence.",
+        "bn": "ইসলামি আইনশাস্ত্র।"
+      }
+    },
+    {
+      "term": "Tafsir",
+      "bn": "তাফসির",
+      "definition": {
+        "en": "Interpretation and exegesis of the Qur'an.",
+        "bn": "কুরআনের ব্যাখ্যা ও তাফসির।"
+      }
+    },
+    {
+      "term": "Aqeedah",
+      "bn": "আকিদা",
+      "definition": {
+        "en": "Islamic creed and theological beliefs.",
+        "bn": "ইসলামি বিশ্বাস ও ধর্মতত্ত্ব।"
+      }
+    },
+    {
+      "term": "Mutala'ah",
+      "bn": "মুতালাআ",
+      "definition": {
+        "en": "Reading or study, often used for independent preparation.",
+        "bn": "পাঠ বা অধ্যয়ন; অনেক ক্ষেত্রে ব্যক্তিগত প্রস্তুতি বোঝাতে ব্যবহৃত।"
+      }
+    }
+  ],
+  "research_topics_for_expansion": [
+    "Complete official board-wise syllabus and class-wise textbook lists",
+    "Current list of all Qawmi education boards and their legal/organizational status",
+    "Verified directory of madrasas by division, district and upazila",
+    "Institution-level admission, fees, accommodation and contact information",
+    "Biographies of founders, principals, teachers and major scholars with reliable references",
+    "History of major Qawmi institutions and regional networks",
+    "Current examination calendars, results, grading and certificate verification procedures",
+    "Girls' Qawmi education institutions and women's advanced study pathways",
+    "Teacher training, professional development and employment pathways",
+    "Digital learning resources, libraries, journals and research publications",
+    "Comparative studies of Qawmi, Alia and general education",
+    "Government policy, child protection, registration, funding and recognition developments"
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Qawmi Madrasas Dawra-e-Hadith (Taqmil) Certificate Equivalence Act, 2018 — Laws of Bangladesh",
+      "publisher": "Government of Bangladesh",
+      "url": "https://bdlaws.minlaw.gov.bd/act-print-1263.html",
+      "source_type": "primary_legal_source",
+      "language": "bn",
+      "supports": [
+        "Act No. 48 of 2018",
+        "scope of equivalence",
+        "Al-Haiatul Ulya",
+        "Deoband principles"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Extraordinary Gazette, October 2018",
+      "publisher": "Bangladesh Government Press",
+      "url": "https://www.dpp.gov.bd/bgpress/index.php/document/get_extraordinary/28138",
+      "source_type": "official_gazette",
+      "language": "bn",
+      "supports": [
+        "Official publication of Act No. 48 of 2018"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Improving the Efficacy of English Instruction at Qawmi Madrasas (Islamic Seminaries) in Bangladesh",
+      "authors": [
+        "Azam Md Golam",
+        "Tatsuya Kusakabe"
+      ],
+      "year": 2020,
+      "publisher": "SAGE Open",
+      "url": "https://journals.sagepub.com/doi/full/10.1177/2158244020924049",
+      "source_type": "peer_reviewed_research",
+      "language": "en",
+      "supports": [
+        "Befaq founding year and role",
+        "curriculum structure described in the study",
+        "subjects and stages",
+        "Qawmi/Alia distinction"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Improving the Efficacy of English Instruction at Qawmi Madrasas — article record",
+      "publisher": "SAGE Journals",
+      "url": "https://journals.sagepub.com/doi/10.1177/2158244020924049",
+      "source_type": "academic_publication",
+      "language": "en",
+      "supports": [
+        "Academic overview and research context"
+      ]
+    },
+    {
+      "id": "S5",
+      "title": "1.4m students study in 14,000 Qawmi madrasas",
+      "publisher": "Prothom Alo",
+      "url": "https://en.prothomalo.com/bangladesh/14-lakh-students-study-in-14-000-Qawmi-madrasas",
+      "source_type": "news_report_of_BANBEIS_survey",
+      "language": "en",
+      "supports": [
+        "2015 BANBEIS survey figures",
+        "division-level distribution reported",
+        "male/female institution and student counts"
+      ]
+    },
+    {
+      "id": "S6",
+      "title": "PowerPoint Presentation: Bangladesh education profile",
+      "publisher": "SESRIC",
+      "url": "https://www.sesric.org/imgs/news/1584_PRESENTATION_BANGLADESH_2_EN.pdf",
+      "source_type": "institutional_presentation",
+      "language": "en",
+      "supports": [
+        "Historic Qawmi institution, student and teacher figures",
+        "non-regulation by Bangladesh Madrasah Education Board",
+        "donation-based funding"
+      ]
+    },
+    {
+      "id": "S7",
+      "title": "Around 70 lakh students enrolled in 25,000 Qawmi madrasas: Education minister",
+      "publisher": "The Daily Star",
+      "date": "2026-07-14",
+      "url": "https://www.thedailystar.net/news/education/news/around-70-lakh-students-enrolled-25000-qawmi-madrasas-education-minister-4223691",
+      "source_type": "news_report_of_parliamentary_statement",
+      "language": "en",
+      "supports": [
+        "2026 estimate of 25,000 institutions and around 7 million students",
+        "minister's statement and policy context"
+      ]
+    },
+    {
+      "id": "S8",
+      "title": "Annual Primary School Census 2023",
+      "publisher": "Directorate of Primary Education, Government of Bangladesh",
+      "url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-dpe/2024/12/0f6a3efc3fe44d65845c84495a2b4626.pdf",
+      "source_type": "official_government_statistics",
+      "language": "en",
+      "supports": [
+        "107 Qawmi madrasas within primary census scope; not national total"
+      ]
+    },
+    {
+      "id": "S9",
+      "title": "Madrasah education research report",
+      "publisher": "BRAC Institute of Governance and Development",
+      "url": "https://bigd.bracu.ac.bd/wp-content/uploads/2021/03/Madrasah_bigd_research_report2_final.pdf",
+      "source_type": "research_report",
+      "language": "en",
+      "supports": [
+        "Qawmi and Alia system distinctions",
+        "historic estimates and institutional context"
+      ]
+    },
+    {
+      "id": "S11",
+      "title": "Wifaq Result 2019 madrasa list supplemented with a Dhaka women’s madrasa list",
+      "publisher": "User-provided uploaded text file; original underlying list attribution stated in file",
+      "source_type": "user_provided_structured_directory",
+      "language": "bn",
+      "record_count": 1826,
+      "supports": [
+        "1,826 source-transcribed madrasa records",
+        "Institution names",
+        "Addresses",
+        "Original affiliation (ইলহাক) codes",
+        "Supplementary women’s madrasa records and some upazila labels"
+      ],
+      "verification_status": "needs_independent_verification"
+    },
+    {
+      "id": "S12",
+      "title": "কওমি মাদ্রাসার সিলেবাস ও পাঠদান পদ্ধতি; যুগ চাহিদার অনুধাবন জরুরি",
+      "authors": [
+        "মোঃ আব্দুল হাসিব"
+      ],
+      "publisher": "User-provided uploaded text extract; original publication URL not included",
+      "source_type": "opinion_or_commentary",
+      "language": "bn",
+      "supports": [
+        "Author’s views on syllabus additions and removals",
+        "Author’s discussion of English, logic, philosophy, history and social/economic subjects",
+        "Author’s discussion of girls’ madrasa education"
+      ],
+      "verification_status": "attributed_opinion_not_policy"
+    },
+    {
+      "id": "S13",
+      "title": "কওমি মাদ্রাসার স্তর, সমমান, মেয়াদ ও মূল বিষয়—ছবিতে দেওয়া সারণি",
+      "publisher": "User-provided image",
+      "source_type": "user_provided_image_table",
+      "language": "bn",
+      "supports": [
+        "Six rows of madrasa level/equivalency information",
+        "Durations stated in the image",
+        "Main subjects stated in the image"
+      ],
+      "verification_status": "transcribed_not_independently_verified",
+      "notes": "Blank cells in the level-name column were preserved as blank. Equivalency labels are transcribed from the image and are not independently confirmed as official equivalencies."
+    },
+    {
+      "id": "S14",
+      "title": "তাহফিজুল কুরআন-এর নেসাব এবং ইলমুত তাজবীদ ওয়াল কিরাআত-এর নেসাব",
+      "publisher": "User-provided Bengali text in conversation",
+      "source_type": "user_provided_syllabus_text",
+      "language": "bn",
+      "supports": [
+        "তাহফিজুল কুরআন নেসাবের বিষয়, পাঠদান ও মৌখিক পরীক্ষার কাঠামো",
+        "ইলমুত তাজবীদ ওয়াল কিরাআত-এর দুই বছর মেয়াদি নেসাব, ভর্তি-যোগ্যতা, বিষয় ও পরীক্ষার নম্বর"
+      ],
+      "verification_status": "user_supplied_not_independently_verified",
+      "notes": "বোর্ড/প্রতিষ্ঠানের নাম, প্রকাশনার তারিখ, নেসাবের কার্যকর শিক্ষাবর্ষ এবং মূল নথির ছবি/PDF দেওয়া হয়নি। ব্যবহারকারীর পাঠানো বাংলা টেক্সট থেকে কাঠামোবদ্ধ করা হয়েছে; OCR/টাইপজনিত বিকৃতি থাকা কয়েকটি শব্দ আলাদাভাবে চিহ্নিত।",
+      "original_text_bn": "তাহফিজুল কুরআন-এর ননসাব [ছাত্র/ছাত্রী]\nতাহফিজুল কুরআন-এর ননসাববর অন্তর্ুক্তু ফবষয় হবব ন াট চারফট। যথা:\n১। ফহিযুল কুরআন: ৩০ পারা ুখস্থ, হদর ও তারতীল উর্য় প্রকাবর আ লী তাজবীদসহ।\n২। তাজবীদ: নবিাক কততুক প্রকাফিত ‘ববিাক তাজবীদ ও াসাফয়ল ফিক্ষা’ ন ৌফখক পড়াবত হবব।\n৩। তাহযীব: ইসলা ী তাহযীব:\n(ক) আদইয়াবয় াসনূনাহ: নবিাক তাজবীদ ও াসাফয়ল ফিক্ষা এবং ইসলা ী তাহযীব পুস্তবকর সাহাবযে ন ৌফখক নিখাবত হবব।\n(খ) আ ল-আখলাক ও ঈ ান-আকীদাহ: ইসলা ী তাহযীব এবং নবিাক তাজবীদ ও াসাফয়ল ফিক্ষা পুস্তবকর সাহাবযে ন ৌফখক নিখাবত হবব।\n৪। াসাবয়বল জরুফরয়া: জরুফর াসাবয়ল নিখাবত হবব। জরুফর াসাবয়বলর বযে ওযু, ন াসল, তায়াম্মু , পাফন, নাজাসাত, ইসফতনজা, আযান, না ায, জানাযা, নরাযা, কুরবানী, আকীকাহ অন্তর্ুুক্ত থাকবব। ‘ববিাক তাজবীদ ও াসাফয়ল ফিক্ষা’ অবলম্ববন এগুবলা নিখাবত হবব।\nপরীক্ষা ন ৌফখক : ফবষয় ন াট ৩ফট। ান : ২০০\n১। ফহিয-এর ান = ১০০ প্রশ্ন ন াট ৩ফট। বাযেতা ূলক পাস নম্বর হবব ৫০\n২। তাজবীদ-এর ান = ৫০ প্রশ্ন ন াট ৩ফট। দু’ফটর উত্তর কা ে পাস নম্বর হবব ২০\n৩। াসাবয়ল-এর ান = ৫০ প্রশ্ন ন াট ৩ফট। দু’ফটর উত্তর কা ে পাস নম্বর হবব ২০\nফবর্া : তততীয় ফবর্া ( াকবুল) : ফতলাওয়াত (ইয়াদ) ফবষবয়র ৫০-সহ ন াট ৯০ নম্বর, ফিতীয় ফবর্া (জাফয়েদ) : ফতলাওয়াত (ইয়াদ) ফবষবয়র ৬০-সহ ন াট ১২০ নম্বর, ১ ফবর্া (জাফয়েদ ফজদ্দান) : ফতলাওয়াত (ইয়াদ) ফবষবয়র ৭০-সহ ন াট ১৫০ নম্বর এবং ু তায (স্টার াকু) : ফতলাওয়াত (ইয়াদ) ফবষবয়র ৮০-সহ ন াট ১৭০ নম্বর।\n\nইল ুত তাজবীদ ওয়াল ফকরাআবতর (উচ্চতর তাজবীদ ও ফকরাআবতর) ননসাব [ছাত্র/ছাত্রী]\nই া হািস (রহ.)-এর নরওয়াবয়বতর ফর্ফত্তবত এ ননসাব পফরচাফলত হবব। র্ফতুর নযা েতা : ছাত্রবদর নক্ষবত্র সানাফবয়া  ারহালা [কাফিয়া (১০ নেফি)] এবং ছাত্রীবদর নক্ষবত্র কুদূরী (নব নেফি) পাস হবত হবব।\n১ বষু\nফবষয় ঘণ্টা পরীক্ষার ান\n(ক) িক : সূরা ক্বাি হবত সূরা নাস পযুন্ত (অথুাৎ নিষ নফযল) প্রতেহ ১ ঘণ্টা, সপ্তাবহ ৭ ঘণ্টা ১০০\n(খ) তাজবীদ : জা ালুল কুরআন ও িাওয়াবয়বদ ফিয়াহ ঐ ১০০\n( ) ফহিয : আম্মাপারা ঐ ১০০\n২য় বষু\nফবষয় ঘণ্টা পরীক্ষার ান\n(ক) িক : বাফক কুরআন াফজদ প্রতেহ ১ ঘণ্টা, সপ্তাবহ ৭ ঘণ্টা (তারতীল ১০০+হদর ৫০) ১৫০\n(খ) তাজবীদ : জা ালুল কুরআন ঐ ১০০\n( ) ফহিয : ২৯ নং পারা পূিু ঐ ৫০\nউবেখে, প্রফত ঘণ্টা ৯০ ফ ফনবটর হবত হবব। উপফরউক্ত ননসাব পড়া বেতীত নকউ এ পরীক্ষায় অংিগ্রহি করবত পারবব না।"
+    },
+    {
+      "id": "S15",
+      "title": "কেন্দ্রীয় পরীক্ষার নেসাব (দরসিয়াত: ছাত্রী) এবং আল-মারহালাতুল ইবতেদাইয়া (প্রাথমিক/৫ম শ্রেণি)",
+      "publisher": "User-provided Bengali text in conversation",
+      "source_type": "user_provided_syllabus_text",
+      "language": "bn",
+      "supports": [
+        "ছাত্রীদের ফযীলত, সানাবিয়াতুল উলয়া ও মুতাওয়াসসিতা মারহালার বই ও পাঠ্যাংশ",
+        "ইবতেদাইয়া/পঞ্চম শ্রেণির বিষয়, বই ও পরীক্ষার নিয়ম",
+        "বাংলা ব্যাকরণ ও ইংরেজি ব্যাকরণে বেফাক-প্রকাশিত/নির্ধারিত বইয়ের নির্দেশনা"
+      ],
+      "verification_status": "user_supplied_not_independently_verified",
+      "notes": "কিছু বইয়ের নাম ও শিরোনাম OCR/টাইপজনিত কারণে অস্পষ্ট। মূল নথি/ছবি ছাড়া অনিশ্চিত পাঠ অনুমান করে সংশোধন করা হয়নি।"
+    },
+    {
+      "id": "S16",
+      "title": "A united front for a divided lot",
+      "authors": [
+        "Nikhil R. Puri"
+      ],
+      "publisher": "The Daily Star",
+      "date": "2013-06-17",
+      "url": "https://web.archive.org/web/20140508223725/http://archive.thedailystar.net/beta2/news/a-united-front-for-a-divided-lot/",
+      "source_type": "newspaper_analysis_or_commentary",
+      "language": "en",
+      "supports": [
+        "2013 সালে কওমি/দেওবন্দি মাদরাসার লেখক-উদ্ধৃত আনুমানিক সংখ্যা ৫,৫০০–১০,০০০ (মক্তব বাদে)",
+        "বেফাকের ৩,৬০০ সদস্য মাদরাসা; ইত্তেহাদুল মাদারিসের আনুমানিক ৬০০; আজাদ দ্বীনি এদারার আনুমানিক ৫০০",
+        "তানযীমুল মাদারিস ও গওহরডাঙ্গা বোর্ডের আঞ্চলিক বিস্তার",
+        "২০০৬ সালের সম্মিলিত কওমি মাদরাসা শিক্ষা বোর্ড উদ্যোগ ও বেফাকের অংশ না নেওয়া",
+        "২০১৩ সালের হেফাজতে ইসলাম ও দেওবন্দি নেতৃত্বের বিভাজন বিষয়ে লেখকের বিশ্লেষণ"
+      ],
+      "verification_status": "dated_secondary_source_historical_context",
+      "notes": "নিবন্ধের সংখ্যা ও বিশ্লেষণ ২০১৩ সালের লেখকের বক্তব্য; বর্তমান অবস্থা বা নিরপেক্ষ census হিসেবে ব্যবহারযোগ্য নয়। নিবন্ধের বোর্ড-ভিত্তিক আনুমানিক সংখ্যাগুলো একই সময়ের জাতীয় মোট census হিসেবে যোগ বা তুলনা করা হয়নি।"
+    },
+    {
+      "id": "S17",
+      "title": "Befaqul Madarisil Arabia Bangladesh: পরিচিতি, প্রতিষ্ঠা, কার্যক্রম ও প্রধান কার্যালয়",
+      "publisher": "User-provided English/Bengali text in conversation",
+      "source_type": "user_provided_encyclopedic_excerpt_and_address",
+      "language": "bn/en/ar",
+      "supports": [
+        "বাংলা, ইংরেজি ও আরবি নাম এবং প্রচলিত সংক্ষিপ্ত নাম",
+        "এপ্রিল ১৯৭৮ প্রতিষ্ঠাকাল ও প্রতিষ্ঠার প্রেক্ষাপট হিসেবে আলেমদের সেমিনার",
+        "পাকিস্তানের Wafaq ul Madaris Al-Arabia (১৯৫৭)-এর সঙ্গে ঐতিহাসিক ধারাবাহিকতার দাবি",
+        "মাদরাসা নিবন্ধন, নেসাব প্রণয়ন, শিক্ষার মান যাচাই, পরীক্ষা ও সনদ প্রদানের কার্যাবলি",
+        "প্রধান কার্যালয়ের ব্যবহারকারী-প্রদত্ত ঠিকানা: ২০৫, কাজলার পাড় (ভাঙ্গাপ্রেস), যাত্রাবাড়ী, ঢাকা-১২৩৬",
+        "উল্লেখযোগ্য কওমি প্রতিষ্ঠানের তালিকা"
+      ],
+      "verification_status": "user_supplied_not_independently_verified",
+      "notes": "উদ্ধৃত ইংরেজি পাঠে কয়েকটি ঐতিহাসিক সংখ্যা ও দাবি তৃতীয় পক্ষের রেফারেন্সের ওপর নির্ভরশীল; বর্তমান তথ্য হিসেবে নয়, উৎস-প্রদত্ত দাবি হিসেবে রাখা হয়েছে।"
+    },
+    {
+      "id": "S18",
+      "title": "জেলা/অঞ্চলভিত্তিক বেফাক অফিস অ্যাডমিন তালিকা (১৯ জন)",
+      "publisher": "User-provided table in conversation",
+      "source_type": "user_provided_contact_directory",
+      "language": "bn",
+      "supports": [
+        "১৯ জন জেলা/অঞ্চলভিত্তিক অফিস অ্যাডমিনের নাম, দায়িত্বের এলাকা ও হোয়াটসঅ্যাপ নম্বর"
+      ],
+      "verification_status": "user_supplied_not_independently_verified",
+      "notes": "ব্যক্তিগত যোগাযোগের তথ্য ব্যবহারকারী-প্রদত্ত। wa.me/88 লিংকগুলো অসম্পূর্ণ; কোনো পূর্ণ লিংক অনুমান করে তৈরি করা হয়নি। ১৪–১৯ নম্বরের কয়েকটি নম্বরে মূল পাঠে স্পেস আছে; মূল প্রদত্ত বিন্যাস সংরক্ষিত।"
+    },
+    {
+      "id": "S19",
+      "title": "Mirpur and Savar madrasa directory lists (part of the consolidated 1,979-record madrasa file)",
+      "publisher": "User-provided pasted JSON in conversation",
+      "source_type": "user_provided_structured_directory",
+      "language": "bn",
+      "record_count": 153,
+      "supports": [
+        "Institution names and addresses for Mirpur-area and Savar-area (incl. Ashulia) madrasas",
+        "Explicit men/women labels and upazila labels"
+      ],
+      "verification_status": "needs_independent_verification",
+      "notes": "No affiliation codes in this list. Two records carry the source flag locationUnverified."
+    }
+  ],
+  "data_quality": {
+    "known_gaps": [
+      "No complete, regularly updated public national register of all Qawmi institutions was identified in the sources used for this starter file.",
+      "Institution and student counts vary significantly across years and sources.",
+      "Board-wise curriculum and textbook lists require direct current source verification.",
+      "Names and translations of stages vary among institutions and boards.",
+      "Current legal and policy changes after the cited sources need periodic review.",
+      "User-provided syllabus details have not yet been independently verified against an official board publication.",
+      "বেফাকের জেলা/অঞ্চলভিত্তিক ১৯ জন অফিস অ্যাডমিনের নাম ও ফোন নম্বর ব্যবহারকারী-প্রদত্ত; বর্তমান দায়িত্ব ও নম্বর সরাসরি বোর্ড থেকে যাচাই করা হয়নি।",
+      "বেফাকের প্রধান কার্যালয়ের ঠিকানা ব্যবহারকারী-প্রদত্ত; পরিবর্তিত হয়েছে কি না যাচাই প্রয়োজন।",
+      "২০১৩ সালের The Daily Star নিবন্ধের বোর্ড-সদস্যসংখ্যা ও কওমি মাদরাসার মোট সংখ্যা ঐতিহাসিক লেখক-অনুমান; বর্তমান গণনা নয়।",
+      "ছাত্রীদের দরসিয়াত ও ইবতেদাইয়া নেসাবের কয়েকটি বইয়ের নাম OCR-এ অস্পষ্ট; মূল প্রকাশিত নেসাবের সঙ্গে যাচাই প্রয়োজন।",
+      "বেফাকের অধিভুক্তির শর্ত, সদস্যপদ এবং ডিগ্রি-স্বীকৃতি সংক্রান্ত ব্যবহারকারী-প্রদত্ত বর্ণনার বর্তমান নিয়ম সরাসরি বোর্ডের নথি থেকে যাচাই করা প্রয়োজন।",
+      "User-provided encyclopedic excerpt claims more than 20,000 Befaqul-affiliated seminaries as of 2013, while Nikhil R. Puri’s 2013 Daily Star article reports 3,600 Befaqul member madrasas; these conflicting claims are retained separately pending source-level verification.",
+      "মিরপুর ও সাভারের নতুন তালিকায় ইলহাক কোড নেই এবং আগের Wifaq তালিকার সঙ্গে নামের বানানের পার্থক্যের কারণে কিছু ডুপ্লিকেট রয়ে যেতে পারে (possible_duplicate_of দেখুন)।"
+    ],
+    "recommended_record_fields": [
+      "id",
+      "name_bn",
+      "name_en",
+      "category",
+      "description_bn",
+      "description_en",
+      "source_ids",
+      "source_date",
+      "last_verified",
+      "verification_status",
+      "confidence"
+    ],
+    "verification_status_values": [
+      "verified_primary_source",
+      "supported_by_research",
+      "reported_estimate",
+      "needs_verification",
+      "disputed",
+      "source_transcribed_structurally_repaired_not_independently_verified",
+      "source_transcribed_location_unverified"
+    ],
+    "confidence_scale": {
+      "high": "Primary legal/government source or multiple strong sources",
+      "medium": "Peer-reviewed or institutional research",
+      "low": "Single secondary report or unverified claim"
+    },
+    "notes": [
+      "Contact enrichment v1.3.1 is partial. Publicly listed numbers are source-attributed and not call-verified; historical listings are labelled. No number is inferred for records without a matching source."
+    ]
+  },
+  "madrasa_directory": {
+    "title": {
+      "bn": "বাংলাদেশের কওমি মাদরাসার তালিকা",
+      "en": "Qawmi Madrasa Directory of Bangladesh"
+    },
+    "source_description": "Uploaded text: Wifaq Result, 2019; male madrasas, supplemented with a user-provided Dhaka women’s madrasa list; plus user-provided Mirpur and Savar directory lists (consolidated 1,979-record file, schemaVersion 2, supplied 2026-11-01).",
+    "declared_record_count": 1979,
+    "imported_record_count": 1972,
+    "gender_field_counts": {
+      "women": 236,
+      "men": 140,
+      "unspecified": 1596,
+      "other_explicit_values": 0
+    },
+    "field_notes": {
+      "name_bn": "Institution name as supplied in the source file.",
+      "address_original": "Address retained as supplied; administrative spellings and locality hierarchy have not been standardized.",
+      "affiliation_code": "Original Bengali field 'ইলহাক'; retained as a string because it may contain board/association notation.",
+      "gender": "Values: 'women', 'men', 'unspecified'. 'men'/'women' are used only where a source states it explicitly; missing values stay 'unspecified' and are not inferred.",
+      "upazila_original": "Present only for some records, including the supplementary women’s madrasa list.",
+      "original_as_submitted": "Present only on repaired records: the name/address/code exactly as first transcribed (a personal phone number, where present, is redacted).",
+      "also_listed_in": "Present on existing records that the Mirpur/Savar list (S19) lists again; the repeat is linked here instead of being added as a duplicate.",
+      "possible_duplicate_of": "Present on new records that closely resemble an existing record (similar name in the same area). Both are kept until reviewed."
+    },
+    "quality_notes": [
+      "The source describes the main list as Wifaq Result 2019 and says it was supplemented with a user-provided Dhaka women’s madrasa list.",
+      "This is a historical/source-derived directory, not a current official national register.",
+      "The source contains exact duplicate records; duplicates are retained to preserve source fidelity and should be reviewed before building a public directory.",
+      "Names and addresses may contain spelling, encoding or transcription errors.",
+      "Affiliation codes and institutional operating status have not been independently verified.",
+      "v1.3.0: 153 records from the Mirpur/Savar lists were compared with the existing directory; 146 were added and 7 were linked to existing records as repeat listings.",
+      "The first 1,826 records of the 1,979-record file were confirmed only by count and by spot checks against the existing records, not by a record-by-record machine comparison (the file was supplied as pasted text).",
+      "The 'type' (পুরুষ/মহিলা) value that the 1,979-record file carries for the first 1,596 records has not been applied; those records stay 'unspecified' until the file is supplied as an attachment.",
+      "Legacy-font encoding artifacts (for example ¶, ², æ, œ, ·) remain in many names and addresses and have not been normalised."
+    ],
+    "merge_report_v1_3_0": {
+      "repairs": [
+        {
+          "id": "qawmi_bd_1587",
+          "type": "fused_address_and_code"
+        },
+        {
+          "id": "qawmi_bd_1589",
+          "type": "personal_phone_and_note_removed"
+        },
+        {
+          "id": "qawmi_bd_0131",
+          "type": "name_split_at_comma"
+        },
+        {
+          "id": "qawmi_bd_1043",
+          "type": "name_split_at_comma"
+        },
+        {
+          "id": "qawmi_bd_0201",
+          "type": "name_split_at_comma"
+        },
+        {
+          "id": "qawmi_bd_0341",
+          "type": "stray_leading_character"
+        },
+        {
+          "id": "qawmi_bd_1775",
+          "type": "heading_fused_to_name",
+          "heading": "সাভার মডেল থানা"
+        },
+        {
+          "id": "qawmi_bd_1687",
+          "type": "asterisk_to_location_unverified_flag"
+        },
+        {
+          "id": "qawmi_bd_1691",
+          "type": "asterisk_to_location_unverified_flag"
+        }
+      ],
+      "merged_into_existing": [
+        {
+          "new_name": "আশরাফুল উলূম মাদরাসা",
+          "upazila": "মিরপুর মডেল",
+          "matched_ids": [
+            "qawmi_bd_0113",
+            "qawmi_bd_0114"
+          ]
+        },
+        {
+          "new_name": "দারুল উলূম মহিলা মাদরাসা",
+          "upazila": "শাহ আলী",
+          "matched_ids": [
+            "qawmi_bd_1726"
+          ]
+        },
+        {
+          "new_name": "দারুল উলূম মাদরাসা (১৩নং বাজার)",
+          "upazila": "কাফরুল ও ভাষানটেক",
+          "matched_ids": [
+            "qawmi_bd_0701"
+          ]
+        },
+        {
+          "new_name": "হযরত উম্মে সালমা (রাঃ) মহিলা মাদরাসা",
+          "upazila": "কাফরুল ও ভাষানটেক",
+          "matched_ids": [
+            "qawmi_bd_1570",
+            "qawmi_bd_1614"
+          ]
+        },
+        {
+          "new_name": "আনন্দপুর দারুল উলূম মাদরাসা",
+          "upazila": "সাভার",
+          "matched_ids": [
+            "qawmi_bd_0017"
+          ]
+        },
+        {
+          "new_name": "জামালুল উলূম জমিলা খাতুন মাদরাসা",
+          "upazila": "সাভার",
+          "matched_ids": [
+            "qawmi_bd_0217",
+            "qawmi_bd_0218"
+          ]
+        },
+        {
+          "new_name": "নুরুল উলূম মাদরাসা",
+          "upazila": "সাভার",
+          "matched_ids": [
+            "qawmi_bd_0769"
+          ]
+        }
+      ],
+      "possible_duplicates_flagged": [
+        {
+          "new_id": "qawmi_bd_1840",
+          "name": "নূরানী ইসলামিয়া মাদরাসা",
+          "candidates": [
+            "qawmi_bd_0759"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1851",
+          "name": "শহীদ মুক্তিযোদ্ধা জামিয়া ইমদাদিয়া দারুল উলূম",
+          "candidates": [
+            "qawmi_bd_1096",
+            "qawmi_bd_1097"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1870",
+          "name": "জামিয়া মিল্লিয়া মাদানিয়া আরাবিয়া (মিরপুর আজমা মহিলা মাদরাসা)",
+          "candidates": [
+            "qawmi_bd_1666"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1874",
+          "name": "আল জামিয়াতুস সিদ্দিকীয়া দারুল উলূম",
+          "candidates": [
+            "qawmi_bd_0068"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1896",
+          "name": "জান্নাত আরিফাবাদ মহিলা মাদরাসা",
+          "candidates": [
+            "qawmi_bd_1723"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1906",
+          "name": "মারকাযুল উলূম আশ শারইয়্যাহ সাভার",
+          "candidates": [
+            "qawmi_bd_0985",
+            "qawmi_bd_0986",
+            "qawmi_bd_0987"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1908",
+          "name": "জামিয়াতু ইব্রাহীম (আঃ) মাদরাসা",
+          "candidates": [
+            "qawmi_bd_0272"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1910",
+          "name": "রাজাশন দারুল উলূম মাদরাসা ও এতিমখানা",
+          "candidates": [
+            "qawmi_bd_1059"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1920",
+          "name": "মাদরাসা বাইতুল কুরআন",
+          "candidates": [
+            "qawmi_bd_0912"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1946",
+          "name": "আল জামিয়াতুল আরাবিয়া ইসলাহুন্নিসা",
+          "candidates": [
+            "qawmi_bd_1143",
+            "qawmi_bd_1775"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1948",
+          "name": "জামিয়াতুল আকবার দারুল উলূম মহিলা মাদরাসা",
+          "candidates": [
+            "qawmi_bd_1333"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1949",
+          "name": "হযরত সুমাইয়া (রাঃ) আদর্শ মহিলা মাদরাসা",
+          "candidates": [
+            "qawmi_bd_1788",
+            "qawmi_bd_1801"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1959",
+          "name": "কোনাপাড়া দারুল উলূম কওমী মাদরাসা",
+          "candidates": [
+            "qawmi_bd_0179"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1960",
+          "name": "দারুল কুরআন ওয়াস সুন্নাহ",
+          "candidates": [
+            "qawmi_bd_0724"
+          ]
+        },
+        {
+          "new_id": "qawmi_bd_1961",
+          "name": "জিরাবো জয়গুন্নেছা হাফিজিয়া মাদরাসা",
+          "candidates": [
+            "qawmi_bd_0629"
+          ]
+        }
+      ],
+      "added": 146,
+      "tail_records_in_new_file": 153
+    }
+  },
+  "research_articles_and_commentary": [
+    {
+      "id": "article_qawmi_syllabus_teaching_method",
+      "title": {
+        "bn": "কওমি মাদ্রাসার সিলেবাস ও পাঠদান পদ্ধতি; যুগ চাহিদার অনুধাবন জরুরি",
+        "en": "Qawmi Madrasa Syllabus and Teaching Methods: Understanding Contemporary Needs"
+      },
+      "author": "মোঃ আব্দুল হাসিব",
+      "content_language": "bn",
+      "content_type": "opinion_or_commentary",
+      "full_text_bn": "কওমি মাদ্রাসার সিলেবাস ও পাঠদান পদ্ধতি;যুগ চাহিদার অনুধাবন জরুরি\nমোঃ আব্দুল হাসিব:\n\nইসলামের শিক্ষাকে মৌলিকভাবে ৫ ভাগে বিভক্ত করা হয়।\n\n১.ঈমান\n\n২.ইবাদাত\n\n৩.আখলাক (আচার-আচরণ,চরিত্র)\n\n৪.মুআমালাত (আর্থিক লেনদেন)\n\n৫.মুআশারাত (ব্যক্তি,পরিবার,সমাজ এর সাথে সহাবস্থান)।\n\nকওমি মাদ্রাসাগুলোতে কুরআন-হাদিস এর আলোকে এই পাঁচটি বিষয়ের শিক্ষা দেওয়া হয়। এই শিক্ষা একজন মানুষকে মানুষ হতে শেখায়।উচ্চমাত্রার নৈতিকতা ও মানবতার শিক্ষা দেওয়া হয় এই প্রতিষ্ঠানে।\n\nকওমি মাদ্রাসার শিক্ষার ধরন,শিক্ষা সিলেবাস এবং এগুলোর কার্যকারিতা প্রমাণিত। যেই উদ্দেশে এই মাদ্রাসা শিক্ষার প্রবর্তন তা বাস্তবায়নে এই প্রতিষ্ঠান পুরোপুরি সফল বলা যায়। পুরো পৃথিবী আজকে এর ফলাফল দেখতে পাচ্ছে। আমাদের বাংলাদেশে কওমি মাদ্রাসাগুলোর শিক্ষার এই ধারাকে আরও কার্যকরী করতে এর নিয়ন্ত্রক সংস্থাগুলোর বেশকিছু পদক্ষেপ নেওয়া উচিত। যুগ চাহিদা অনুধাবন করে কিছু কার্যকরী পদক্ষেপ গ্রহণ করতে পারলে এর শিক্ষার্থীদের দ্বারা জাতি আরো বেশি উপকৃত হতে পারবে।\n\nপ্রথমেই আসি সিলেবাসের কথায়। অনেকেই কওমি মাদ্রাসার সিলেবাসে পরিবর্তনের কথা বলেন। আমি মনে করি,পরিবর্তন করার প্রয়োজন নেই। কিছু সংযোজন ও বিয়োজন দরকার। যদিও আমাদের মুরব্বিগণ এই ছোট্ট বাস্তবতা মেনে নিতেও অনিচ্ছুক।\n\n১.যখন ফার্সী ভাষার প্রয়োজন ছিলো তখন আমাদের আকাবির খুব গুরুত্ব দিয়ে এই ভাষা শিখিয়েছেন। যদিও তা আমাদের কুরআন-সুন্নাহর ভাষা না। অথচ এখন ইংরেজি ভাষার ব্যাপক প্রয়োজনীয়তা থাকা সত্ত্বেও এটাকে সেভাবে গুরুত্ব দিয়ে শিখানো হয় না। এই দিকে বিশেষ নজর দেওয়া প্রয়োজন।\n\n২.সংক্ষেপণ এবং সহজিকরণ এর নামে অযথাই যুক্তিবিদ্যা,দর্শন,আরবি ভাষার অলংকার শাস্ত্রকে সীমিত করা হয়েছে। অথচ এ শাস্ত্রগুলো মেধাকে তীক্ষ্ম করে। বুদ্ধির জোর বাড়ায়। দর্শন ছাড়া কোনো শিক্ষার গভীরে পৌঁছানো যায় না। এক্ষেত্রে করণীয় হল, পুরাতন ও আধুনিক যুক্তি বিদ্যা ও দর্শনকে সমন্বয় করে আরো ভালোভাবে শিক্ষা দেওয়া।\n\n৩.শর্ট কোর্স নামীয় নতুন এক শিক্ষা পদ্ধতির আবির্ভাব। আমরা কেন কুরআন সুন্নাহর এই বহুমাত্রিক,গুরুত্বপূর্ণ শিক্ষাকে এতো সস্তা বানিয়ে ফেলার চেষ্টা করছি। এর পেছনে কি উদ্দেশ্য কাজ করে আল্লাহই ভালো জানেন। এই অর্ধ শিক্ষায় শিক্ষিত করে কি লাভ হচ্ছে। এর দ্বারা শিক্ষাক্ষেত্রে পঙ্গুত্ব আসে। যারা কুরআন ও হাদিস সম্পর্কে অল্প কিছু জ্ঞান অর্জন করতে চায় তাদেরকে দ্বীনিয়াত সম্পর্কে কিছু শিক্ষা দিলেই হয়। দাওরায়ে হাদিস ফারেগ হতে হবে এরকম কোন বাধ্যবাধকতা শরিয়তে নেই। শায়খুল ইসলাম হযরত হুসাইন আহমদ মাদানী রাহিমাহুল্লাহ আসামের মাদ্রাসা শিক্ষার্থীদের জন্য যে সিলেবাস প্রণয়ন করেছিলেন তা ছিলো ১৬ বছর মেয়াদি। এই বিষয়টি ভাবনায় নিয়ে দ্রুত অগ্রসর হওয়ার পদক্ষেপ নেওয়া জরুরী।\n\n৪.”ইতিহাস” শিক্ষার অনেক গুরুত্বপূর্ণ একটি অংশ।অথচ ইতিহাসের বড় একটা অংশের কোনো ধারণাই মাদ্রাসা শিক্ষাথী’দের নেই। হযরত মাদানি রহ. এর প্রণীত সিলেবাসে উল্লেখ ছিলো কুরআন,সুন্নাহ এবং ফিকহের পর সবচেয়ে গুরুত্ব পাবে ইতিহাস।\n\n৫.ইসলামের মৌলিক পাঁচটি বিষয় এর মধ্যে ঈমান এবং ইবাদতের শিক্ষা যেই গুরুত্বের সঙ্গে দেওয়া হয়। ঠিক ততটুকু অবহেলা করা হয় বাকি তিন বিষয়ের ক্ষেত্রে। অথচ বাকি তিনটি বিষয়ের মধ্যে রয়েছে সমাজবিজ্ঞান,রাষ্ট্রবিজ্ঞান,অর্থনীতি,ব্যবসা বাণিজ্যর মতো অতীব গুরুত্বপূর্ণ সাবজেক্টগুলো।\n\nআমাদের মুরব্বিগণ কি কখনো ভেবেছেন এসব বিষয় নিয়ে? কখনো কি চিন্তা করেছেন,এভাবে کمیت তথা কোয়ানটিটি বা পরিমাণ না বাড়িয়ে کیفیت তথা কোয়ালিটি বা গুনগত মানের দিকে নজর দেওয়া উচিত। তারা কি ভেবেছেন আমাদের ছেলেরা যুগের চ্যালেঞ্জ মোকাবেলায় সক্ষম হচ্ছে কিনা? যেভাবে সক্ষম ছিলেন আমাদের আকাবির ও আসলাফ।\n\nশুধু ওয়াযের মাঠে ”চিল্লায়া কন ঠিক কিনা” বলতে পারার মধ্যেই কি যোগ্যতা সীমাবদ্ধ থাকবে?আমাদের ছেলেরা কি যুগের হযরত কাসেম নানুতবি,হযরত রশিদ আহমদ গাংগুহি হতে পারছে?এ বিষয়গুলো নিয়ে কবে সিদ্ধান্ত নেওয়া হবে? আর কত কাল এই অধপতন চলতে থাকলে আমাদের বধোদয় ঘটবে?\n\nএবার আসি মেয়েদের মাদ্রাসা শিক্ষা ব্যবস্থায়।এখানে মৌলিক সমস্যা তিনটি। প্রাথমিকভাবে এই মৌলিক সমস্যাগুলোর সমাধানে কার্যকরী পদক্ষেপ গ্রহণ করা উচিত।\n\n১.মেয়েদের ধর্মীয় শিক্ষার জন্য সুচিন্তিত কোন নেসাব নেই। আমাদের সমাজের মেয়েদের নৈতিক উন্নয়ন,মানসিক বিকাশ,পারিবারিক ও সামাজিক ভারসাম্য রক্ষা এবং প্রকৃত অর্থে ধর্মীয় মূল্যবোধ জাগরণের নিমিত্তে মেয়েদের যথোপযুক্ত ও বিশেষায়িত কোন শিক্ষা সিলেবাস প্রণয়ন করা হয় নাই। হ-য-ব-র-ল মার্কা যেই সিলেবাসের আলোকে তাদেরকে শিক্ষা দেওয়া হয় তা জাতির প্রয়োজন পূরণে ব্যর্থ। এইজন্যই হযরত আয়েশা সিদ্দিকার রাযি.এর মত জ্ঞানী,মহীয়সী নারীর যোগ্য উত্তরসূরি পাওয়ার আশা করাও কঠিন।\n\n২.মাদ্রাসার মেয়েদের পাঠদান পদ্ধতি বহু আগ থেকেই প্রশ্নবিদ্ধ বিষয়। এরপরও তা পরিবর্তনের লক্ষণ নাই। এই পদ্ধতি অনেক ফেতনার জন্ম দেয়।অতএব নিরাপদ এবং কার্যকরী পাঠদান পদ্ধতি অবলম্বন করতে হবে।\n\n৩.মেয়েদের আবাসিক শিক্ষা ব্যবস্থা বহু ফেতনার দ্বার উন্মোচনকারী একটি পদ্ধতি। দারুলউলুম দেওবন্দে পড়াকালীন এক দরসে আমাদের ওস্তাদ মাওলানা সাইয়েদ আরশাদ মাদানী দা.বা.বলেছিলেন,সকাল থেকে নিয়ে বিকাল পর্যন্ত সময়ের মধ্যে মেয়েদের মাদ্রাসা শিক্ষার সময় নির্ধারণ করতে হবে। মেয়েদেরকে কোন অবস্থাতেই রাতেরবেলা আবাসিক রেখে শিক্ষা পদ্ধতির ব্যবস্থা করা সমীচীন না। অথচ আমরা কি করছি!\n\nপরিবর্তন অপরিহার্য। অন্যথায় অধঃপতন কেউ ঠেকাতে পারবেনা।\n\nযুগের চ্যালেঞ্জ মোকাবেলায় যুগ চাহিদা অনুধাবন করে পথ চলতে হবে। লেখক: আলেম, গবেষক ও সাহিত্যিক\n\nআইডিসির সাথে যোগ দিয়ে উভয় জাহানের জন্য ভালো কিছু করুন।\nআইডিসি এবং আইডিসি ফাউন্ডেশনের ব্যপারে বিস্তারিত জানতে  লিংক০১ ও লিংক০২ ভিজিট করুন।\n\nআইডিসি  মাদরাসার ব্যপারে বিস্তারিত জানতে এখানে ক্লিক করুন। \n\nআপনি আইডিসি  মাদরাসার একজন স্থায়ী সদস্য /পার্টনার হতে চাইলে এই লিংক দেখুন.\n\nআইডিসি এতীমখানা ও গোরাবা ফান্ডে দান করে  দুনিয়া এবং আখিরাতে সফলতা অর্জন করুন।\n\nকুরআন হাদিসের আলোকে বিভিন্ন কঠিন রোগের চিকিৎসা করাতেআইডিসি ‘র সাথে যোগাযোগ করুন।\n\nইসলামিক বিষয়ে জানতে এবং জানাতে এই গ্রুপে জয়েন করুন।\n\nIslami Dawah Center Cover photo\n\nইসলামী দাওয়াহ সেন্টারকে সচল রাখতে সাহায্য করুন!\n \n\nইসলামী দাওয়াহ সেন্টার ১টি অলাভজনক দাওয়াহ প্রতিষ্ঠান, এই প্রতিষ্ঠানের ইসলামিক ব্লগটি বর্তমানে ২০,০০০+ মানুষ প্রতিমাসে পড়ে, দিন দিন আরো অনেক বেশি বেড়ে যাবে, ইংশাআল্লাহ।\n\nবর্তমানে মাদরাসা এবং ব্লগ প্রজেক্টের বিভিন্ন খাতে (ওয়েবসাইট হোস্টিং, CDN,কনটেন্ট রাইটিং, প্রুফ রিডিং, ব্লগ পোস্টিং, ডিজাইন এবং মার্কেটিং) মাসে গড়ে ৫০,০০০+ টাকা খরচ হয়, যা আমাদের জন্য চ্যালেঞ্জিং। সেকারনে, এই বিশাল ধর্মীয় কাজকে সামনে এগিয়ে নিতে সর্বপ্রথম আল্লাহর কাছে আপনাদের দোয়া এবং আপনাদের সহযোগিতা প্রয়োজন, এমন কিছু ভাই ও বোন ( ৩১৩ জন ) দরকার, যারা আইডিসিকে নির্দিষ্ট অংকের সাহায্য করবেন, তাহলে এই পথ চলা অনেক সহজ হয়ে যাবে, ইংশাআল্লাহ। যারা এককালিন, মাসিক অথবা বাৎসরিক সাহায্য করবেন, তারা আইডিসির মুল টিমের অন্তর্ভুক্ত হয়ে যাবেন, ইংশাআল্লাহ।\n\nআইডিসির ঠিকানাঃ খঃ ৬৫/৫, শাহজাদপুর, গুলশান, ঢাকা -১২১২, মোবাইলঃ +88 01609 820 094, +88 01716 988 953 (নগদ/বিকাশ পার্সোনাল) ইমেলঃ info@islamidawahcenter.com, info@idcmadrasah.com, ওয়েব: www.islamidawahcenter.com, www.idcmadrasah.com সার্বিক তত্ত্বাবধানেঃ হাঃ মুফতি মাহবুব ওসমানী (এম. এ. ইন ইংলিশ)\n\nIDC Partner",
+      "themes_as_presented_by_author": [
+        "Faith, worship, ethics, transactions and social relations as educational themes",
+        "English-language instruction",
+        "Logic, philosophy and Arabic rhetoric",
+        "Concerns about short-course models",
+        "Islamic and general history",
+        "Social science, political science, economics and commerce",
+        "Girls' madrasa education"
+      ],
+      "editorial_note": "This is an attributed opinion article supplied by the user. Its arguments and claims are the author's views, not an official syllabus, board policy, independently verified research finding or consensus of all Qawmi institutions.",
+      "source_id": "S12"
+    },
+    {
+      "id": "article_hefազat_united_front_2013",
+      "title": {
+        "en": "A united front for a divided lot",
+        "bn": "বিভক্ত গোষ্ঠীর ঐক্যবদ্ধ ফ্রন্ট"
+      },
+      "author": "Nikhil R. Puri",
+      "publication": "The Daily Star",
+      "publication_date": "2013-06-17",
+      "archived_url": "https://web.archive.org/web/20140508223725/http://archive.thedailystar.net/beta2/news/a-united-front-for-a-divided-lot/",
+      "content_language": "en",
+      "content_type": "newspaper_analysis_or_commentary",
+      "summary_bn": "নিবন্ধটি বাংলাদেশের দেওবন্দি/কওমি মাদরাসা নেটওয়ার্কের অভ্যন্তরীণ বিভাজন, পাঁচটি প্রধান বোর্ড ও কয়েকটি আঞ্চলিক বোর্ডের প্রভাব, বেফাকের জাতীয় প্রতিনিধিত্বের আকাঙ্ক্ষা, ২০০৬ সালের সম্মিলিত কওমি বোর্ড উদ্যোগ, দাওরায়ে হাদিস স্বীকৃতি নিয়ে বোর্ডগুলোর মতপার্থক্য এবং ২০১৩ সালের হেফাজতে ইসলামের সাংগঠনিক ঐক্য ও নেতৃত্ব-প্রতিযোগিতা বিশ্লেষণ করে।",
+      "key_claims_as_reported_by_author": [
+        {
+          "claim_bn": "বাংলাদেশে দেওবন্দি/কওমি মাদরাসার সংখ্যা ৫,৫০০–১০,০০০ হতে পারে; মক্তব বাদ।",
+          "type": "historical_estimate",
+          "source_id": "S16"
+        },
+        {
+          "claim_bn": "বেফাকের প্রায় ৩,৬০০ সদস্য মাদরাসা ছিল বলে নিবন্ধে উল্লেখ।",
+          "type": "historical_board_count",
+          "source_id": "S16"
+        },
+        {
+          "claim_bn": "ইত্তেহাদুল মাদারিসের প্রায় ৬০০ এবং আজাদ দ্বীনি এদারার প্রায় ৫০০ মাদরাসা ছিল বলে নিবন্ধে উল্লেখ।",
+          "type": "historical_board_count",
+          "source_id": "S16"
+        },
+        {
+          "claim_bn": "তানযীমুল মাদারিস উত্তরবঙ্গ এবং গওহরডাঙ্গা বোর্ড দক্ষিণবঙ্গের মাদরাসার প্রতিনিধিত্ব করত বলে নিবন্ধে বর্ণনা।",
+          "type": "historical_description",
+          "source_id": "S16"
+        },
+        {
+          "claim_bn": "২০০৬ সালে সম্মিলিত কওমি মাদরাসা শিক্ষা বোর্ড গঠনের উদ্যোগে আঞ্চলিক বোর্ডগুলো যুক্ত হলেও বেফাক যোগ দেয়নি বলে লেখক উল্লেখ করেন।",
+          "type": "historical_event_as_reported",
+          "source_id": "S16"
+        }
+      ],
+      "author_analysis_bn": "লেখকের বিশ্লেষণে বোর্ড ও রাজনৈতিক সংগঠনগুলোর বিভাজনের পেছনে মতাদর্শিক পার্থক্যের পাশাপাশি নেতৃত্ব, সামাজিক প্রভাব ও সাংগঠনিক নিয়ন্ত্রণের প্রতিযোগিতা কাজ করেছে। হেফাজতে ইসলামের ভবিষ্যৎ নিয়ে এটি লেখকের মূল্যায়ন, প্রতিষ্ঠিত বা সর্বসম্মত সত্য নয়।",
+      "source_ids": [
+        "S16"
+      ],
+      "verification_status": "dated_secondary_commentary_historical_context",
+      "notes_bn": [
+        "২০১৩ সালের তথ্যকে বর্তমান বোর্ড-সদস্যসংখ্যা বা বর্তমান রাজনৈতিক পরিস্থিতি হিসেবে ব্যবহার করা যাবে না।",
+        "নিবন্ধে বর্ণিত লেখকের মূল্যায়নকে মতামত/বিশ্লেষণ হিসেবে চিহ্নিত করতে হবে।"
+      ],
+      "full_text_en": "HEFAZAT-e-Islam presented itself as an ostensibly cohesive and homogeneous entity through its May 5 rally at Shapla Chattar. Underlying this apparent unity, however, is the demonstrated potential of Bangladesh’s Deobandis to disagree and compete, and often to undermine one another.\n\nHefazat’s lifespan will depend on the willingness of these men to temper their personal ambitions and on their ability to collaborate durably. The past behaviour of Deobandi leaders in the educational and political arenas suggests this won’t be easy. Hefazat possesses the elementary ingredients to challenge the status quo through its large and self-propagating network of dedicated men keen on transforming the political culture of Bangladesh. Yet power struggles within the movement will likely keep it from reaching adolescence.\n\nWhile the total number of Deobandi (qawmi) madrasas in Bangladesh remains a mystery, one can broadly place their strength in the range of 5,500–10,000 (this estimate excludes maktabs). Each of these institutions administers the Dars-e-Nizami syllabus, each is devoted to propagating the Deobandi worldview, and each is committed to resisting state interference in the qawmi madrasa system.\n\nYet, Bangladesh’s qawmi madrasas are characterised by latent but very real divisions. The competing desires of rival maulanas to establish and wield social control have given rise to five qawmi madrasa boards in addition to several less prominent ones. The largest of these boards is Befaqul Madaris al Arabia Bangladesh. Headquartered in Dhaka, it has 3,600 member madrasas across the country and is the only qawmi board that claims and aspires to represent all of Bangladesh’s qawmi madrasas.\n\nThe other boards exhibit only regional aspirations. Ittehad-ul-Madaris, based in Chittagong’s Al-Jamiah Al-Islamiah Patiya, oversees approximately 600 madrasas in Chittagong Division along with a handful in Feni and Noakhali. Azad Deeni Iddara-e-Talim Bangladesh supervises around 500 madrasas in Sylhet Division. Tanzeem-ul-Madaris is headquartered in Bogura’s Jameel Madrasa and represents madrasas in North Bengal.\n\nSimilarly, a board in Gohardanga supervises the affairs of qawmi madrasas in South Bengal. Representatives of these boards often trivialise the cause for their division (e.g., “We give more importance to Farsi and logic” or “We use different books to teach Arabic literature”), but the truth is that each board represents a power centre—an area of social control—enjoyed and dearly guarded by a clique of powerful maulanas.\n\nThough mostly latent, these divisions do find expression whenever one sphere of social control impinges on another. In 2006, Mufti Abdur Rahman of Dhaka’s Islamic Research Centre sought to unite all the qawmi boards under the banner of Somelito Qawmi Madrasa Shikhya Board. He succeeded in bringing the regional conglomerations on board, but failed to convince Befaqul Madaris.\n\nSince Befaqul Madaris already claimed to present a platform for qawmi madrasas across Bangladesh, it considered Rahman’s exercise redundant at best and, at worst, a direct threat to its own national aspirations. These intra-qawmi divisions also feature prominently when the state attempts to modernise and/or recognise the qawmi sector’s curriculum.\n\nIn 2006, the BNP-led four party alliance toyed with the idea of recognising the Dawra-e-Hadith degrees of qawmi madrasas. One impediment to the plan’s materialisation was the government’s requirement that any qawmi madrasa board issuing these recognised certificates operate as a government entity, similar (and in parallel) to the alia system’s Bangladesh Madrasa Education Board.\n\nAll qawmi madrasas oppose this stipulation, insisting that their own men control qawmi affairs, independently of the government. But even if the government concedes to this demand, it will struggle to please all qawmi quarters. Befaqul Madaris hopes to leverage its countrywide presence, thus favouring establishment of a single national qawmi board. Its regional rivals expect the government to recognise region-specific entities, respecting the currently decentralised nature of the qawmi landscape.\n\nIn this particular case, the government proposed establishment of a single qawmi board after Islami Oikya Jote MPs loyal to Befaqul Madaris lobbied for this arrangement (these MPs included Mufti Muhammad Waqqas, Mufti Shahidul Islam, and the late Mufti Fazlul Haque Amini). But the representatives of regional boards in Sylhet, Chittagong, North Bengal, and South Bengal turned down the offer.\n\nThis account shows that while all Deobandi elements favour government recognition of their degrees, this shared desire is subordinated to the more selfish objective of establishing social control at the expense of fellow Deobandis.\n\nThe unwillingness of one maulana to subordinate his ambitions to those of another is equally evident in the political arena. At its peak, Islami Oikya Jote (IOJ) existed as a broad coalition of Islamic parties, its constituents including Bangladesh Khilafat Majlish, Khilafat Andolan, Bangladesh Islami Andolan, Jamiat Ulema-e-Islam, Khilafat-e-Islam, Nizam-e-Islam, Ulema Committee, and Firaizi Andolan.\n\nBut, the inability of leaders to accommodate each other’s ambitions caused constituent parties to progressively exit the coalition. Today, only four of the original constituent parties remain part of IOJ. Bangladesh Khilafat Majlish (BKM) left IOJ after a leadership dispute arose in 2001. BKM expected its amir—the late Sheikh-ul Hadees Allama Azizul Haque—to assume chairmanship of IOJ’s central committee.\n\nOther parties within IOJ preferred his former student Mufti Fazlul Haque Amini for the role. Similarly, Jamiat Ulema-e-Islam (JUI) left IOJ in 2008 when Mufti Amini sought to register IOJ as a political party. JUI took the view that IOJ was a coalition of willing members, and that registration of IOJ as a party would make the constituent parties (including JUI) irrelevant. It insisted that Mufti Amini should only be allowed to register his own constituent party—Khilafat-e-Islam; not the coalition as a whole.\n\nThis record of Deobandi power struggles in the educational and political domains should inform our expectations of Hefazat-e-Islam’s trajectory. There is no denying that Hefazat is an expression of widespread Deobandi sentiment.\n\nWhile one might disagree with the tenor of its thirteen demands, the latter represent an ideological common denominator shared by the large majority of Bangladesh’s Deobandis. That said, Hefazat’s fate will not depend on ideological homogeneity alone. Within this large body of likeminded men, the human qualities of sincerity and selflessness are distributed unequally. The occasional show of synchronised selflessness can create street noise at Motijheel. But disturbing the status quo requires far more.\n\nThe writer is a DPhil candidate at the University of Oxford."
+    },
+    {
+      "id": "article_befaqul_madaris_encyclopedic_excerpt",
+      "title": {
+        "en": "Befaqul Madarisil Arabia Bangladesh",
+        "bn": "বেফাকুল মাদারিসিল আরাবিয়া বাংলাদেশ"
+      },
+      "author": "Not specified in user-supplied excerpt",
+      "publication": "User-provided encyclopedic-style excerpt",
+      "publication_date": null,
+      "content_language": "en",
+      "content_type": "encyclopedic_overview_excerpt",
+      "summary_bn": "ব্যবহারকারী-প্রদত্ত ইংরেজি বিবরণে বেফাকের প্রতিষ্ঠা (এপ্রিল ১৯৭৮), পাকিস্তানের Wafaq ul Madaris Al-Arabia-এর সঙ্গে ঐতিহাসিক সম্পর্ক, কওমি শিক্ষা বোর্ডের উদ্দেশ্য ও কার্যাবলি, সদস্যপদের স্বেচ্ছামূলক প্রকৃতি, কওমি মাদরাসার সংখ্যা সম্পর্কে ভিন্ন পরিসংখ্যান এবং উল্লেখযোগ্য কয়েকটি প্রতিষ্ঠানের নাম দেওয়া হয়েছে।",
+      "claims_as_submitted": [
+        {
+          "claim": "Befaqul Madarisil Arabia Bangladesh is the largest Qawmi madrasa education board in Bangladesh.",
+          "status": "source_claim_not_independently_verified"
+        },
+        {
+          "claim": "Founded in April 1978 after a seminar of Islamic scholars.",
+          "status": "partly_supported_by_other_source_for_year_1978; exact month/context needs primary verification"
+        },
+        {
+          "claim": "The organisation is also known as Befaqul Madaris / Befaqul ul Madaris.",
+          "status": "user_supplied_name_variant"
+        },
+        {
+          "claim": "It is an extension of the process that formed Wafaq ul Madaris Al-Arabia, Pakistan in 1957.",
+          "status": "user_supplied_historical_claim_needs_verification"
+        },
+        {
+          "claim": "More than 65,000 Qawmi madrasas exist in Bangladesh.",
+          "status": "undated_estimate_needs_verification"
+        },
+        {
+          "claim": "As of 2013, more than 20,000 seminaries were affiliated with Befaqul Madaris.",
+          "status": "conflicts_with_2013_Daily_Star_article_estimate_of_3600; preserve separately"
+        },
+        {
+          "claim": "Befaqul Madaris controls all seminaries run by the Deobandi school of thought.",
+          "status": "broad_claim_needs_verification_and_may_overstate_board_authority"
+        },
+        {
+          "claim": "Membership is voluntary, though required for degree accreditation by Befaqul Madaris.",
+          "status": "user_supplied_claim_current_rules_need_board_verification"
+        }
+      ],
+      "functions_as_submitted": [
+        "Registration of madrasas",
+        "Creation of syllabus",
+        "Checking standard of education",
+        "Arrangement of examination",
+        "Issuance of degrees"
+      ],
+      "notable_institutions_bn": [
+        "আল-জামিয়াতুল আরাবিয়াতুল ইসলামিয়া জিরি",
+        "আল-জামিয়াতুল আহলিয়া দারুল উলুম মঈনুল ইসলাম",
+        "বেফাকুল মাদারিসিল কওমিয়া গওহরডাঙ্গা বাংলাদেশ",
+        "আল-জামিয়াতুল আরাবিয়া হাইলধর",
+        "জামিয়া তাওয়াক্কুলিয়া রেঙ্গা",
+        "জামিয়াতুল উলুম আল-ইসলামিয়া লালখান বাজার",
+        "জামিয়া কুরআনিয়া আরাবিয়া লালবাগ",
+        "আল-জামিয়া আল-ইসলামিয়া পটিয়া",
+        "জামিয়া শরইয়্যাহ মালিবাগ, ঢাকা",
+        "জামিয়া রাহমানিয়া আরাবিয়া ঢাকা",
+        "জামিয়া দারুল মা‘আরিফ আল-ইসলামিয়া"
+      ],
+      "source_ids": [
+        "S17"
+      ],
+      "verification_status": "user_supplied_excerpt_with_conflicting_or_undated_statistics",
+      "notes_bn": [
+        "৬৫,০০০-এর বেশি মোট কওমি মাদরাসা এবং ২০১৩ সালে বেফাকের ২০,০০০-এর বেশি অধিভুক্ত প্রতিষ্ঠানের দাবি অন্য উৎসের সঙ্গে সরাসরি মেলে না।",
+        "২০১৩ সালের The Daily Star নিবন্ধে বেফাকের ৩,৬০০ সদস্য মাদরাসার হিসাব রয়েছে; উভয় দাবিই আলাদা উৎসের দাবি হিসেবে রাখা হয়েছে।",
+        "“সব দেওবন্দি মাদরাসা বেফাক নিয়ন্ত্রণ করে” দাবিটি বোর্ডের কর্তৃত্ব সম্পর্কে অতিবিস্তৃত হতে পারে; স্বাধীন যাচাই প্রয়োজন।"
+      ]
+    }
+  ],
+  "datasets": [
+    {
+      "id": "dataset_qawmi_directory_source_1826",
+      "name": "Uploaded Qawmi Madrasa Directory",
+      "record_count": 1826,
+      "source_id": "S11",
+      "time_reference": "Wifaq Result 2019 list plus user-supplied Dhaka women’s madrasa supplement",
+      "status": "historical_and_partially_supplemented",
+      "caution": "Do not describe this as a current total for all Qawmi madrasas in Bangladesh."
+    },
+    {
+      "id": "dataset_qawmi_directory_mirpur_savar_153",
+      "name": "Mirpur and Savar madrasa lists (supplement)",
+      "record_count": 153,
+      "source_id": "S19",
+      "time_reference": "User-supplied 2026-11-01; underlying date not stated",
+      "status": "partially_merged",
+      "caution": "Overlaps with earlier records were linked rather than duplicated; not a complete register of Mirpur or Savar madrasas."
+    }
+  ],
+  "specialized_syllabi": [
+    {
+      "id": "syllabus_tahfizul_quran_students",
+      "title": {
+        "bn": "তাহফিজুল কুরআন-এর নেসাব",
+        "en": "Tahfizul Qur’an Syllabus"
+      },
+      "audience": [
+        "ছাত্র",
+        "ছাত্রী"
+      ],
+      "category": "memorization_programme",
+      "subjects": [
+        {
+          "id": "hifz_al_quran",
+          "name_bn": "হিফযুল কুরআন",
+          "name_en": "Qur’an memorization",
+          "content_bn": "৩০ পারা মুখস্থ; হদর ও তারতীল—উভয় পদ্ধতিতে, আহকামসহ তাজবীদ।",
+          "assessment_marks": 100,
+          "oral_exam": true,
+          "question_count": 3,
+          "pass_marks": 50,
+          "pass_rule_bn": "বাধ্যতামূলক পাস নম্বর ৫০।"
+        },
+        {
+          "id": "tajwid",
+          "name_bn": "তাজবীদ",
+          "content_bn": "বেফাক কর্তৃক প্রকাশিত “বেফাক তাজবীদ ও মাসায়েল শিক্ষা” মৌখিকভাবে পড়াতে হবে।",
+          "assessment_marks": 50,
+          "oral_exam": true,
+          "question_count": 3,
+          "answer_required": 2,
+          "pass_marks": 20
+        },
+        {
+          "id": "tahzib",
+          "name_bn": "তাহযীব",
+          "content_bn": "ইসলামী তাহযীব।",
+          "subtopics": [
+            {
+              "name_bn": "আদইয়ায়ে মাসনূনাহ",
+              "method_bn": "“বেফাক তাজবীদ ও মাসায়েল শিক্ষা” এবং “ইসলামী তাহযীব” পুস্তকের সাহায্যে মৌখিক শিক্ষা।"
+            },
+            {
+              "name_bn": "আমল-আখলাক ও ঈমান-আকীদাহ",
+              "method_bn": "“ইসলামী তাহযীব” এবং “বেফাক তাজবীদ ও মাসায়েল শিক্ষা” পুস্তকের সাহায্যে মৌখিক শিক্ষা।"
+            }
+          ],
+          "separate_exam_component": false
+        },
+        {
+          "id": "masail_zaruriyya",
+          "name_bn": "মাসায়েলে জরুরিয়া",
+          "content_bn": "জরুরি মাসায়েল শেখাতে হবে। অন্তর্ভুক্ত বিষয়: ওযু, গোসল, তায়াম্মুম, পানি, নাজাসাত, ইস্তিঞ্জা, আযান, নামায, জানাযা, রোযা, কুরবানী ও আকীকাহ। “বেফাক তাজবীদ ও মাসায়েল শিক্ষা” অবলম্বনে শেখাতে হবে।",
+          "assessment_marks": 50,
+          "oral_exam": true,
+          "question_count": 3,
+          "answer_required": 2,
+          "pass_marks": 20
+        }
+      ],
+      "exam": {
+        "mode_bn": "মৌখিক",
+        "examined_subject_count": 3,
+        "total_marks": 200,
+        "components": [
+          {
+            "subject_id": "hifz_al_quran",
+            "marks": 100,
+            "questions": 3,
+            "pass_marks": 50,
+            "pass_required": true
+          },
+          {
+            "subject_id": "tajwid",
+            "marks": 50,
+            "questions": 3,
+            "answers_required": 2,
+            "pass_marks": 20
+          },
+          {
+            "subject_id": "masail_zaruriyya",
+            "marks": 50,
+            "questions": 3,
+            "answers_required": 2,
+            "pass_marks": 20
+          }
+        ],
+        "division_and_tilawat_yad": [
+          {
+            "division_bn": "তৃতীয় বিভাগ (মাকবুল)",
+            "tilawat_yad_marks": 50,
+            "total_marks": 90
+          },
+          {
+            "division_bn": "দ্বিতীয় বিভাগ (জায়্যিদ)",
+            "tilawat_yad_marks": 60,
+            "total_marks": 120
+          },
+          {
+            "division_bn": "প্রথম বিভাগ (জায়্যিদ জিদ্দান)",
+            "tilawat_yad_marks": 70,
+            "total_marks": 150
+          },
+          {
+            "division_bn": "মুমতায (স্টার মার্ক)",
+            "tilawat_yad_marks": 80,
+            "total_marks": 170
+          }
+        ]
+      },
+      "source_ids": [
+        "S14"
+      ],
+      "verification_status": "user_supplied_not_independently_verified",
+      "notes_bn": [
+        "নেসাবটি ছাত্র ও ছাত্রী উভয়ের জন্য বলে উল্লেখ আছে।",
+        "তাহযীব চারটি পাঠ্য বিষয়ের একটি; তবে বর্ণিত মৌখিক পরীক্ষার তিনটি পরীক্ষ্য বিষয় হলো হিফয, তাজবীদ ও মাসায়েল।",
+        "বিভাগভিত্তিক মোট নম্বরে তিলাওয়াত (ইয়াদ) নম্বর অন্তর্ভুক্ত—প্রদত্ত পাঠ অনুযায়ী সংরক্ষিত।"
+      ]
+    },
+    {
+      "id": "syllabus_ilm_ut_tajwid_wal_qiraat",
+      "title": {
+        "bn": "ইলমুত তাজবীদ ওয়াল কিরাআত (উচ্চতর তাজবীদ ও কিরাআত)-এর নেসাব",
+        "en": "Ilm al-Tajwid wa al-Qira’at (Advanced Tajwid and Qira’at) Syllabus"
+      },
+      "audience": [
+        "ছাত্র",
+        "ছাত্রী"
+      ],
+      "recitation_riwayah_bn": "ইমাম হাফস (রহ.)-এর রেওয়ায়েতের ভিত্তিতে।",
+      "admission_eligibility": {
+        "students_bn": "সানাবিয়া মারহালা [কাফিয়া (১০ম শ্রেণি)] পাস।",
+        "female_students_bn": "কুদূরী (নবম শ্রেণি) পাস।"
+      },
+      "duration_years": 2,
+      "years": [
+        {
+          "year": 1,
+          "subjects": [
+            {
+              "subject_label_source_text": "মূল পাঠে অস্পষ্ট",
+              "subject_label_bn": null,
+              "name_status": "unclear_in_user_text",
+              "content_bn": "সূরা ক্বাফ হতে সূরা নাস পর্যন্ত (অর্থাৎ শেষ নাযিল)—প্রতিদিন ১ ঘণ্টা, সপ্তাহে ৭ ঘণ্টা।",
+              "weekly_hours": 7,
+              "daily_hours": 1,
+              "exam_marks": 100
+            },
+            {
+              "name_bn": "তাজবীদ",
+              "text_bn": "জামালুল কুরআন ও দ্বিতীয় বই/বিষয়ের নাম (সরবরাহকৃত পাঠে অস্পষ্ট)।",
+              "exam_marks": 100
+            },
+            {
+              "name_bn": "হিফয",
+              "content_bn": "আম্মাপারা।",
+              "exam_marks": 100
+            }
+          ]
+        },
+        {
+          "year": 2,
+          "subjects": [
+            {
+              "subject_label_source_text": "মূল পাঠে অস্পষ্ট",
+              "subject_label_bn": null,
+              "name_status": "unclear_in_user_text",
+              "content_bn": "বাকি কুরআন মাজীদ—প্রতিদিন ১ ঘণ্টা, সপ্তাহে ৭ ঘণ্টা; তারতীল ১০০ + হদর ৫০।",
+              "weekly_hours": 7,
+              "daily_hours": 1,
+              "exam_marks": 150,
+              "mark_breakdown": {
+                "তরতীল": 100,
+                "হদর": 50
+              }
+            },
+            {
+              "name_bn": "তাজবীদ",
+              "text_bn": "জামালুল কুরআন।",
+              "exam_marks": 100
+            },
+            {
+              "name_bn": "হিফয",
+              "content_bn": "২৯ নম্বর পারা পূর্ণ।",
+              "exam_marks": 50
+            }
+          ]
+        }
+      ],
+      "class_period_minutes": 90,
+      "attendance_condition_bn": "উপরিউক্ত নেসাব পড়া ব্যতীত কেউ এ পরীক্ষায় অংশগ্রহণ করতে পারবে না।",
+      "source_ids": [
+        "S14"
+      ],
+      "verification_status": "user_supplied_not_independently_verified",
+      "notes_bn": [
+        "দুই বর্ষে কুরআন পাঠ/তিলাওয়াতের বিষয়-শিরোনাম সরবরাহকৃত পাঠে অস্পষ্ট; অনুমান করে পূরণ করা হয়নি।",
+        "প্রথম বর্ষের তাজবীদে “জামালুল কুরআন”-এর পরের বই/বিষয়ের নাম সরবরাহকৃত পাঠে অস্পষ্ট; মূল নথি দেখে যাচাই প্রয়োজন।",
+        "প্রতিদিন ১ ঘণ্টা ও সপ্তাহে ৭ ঘণ্টার উল্লেখের পাশাপাশি প্রতি ঘণ্টা ৯০ মিনিট বলা হয়েছে; উভয় তথ্য মূল পাঠ অনুযায়ী রাখা হয়েছে।",
+        "নেসাবের বোর্ড/প্রকাশক/কার্যকর শিক্ষাবর্ষ উল্লেখ নেই।"
+      ]
+    },
+    {
+      "id": "syllabus_darsiyat_female_and_ibtidaiya",
+      "title": {
+        "bn": "কেন্দ্রীয় পরীক্ষার নেসাব: দরসিয়াত (ছাত্রী) ও আল-মারহালাতুল ইবতেদাইয়া",
+        "en": "Central Examination Syllabus: Darsiyat (Female Students) and Ibtidaiya"
+      },
+      "audience": [
+        "ছাত্রী",
+        "ইবতেদাইয়া/পঞ্চম শ্রেণির শিক্ষার্থী"
+      ],
+      "source_ids": [
+        "S15"
+      ],
+      "verification_status": "user_supplied_not_independently_verified",
+      "darsiyat_female": [
+        {
+          "stage_bn": "আল-মারহালাতুল ফযীলত",
+          "equivalency_as_submitted": "স্নাতক সিসি [OCR/লেখা অস্পষ্ট; যাচাই প্রয়োজন]",
+          "subjects": [
+            {
+              "subject": "হাদিস",
+              "book": "মিশকাতুল মাসাবীহ ১ম খণ্ড",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "হাদিস",
+              "book": "মিশকাতুল মাসাবীহ ২য় খণ্ড",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "তাফসির",
+              "book": "তাফসীরুল জালালাইন প্রথমার্ধ",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "তাফসির",
+              "book": "তাফসীরুল জালালাইন দ্বিতীয়ার্ধ",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "ফিকহ",
+              "book": "আল-হিদায়া ৩য় খণ্ড",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "ফিকহ",
+              "book": "আল-হিদায়া ৪র্থ খণ্ড",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "আকিদা",
+              "book": "আকীদাতুত তাহাবী",
+              "extent": "পূর্ণ"
+            }
+          ]
+        },
+        {
+          "stage_bn": "আল-মারহালাতুস সানাবিয়াতুল উলয়া",
+          "equivalency_bn": "উচ্চ মাধ্যমিক",
+          "subjects": [
+            {
+              "subject": "বালাগাত",
+              "book": "دروس البلاغة / مختصر المعاني (দুরূসুল বালাগাহ / মুখতাসারুল মাআনী)",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "ফিকহ",
+              "book": "শরহুল বিকায়া ১ম ও ২য় খণ্ড",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "উসূলুল ফিকহ",
+              "book": "نور الأنوار (নূরুল আনওয়ার); পরবর্তী OCR অংশ “কিতাবুল্লাহ” যাচাই প্রয়োজন",
+              "extent": "পূর্ণ [OCR যাচাই প্রয়োজন]"
+            },
+            {
+              "subject": "আরবি সাহিত্য",
+              "book": "مقامات الحريري (মাকামাতে হারিরি), ভূমিকা-সহ ১–১০ মাকামাহ; مختارات ১ম খণ্ড",
+              "extent": "পূর্ণ [বই/অংশের বিন্যাস যাচাই প্রয়োজন]"
+            },
+            {
+              "subject": "তরজমা",
+              "book": "তরজমাতুল কুরআন প্রথম ১৫ পারা",
+              "extent": "প্রথম ১৫ পারা"
+            },
+            {
+              "subject": "ইনশা",
+              "book": "আত-তরীক ইলাল ইনশা ৩য় খণ্ড",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "নাহু",
+              "book": "কাফিয়া ইবনে হাজিব",
+              "extent": "পূর্ণ"
+            }
+          ]
+        },
+        {
+          "stage_bn": "আল-মারহালাতুল মুতাওয়াসসিতা",
+          "equivalency_bn": "নিম্ন মাধ্যমিক",
+          "subjects": [
+            {
+              "subject": "নাহু",
+              "book": "“নাহব তাহমীর” [OCR পাঠ অনিশ্চিত]",
+              "extent": "পূর্ণ [যাচাই প্রয়োজন]"
+            },
+            {
+              "subject": "নাহু",
+              "book": "শরহু মিয়াতি আমিল",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "সরফ",
+              "book": "পাঞ্জেগাঞ্জ?; ইলমুস সরফ ৩য় ও ৪র্থ খণ্ড (খাসিয়াতের পূর্ব পর্যন্ত)",
+              "extent": "খাসিয়াতের পূর্ব পর্যন্ত [বইয়ের নাম বিভাজন যাচাই প্রয়োজন]"
+            },
+            {
+              "subject": "আরবি সাহিত্য",
+              "book": "রওজাতুল আদব ১–৬ বাব",
+              "extent": "১–৬ বাব"
+            },
+            {
+              "subject": "ফিকহ",
+              "book": "মালাবুদ্দা মিনহু / আল-ফিকহুল মুয়াসসার",
+              "extent": "পূর্ণ [বইয়ের নামের বিকল্প/বিভাজন যাচাই প্রয়োজন]"
+            },
+            {
+              "subject": "সীরাত",
+              "book": "সীরাতে খাতামুল আম্বিয়া",
+              "extent": "পূর্ণ"
+            },
+            {
+              "subject": "বাংলা সাহিত্য ও ব্যাকরণ",
+              "book": "সাহিত্য সৌগাত ও সরল বাংলা ব্যাকরণ ২য় ভাগ",
+              "extent": "পূর্ণ; ৭ম শ্রেণি"
+            }
+          ],
+          "mandatory_note_bn": "মুতাওয়াসসিতা (ছাত্র ও ছাত্রী) বাংলা ব্যাকরণে বেফাকুল মাদারিসিল আরাবিয়া বাংলাদেশ প্রকাশিত “সরল বাংলা ব্যাকরণ ও রচনা-৩” অন্তর্ভুক্ত করার নির্দেশ দেওয়া হয়েছে।"
+        }
+      ],
+      "ibtidaiya": {
+        "stage_bn": "আল-মারহালাতুল ইবতেদাইয়া",
+        "equivalency_bn": "প্রাথমিক/৫ম শ্রেণি",
+        "subjects": [
+          {
+            "subject": "কুরআন মাজীদ",
+            "book": "কুরআন মাজীদ (নাজেরা)",
+            "extent": "পূর্ণ কুরআন; তাজবীদসহ"
+          },
+          {
+            "subject": "ফিকহ",
+            "book": "তা‘লীমুল ইসলাম ৪র্থ খণ্ড; ইসলামী তাহযীব ৫ম অধ্যায়",
+            "extent": "পূর্ণ ৪র্থ খণ্ড; ৫ম অধ্যায়ের নির্দিষ্ট অংশ"
+          },
+          {
+            "subject": "আরবি সাহিত্য",
+            "book": "এসো আরবী শিখি ১ম খণ্ড",
+            "extent": "১ম খণ্ড"
+          },
+          {
+            "subject": "ইংরেজি ও ব্যাকরণ",
+            "book": "My English Book-5; Ideal Primary Grammar",
+            "extent": "পূর্ণ; ৫ম শ্রেণি"
+          },
+          {
+            "subject": "বাংলা সাহিত্য ও ব্যাকরণ",
+            "book": "আদর্শ বাংলা পাঠ; আদর্শ বাংলা ব্যাকরণ ৫ম ভাগ",
+            "extent": "পূর্ণ; ৫ম শ্রেণি"
+          },
+          {
+            "subject": "গণিত",
+            "book": "প্রাথমিক গণিত ৫ম শ্রেণি",
+            "extent": "পূর্ণ"
+          },
+          {
+            "subject": "ইতিহাস, ভূগোল ও সমাজ",
+            "book": "ইতিহাস পাঠ, ৫ম শ্রেণি; ভূগোল ও সমাজ পরিচিতি",
+            "extent": "উল্লেখিত বই/বিষয়"
+          }
+        ],
+        "exam_rules_bn": [
+          "কুরআন মাজীদ নাজেরা পরীক্ষায় অকৃতকার্য হলে সামগ্রিকভাবে অকৃতকার্য গণ্য হবে। পাস নম্বর ৫০। নাজেরা নম্বর মূল মোট নম্বরে যোগ হবে না।",
+          "তা‘লীমুল ইসলাম ৪র্থ খণ্ডের সঙ্গে ইসলামী তাহযীবের ৫ম অধ্যায়ের ৪৮–৬০ পৃষ্ঠা থেকে ১২ নম্বরের একটি আবশ্যিক প্রশ্ন থাকবে; প্রশ্নটির উত্তর দিতে হবে। OCR-এ সংযোগকারী শব্দাংশ অস্পষ্ট, তাই অনুমান করে পূরণ করা হয়নি।",
+          "ইবতেদাইয়া (ছাত্র ও ছাত্রী) ইংরেজি ব্যাকরণে বেফাক-প্রকাশিত “Ideal Primary Grammar” নির্ধারণের কথা বলা হয়েছে."
+        ]
+      },
+      "data_quality_notes_bn": [
+        "ফযীলত স্তরের সমমানের বাক্যাংশ “স্নাতক সিসি” মূল ইনপুটে অস্পষ্ট; অনুমান করে সংশোধন করা হয়নি।",
+        "সানাবিয়াতুল উলয়া ও মুতাওয়াসসিতা অংশে কয়েকটি বইয়ের নাম OCR-এ বিকৃত; মূল নথি দেখে যাচাই প্রয়োজন।",
+        "মুতাওয়াসসিতা অংশে ৭ নম্বর ক্রমিক পুনরাবৃত্ত হয়েছিল; বিষয়টি একবার রাখা হয়েছে।",
+        "ইবতেদাইয়া পরীক্ষার নির্দেশনায় একটি সংযোগকারী শব্দাংশ অস্পষ্ট; মূল অর্থের বাইরে গিয়ে সংশোধন করা হয়নি।"
+      ]
+    }
+  ],
+  "contact_enrichment": {
+    "title": "Publicly listed madrasa contact enrichment",
+    "created_on": "2026-11-01",
+    "updated_on": "2026-11-01",
+    "master_database_version": "1.3.1",
+    "records_total": 1972,
+    "records_with_publicly_listed_numbers": 2,
+    "records_with_current_or_undated_public_listings_not_call_verified": 1,
+    "records_with_historical_public_listings": 1,
+    "records_searched_no_public_number_found": 5,
+    "records_not_yet_researched": 1965,
+    "method": "Search public web pages and directories using Bengali institution names and locality. Add numbers only when the source can be matched to the institution; preserve source URL, listing context and date where available.",
+    "important_note": "This is a partial contact directory, not a completed census. Numbers have not been confirmed by calling. A searched_no_public_number_found status means no number appeared in the sources retrieved during this search; it does not mean the institution has no phone number. Historical contacts must not be assumed current.",
+    "sources_consulted_for_discovery": [
+      "https://qmmsoft.com/1167",
+      "https://www.qowmipedia.com/page/institute/জামিয়া-ইসলামিয়া-দারুল-উল-3/",
+      "https://madarisbd.com/madrasas?district=খুলনা",
+      "https://wifaqresult.blogspot.com/2019/04/wifaq-board-all-madrasa-EIIN-ilhak-number-wifaqresult-com.html",
+      "https://wifaqbd.org/admin/uploads/attach/682/attachment.pdf"
+    ]
+  }
+}

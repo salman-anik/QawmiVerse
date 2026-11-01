@@ -1,11 +1,10 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { loadDatabase } from "./database.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const sourcePath = path.join(root, "data", "qawmi_madrasa_database_v1_3_1.json");
-const database = JSON.parse(await readFile(sourcePath, "utf8"));
+const database = await loadDatabase(root);
 const records = database.madrasa_directory?.records;
 const sources = database.sources;
 
