@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "data:import": "node scripts/import-supplemental-madrasas.js"
+    "data:validate": "node scripts/validate-master-database.js",
+    "seo:sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
     "react": "^19.0.0",

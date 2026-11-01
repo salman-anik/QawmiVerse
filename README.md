@@ -1,22 +1,51 @@
-# Bangladesh Qawmi Madrasa Directory | Madrasa Finder BD
+# Qawmi Knowledge — Bangladesh Education Guide & Directory
 
-**Madrasa Finder BD** is a bilingual, searchable directory of Qawmi madrasas in Bangladesh. Search madrasa names, locations, and Wifaq ilhak numbers, or browse listings by division, district, and upazila.
+**Qawmi Knowledge** is a bilingual educational guide to Qawmi madrasa education in Bangladesh. It combines a searchable, source-transcribed institution directory with guides to the education system, study stages, selected syllabi, history, governance, published estimates, and references.
 
-The directory currently contains **1,808 search records across 53 districts and 8 divisions**. It combines the **2019 result-related madrasa list of Wifaqul Madarisil Arabia Bangladesh** with user-provided madrasa lists for Dhaka, Mirpur, and Savar. Many supplemental entries do not include ilhak numbers. This is an independent search aid, not an official Wifaq website; addresses and other details may have changed.
+The project is an independent educational resource. It is not affiliated with any madrasa board and does not claim that its directory is complete or independently verified.
 
-## Features
+## What is included
 
-- Bengali and English interfaces, with madrasa names shown in Bengali as listed in the source.
-- Search by madrasa name, area, upazila, district, and division, with Bengali and English digit normalization.
-- Search by Wifaq ilhak number in Bengali or English numerals.
-- Filter by division, district, upazila, and branch type.
-- Browse individual madrasa, division, and district routes rendered by React.
-- Responsive layout with light and dark themes.
-- Vite production build, client-side route fallback, XML sitemap, and `robots.txt`.
+- **Madrasa directory:** search Bengali names, original addresses, affiliation/ilhak codes, and stable source IDs. Filter by source-stated gender, upazila/thana where given, affiliation code, and public contact availability.
+- **Record profiles:** original IDs, source-stated details, source references, contact provenance, and explicit verification caveats.
+- **Bilingual experience:** English is the default; Bengali pages are available under `/bn/`. Institution names and addresses remain in their original Bengali when no translation is present in the source.
+- **Education guide:** overview, research-described stages, curriculum domains, and the source's transcribed equivalency material.
+- **History and governance:** cited timeline, boards, and the scope of the supplied legal-recognition record.
+- **Syllabus explorer:** the selected syllabus records actually present in the source database.
+- **Comparison page:** distinguishes supported facts from information that the supplied source does not cover; it does not invent a full General/Alia comparison.
+- **Statistics and resources:** counts from the imported records, published estimates with their limitations, sources, research notes, and dataset methodology.
+- **Exam and career guidance:** links only to board websites included in the source; no student results or current result feed are fabricated.
+- Responsive layout, dark mode, URL-persisted search filters, and a public issue link for reporting record corrections.
 
-## Preview locally
+## Data integrity
 
-Install dependencies and start the Vite development server:
+The canonical input is [`data/qawmi_madrasa_database_v1_3_1.json`](./data/qawmi_madrasa_database_v1_3_1.json). The application reads its nested `madrasa_directory.records` collection directly and preserves the stable `qawmi_bd_####` IDs and source fields.
+
+| Source field | Value |
+|---|---:|
+| Database version | 1.3.1 |
+| Declared directory count | 1,979 |
+| Imported records present | 1,972 |
+| Records marked men | 140 |
+| Records marked women | 236 |
+| Records with gender unspecified | 1,596 |
+| Records with publicly listed phone numbers | 2 |
+
+The database itself reports different declared and imported counts; both figures are preserved rather than reconciled by guessing. There are four listed numbers across two records: one is explicitly historical, and the other record's numbers are not call-verified. Phone details are shown with those caveats.
+
+Many records are transcribed but not independently verified. Location values are often only free-text addresses; the database does not provide complete division/district fields or verified coordinates. Therefore the application does not fabricate geographic filters or a map. Missing gender, English names, levels, facilities, and contacts are not inferred. Published population estimates come from different sources and years and are not presented as directly comparable counts.
+
+Run the source-data checks before publishing:
+
+```sh
+npm run data:validate
+```
+
+The older `madrasas_list.json`, `data/madrasas.json`, supplemental lists, and legacy static pages are not loaded by the rebuilt React application.
+
+## Run locally
+
+Node.js and npm are required. From the repository root:
 
 ```sh
 npm install
@@ -30,55 +59,37 @@ npm run build
 npm run preview
 ```
 
-## Deploy
+The Vite application is rooted at `react/`; production files are written to `dist/`. Deploy `dist/` to a static host that supports the included SPA fallback in `public/_redirects`.
 
-Deploy the generated `dist/` directory to a static host. For Cloudflare Pages, use `npm run build` as the build command and `dist` as the output directory. The `public/_redirects` file routes directory URLs to the React app entry point. The current configuration expects deployment at a domain root; a repository subpath requires setting Vite's `base` option and matching the router basename.
+## SEO sitemap
 
-The React app downloads `data/madrasas.json` as a separate JSON asset at runtime. District, division, and madrasa pages are routed by React; the static host must support the included SPA fallback.
+The deployment domain is intentionally not guessed. After choosing the actual site URL, generate localized routes and directory-record URLs:
 
-Before deploying under a real domain, replace the `https://example.com/` placeholder in `robots.txt` and `sitemap.xml` with the production origin. React updates page titles, descriptions, and canonical URLs as routes change.
-
-## Project structure
-
-```text
-.
-├── react/
-│   ├── index.html          # Vite HTML entry
-│   └── src/                # React application and styles
-├── public/
-│   ├── _redirects          # SPA route fallback for static hosts
-│   └── assets/
-├── vite.config.js
-├── package.json
-├── data/
-│   ├── madrasas.json       # Search dataset used by React
-│   ├── supplemental-mirpur.json
-│   └── supplemental-savar.json
-├── scripts/
-│   └── import-supplemental-madrasas.js
-├── assets/
-│   ├── app.js              # Legacy static-page behavior
-│   ├── style.css           # Shared site styles
-│   └── favicon.svg
-├── madrasas_list.json      # Source dataset (1,826 records)
-├── sitemap.xml
-└── robots.txt
+```sh
+# PowerShell
+$env:SITE_URL = "https://your-deployed-domain"
+npm run seo:sitemap
 ```
 
-## Data format
+The command writes `public/sitemap.xml` for all knowledge pages and all 1,972 record profiles in both languages, and adds the sitemap URL to `public/robots.txt`. Review and commit those generated files before deploying. Without `SITE_URL`, sitemap generation fails instead of publishing placeholder URLs.
 
-`data/madrasas.json` contains division and district lookup tables plus an `items` array of records. Each record includes `id`, `name`, `area`, `upazila`, `districtIndex`, `type`, `isWomen`, `ilhakCodes`, `level`, `levelCodes`, `phone`, and an optional `locationUnverified` flag. `level` and `phone` are `null` when not verified; historical numeric Wifaq stage values are retained separately in `levelCodes` and are not displayed as named levels. Do not infer a phone number or label a madrasa as Takmil without a supporting source.
+## Static-site limitations
 
-`madrasas_list.json` is the source dataset (1,979 records); `data/madrasas.json` is the 1,808-entry search dataset. The 249 pasted Mirpur and Savar records yielded 153 new records after deduplication. Supplemental entries use empty ilhak-code arrays where the supplied sources did not contain codes. To re-import the checked-in Mirpur and Savar source lists idempotently, run `npm run data:import`; this updates both datasets and the sitemap.
+This React/Vite project has no application server, database service, authentication, or private admin API. It does not expose a browser-only admin mode, store correction reports, geocode addresses, or collect student result credentials. Correction links open a public GitHub issue; visitors should not include private student or staff information.
 
-## Data notes
+## Main project files
 
-- **Source year:** 2019
-- **Coverage:** 1,808 search records, 53 districts, 8 divisions
-- **Supplemental sources:** User-provided Dhaka women's, Mirpur, and Savar madrasa lists
-- **Contact information:** Phone numbers and named levels are shown only when supported by a source.
-- **Important:** This directory is not affiliated with or operated by Wifaqul Madarisil Arabia Bangladesh. Verify contact details and addresses before relying on them.
-
-## Contributing
-
-Improvements are welcome. Please keep Bengali and English pages consistent, preserve the static-hosting behavior, and clearly identify the source and year of any proposed data changes. Open an issue or pull request with a concise description of the change.
+```text
+react/
+  index.html
+  src/App.jsx       # bilingual routes, directory, knowledge pages
+  src/app.css       # responsive application styles
+data/
+  qawmi_madrasa_database_v1_3_1.json  # canonical source data
+scripts/
+  validate-master-database.js
+  generate-sitemap.js
+public/
+  _redirects
+  robots.txt
+```
