@@ -54,7 +54,122 @@ export function normalizeText(value) {
   return normalizeDigits(value)
     .normalize("NFKC")
     .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, "");
+    .replace(/[^\p{L}\p{M}\p{N}]+/gu, "");
+}
+
+export const TRANSLITERATION_MAP = {
+  dhaka: "ঢাকা",
+  chittagong: "চট্টগ্রাম",
+  chattogram: "চট্টগ্রাম",
+  sylhet: "সিলেট",
+  rajshahi: "রাজশাহী",
+  khulna: "খুলনা",
+  barisal: "বরিশাল",
+  barishal: "বরিশাল",
+  rangpur: "রংপুর",
+  mymensingh: "ময়মনসিংহ",
+  comilla: "কুমিল্লা",
+  cumilla: "কুমিল্লা",
+  brahmanbaria: "ব্রাহ্মণবাড়িয়া",
+  bogra: "বগুড়া",
+  bogura: "বগুড়া",
+  jessore: "যশোর",
+  jashore: "যশোর",
+  coxsbazar: "কক্সবাজার",
+  feni: "ফেনী",
+  noakhali: "নোয়াখালী",
+  chandpur: "চাঁদপুর",
+  gazipur: "গাজীপুর",
+  narayanganj: "নারায়ণগঞ্জ",
+  narsingdi: "নরসিংদী",
+  tangail: "টাঙ্গাইল",
+  faridpur: "ফরিদপুর",
+  kishoreganj: "কিশোরগঞ্জ",
+  manikganj: "মানিকগঞ্জ",
+  munshiganj: "মুন্সিগঞ্জ",
+  pabna: "পাবনা",
+  sirajganj: "সিরাজগঞ্জ",
+  dinajpur: "দিনাজপুর",
+  kushtia: "কুষ্টিয়া",
+  satkhira: "সাতক্ষীরা",
+  mirpur: "মিরপুর",
+  uttara: "উত্তরা",
+  dhanmondi: "ধানমন্ডি",
+  mohammadpur: "মোহাম্মদপুর",
+  jatrabari: "যাত্রাবাড়ী",
+  badda: "বাড্ডা",
+  gulshan: "গুলশান",
+  banani: "বনানী",
+  lalbagh: "লালবাগ",
+  motijheel: "মতিঝিল",
+  wari: "ওয়ারী",
+  savar: "সাভার",
+  demra: "ডেমরা",
+  keraniganj: "কেরানীগঞ্জ",
+  jamia: "জামিয়া",
+  jamea: "জামিয়া",
+  darul: "দারুল",
+  uloom: "উলুম",
+  ulum: "উলুম",
+  madrasa: "মাদরাসা",
+  madrasah: "মাদরাসা",
+  befaq: "বেফাক",
+  wifaq: "বেফাক",
+  dawra: "দাওরা",
+  dawrah: "দাওরা",
+  hadith: "হাদিস",
+  hadis: "হাদিস",
+  tahfiz: "তাহফিজ",
+  hifz: "হিফজ",
+  tajwid: "তাজবীদ",
+  tajweed: "তাজবীদ",
+  quran: "কুরআন",
+  koran: "কুরআন",
+  mahila: "মহিলা",
+  women: "মহিলা",
+  female: "মহিলা",
+  men: "পুরুষ",
+  male: "পুরুষ",
+};
+
+export function searchTokens(value) {
+  return normalizeDigits(value || "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/\u09AF\u09BC/g, "\u09DF")
+    .replace(/\u09A1\u09BC/g, "\u09DC")
+    .replace(/\u09A2\u09BC/g, "\u09DD")
+    .replace(/জামিয়া/g, "জামিয়া")
+    .replace(/মাদ্রাসা/g, "মাদরাসা")
+    .replace(/কওমী/g, "কওমি")
+    .replace(/মুন্সীগঞ্জ/g, "মুন্সিগঞ্জ")
+    .replace(/নরসিংদি/g, "নরসিংদী")
+    .replace(/ব্রাহ্মণবাড়িয়া/g, "ব্রাহ্মণবাড়িয়া")
+    .replace(/[^\p{L}\p{M}\p{N}]+/gu, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
+export function matchesQuery(searchQuery, searchableFields) {
+  if (!searchQuery || !searchQuery.trim()) return true;
+  const rawTokens = searchTokens(searchQuery);
+  if (!rawTokens.length) return true;
+
+  const text = searchableFields
+    .filter(Boolean)
+    .map((field) => searchTokens(field).join(" "))
+    .join(" ");
+
+  return rawTokens.every((token) => {
+    if (text.includes(token)) return true;
+    const transliterated = TRANSLITERATION_MAP[token];
+    if (transliterated && text.includes(transliterated)) return true;
+    const strippedToken = token.replace(/[\u09BE-\u09CD]/g, "");
+    const strippedText = text.replace(/[\u09BE-\u09CD]/g, "");
+    if (strippedToken.length >= 3 && strippedText.includes(strippedToken)) return true;
+    return false;
+  });
 }
 
 export function districtFromAddress(address) {

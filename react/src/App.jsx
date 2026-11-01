@@ -11,8 +11,10 @@ import {
   BANGLADESH_DISTRICTS,
   BANGLADESH_DIVISIONS,
   districtFromAddress,
+  matchesQuery,
   normalizeDigits,
   normalizeText,
+  searchTokens,
 } from "../../data/bangladesh-divisions.js";
 import knowledgeBaseUrl from "../../data/knowledge_base.json?url";
 import madrasaManifestUrl from "../../data/madrasas/manifest.json?url";
@@ -302,28 +304,115 @@ function PageIntro({ english, eyebrow, title, description, crumbs = [] }) {
 }
 
 function SearchHero({ english }) {
-  const { database } = useDatabase();
+  const { database, records } = useDatabase();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
+  const [target, setTarget] = useState("madrasas"); // "madrasas" or "all"
+  const [isOpen, setIsOpen] = useState(false);
   const prefix = pagePrefix(english);
-  const suggestions = [
-    ...database.education_system.stages_as_reported_in_research.map((stage) => getLocalized({ en: stage.name, bn: stage.bn }, english)),
-    ...database.terminology.map((term) => getLocalized(term.term, english) || term.term_en || term.term_bn),
-    ...database.madrasa_directory.records.slice(0, 8).map((record) => record.name_bn),
-  ].filter(Boolean);
+  const trimmed = query.trim();
+
+  // Instant matching madrasas (top 5)
+  const instantMadrasas = useMemo(() => {
+    if (trimmed.length < 2) return [];
+    const matches = [];
+    for (const record of records) {
+      if (matchesQuery(trimmed, [record.name_bn, record.address_original, record.upazila_original, record.affiliation_code, record.id])) {
+        matches.push(record);
+        if (matches.length >= 5) break;
+      }
+    }
+    return matches;
+  }, [records, trimmed]);
+
+  // Instant matching knowledge topics (stages, syllabi, boards)
+  const instantTopics = useMemo(() => {
+    if (trimmed.length < 2) return [];
+    const matches = [];
+    for (const stage of database.education_system.stages_as_reported_in_research) {
+      const name = getLocalized({ en: stage.name, bn: stage.bn }, english);
+      if (matchesQuery(trimmed, [name, stage.name, stage.bn])) {
+        matches.push({ title: name, category: english ? "Stage" : "শিক্ষার ধাপ", href: `${prefix}/education` });
+        if (matches.length >= 3) break;
+      }
+    }
+    if (matches.length < 3) {
+      for (const syllabus of database.specialized_syllabi) {
+        const title = getLocalized(syllabus.title, english);
+        if (matchesQuery(trimmed, [title, syllabus.audience?.en, syllabus.audience?.bn])) {
+          matches.push({ title, category: english ? "Syllabus" : "সিলেবাস", href: `${prefix}/syllabus` });
+          if (matches.length >= 3) break;
+        }
+      }
+    }
+    if (matches.length < 3) {
+      for (const board of database.boards_and_governance) {
+        const title = getLocalized(board.name, english) || board.short_name;
+        if (matchesQuery(trimmed, [title, board.short_name])) {
+          matches.push({ title, category: english ? "Board" : "বোর্ড", href: `${prefix}/history` });
+          if (matches.length >= 3) break;
+        }
+      }
+    }
+    return matches;
+  }, [database, english, prefix, trimmed]);
+
+  const totalMatchesCount = useMemo(() => {
+    if (trimmed.length < 2) return 0;
+    return records.filter((r) => matchesQuery(trimmed, [r.name_bn, r.address_original, r.upazila_original, r.affiliation_code, r.id])).length;
+  }, [records, trimmed]);
+
   const submit = (event) => {
-    event.preventDefault();
+    if (event) event.preventDefault();
+    setIsOpen(false);
+    if (!trimmed) {
+      navigate(`${prefix}/madrasas`);
+      return;
+    }
     const params = new URLSearchParams();
-    if (query.trim()) params.set("q", query.trim());
-    navigate(`${prefix}/search${params.size ? `?${params}` : ""}`);
+    params.set("q", trimmed);
+    if (target === "all") {
+      navigate(`${prefix}/search?${params}`);
+    } else {
+      navigate(`${prefix}/madrasas?${params}`);
+    }
   };
+
+  const popularTags = [
+    { label: english ? "Darul Uloom" : "দারুল উলুম", q: "দারুল উলুম" },
+    { label: english ? "Jamia" : "জামিয়া", q: "জামিয়া" },
+    { label: english ? "Women's Madrasa" : "মহিলা মাদরাসা", q: "মহিলা" },
+    { label: english ? "Dhaka" : "ঢাকা", q: "ঢাকা" },
+    { label: english ? "Chattogram" : "চট্টগ্রাম", q: "চট্টগ্রাম" },
+    { label: english ? "Sylhet" : "সিলেট", q: "সিলেট" },
+    { label: english ? "Tahfiz" : "হিফজুল কুরআন", q: "হিফজ" },
+  ];
+
   return (
     <form className="hero-search" onSubmit={submit}>
-      <label htmlFor="hero-query">
-        <span className="search-label-icon" aria-hidden="true">🔍</span>
-        {english ? "Find a madrasa or explore the Qawmi education system" : "মাদরাসা খুঁজুন অথবা কওমি শিক্ষাব্যবস্থা সম্পর্কে জানুন"}
-      </label>
+      <div className="search-header-row">
+        <label htmlFor="hero-query">
+          <span className="search-label-icon" aria-hidden="true">🔍</span>
+          {english ? "Search Qawmi Madrasa Database & Knowledge Base" : "কওমি মাদরাসা ও শিক্ষাব্যবস্থা অনুসন্ধান"}
+        </label>
+        <div className="search-target-tabs">
+          <button
+            type="button"
+            className={`target-tab ${target === "madrasas" ? "active" : ""}`}
+            onClick={() => setTarget("madrasas")}
+          >
+            🏫 {english ? "Madrasas" : "মাদরাসা ডিরেক্টরি"}
+          </button>
+          <button
+            type="button"
+            className={`target-tab ${target === "all" ? "active" : ""}`}
+            onClick={() => setTarget("all")}
+          >
+            🌐 {english ? "All Content" : "সমগ্র সাইট"}
+          </button>
+        </div>
+      </div>
       <div className="search-control">
         <div className="search-input-wrapper">
           <svg className="search-icon-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18" aria-hidden="true">
@@ -333,44 +422,126 @@ function SearchHero({ english }) {
           <input
             id="hero-query"
             type="search"
-            list="knowledge-suggestions"
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={english ? "Name, address, ilhak number…" : "নাম, ঠিকানা বা ইলহাক নম্বর…"}
+            autoComplete="off"
+            onFocus={() => setIsOpen(true)}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              setIsOpen(true);
+            }}
+            placeholder={
+              target === "madrasas"
+                ? (english ? "Type name, district, area, or ilhak code (e.g. Darul Uloom, Mirpur, 0012)…" : "মাদরাসার নাম, জেলা, থানা বা ইলহাক কোড লিখুন (যেমন: দারুল উলুম, মিরপুর)…")
+                : (english ? "Search syllabus, stages, history, boards, or madrasas…" : "সিলেবাস, শিক্ষার স্তর, ইতিহাস, বোর্ড বা মাদরাসা খুঁজুন…")
+            }
           />
           {query && (
-            <button type="button" className="search-clear-btn" onClick={() => setQuery("")} aria-label={english ? "Clear" : "মুছুন"}>✕</button>
+            <button
+              type="button"
+              className="search-clear-btn"
+              onClick={() => {
+                setQuery("");
+                setIsOpen(false);
+              }}
+              aria-label={english ? "Clear" : "মুছুন"}
+            >
+              ✕
+            </button>
           )}
         </div>
-        <datalist id="knowledge-suggestions">
-          {[...new Set(suggestions)].map((suggestion) => <option value={suggestion} key={suggestion} />)}
-        </datalist>
         <button className="btn btn-primary" type="submit">
-          <span>{english ? "Search everything" : "সবখানে খুঁজুন"}</span>
+          <span>{target === "madrasas" ? (english ? "Find Madrasa" : "মাদরাসা খুঁজুন") : (english ? "Search" : "খুঁজুন")}</span>
           <span aria-hidden="true">→</span>
         </button>
       </div>
+
+      {isOpen && trimmed.length >= 2 && (
+        <div className="instant-results-dropdown">
+          <div className="dropdown-header">
+            <span>{english ? "Instant Matches" : "তাৎক্ষণিক ফলাফল"}</span>
+            <button type="button" className="close-dropdown-btn" onClick={() => setIsOpen(false)}>✕</button>
+          </div>
+
+          {instantMadrasas.length > 0 && (
+            <div className="dropdown-section">
+              <span className="dropdown-section-title">🏫 {english ? "Madrasas" : "মাদরাসা"}</span>
+              <div className="dropdown-items-list">
+                {instantMadrasas.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={`${prefix}/madrasa/${item.id}`}
+                    className="dropdown-item"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <div className="dropdown-item-main">
+                      <strong className="item-title">{item.name_bn}</strong>
+                      <span className="item-sub">{item.address_original || (english ? "Address not stated" : "ঠিকানা উল্লেখ নেই")}</span>
+                    </div>
+                    <div className="dropdown-item-badges">
+                      <span className="tag-micro">{item.gender === "women" ? (english ? "Women" : "মহিলা") : item.gender === "men" ? (english ? "Men" : "পুরুষ") : (english ? "General" : "সাধারণ")}</span>
+                      {item.affiliation_code && <span className="tag-micro code">#{item.affiliation_code}</span>}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {instantTopics.length > 0 && (
+            <div className="dropdown-section">
+              <span className="dropdown-section-title">📚 {english ? "Guides & Syllabi" : "শিক্ষাব্যবস্থা ও নির্দেশিকা"}</span>
+              <div className="dropdown-items-list">
+                {instantTopics.map((topic, idx) => (
+                  <Link
+                    key={idx}
+                    to={topic.href}
+                    className="dropdown-item topic-item"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <span className="topic-badge">{topic.category}</span>
+                    <strong className="item-title">{topic.title}</strong>
+                    <span className="topic-arrow">↗</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {instantMadrasas.length === 0 && instantTopics.length === 0 && (
+            <div className="dropdown-empty">
+              {english ? "No exact instant match found. Press Enter to search directory." : "সরাসরি কোনো মিল পাওয়া যায়নি। সম্পূর্ণ ডিরেক্টরিতে খুঁজতে Enter চাপুন।"}
+            </div>
+          )}
+
+          <div className="dropdown-footer">
+            <button type="button" className="view-all-link" onClick={submit}>
+              {target === "all"
+                ? (english ? `Search all content for "${trimmed}" →` : `"${trimmed}" দিয়ে সমগ্র সাইটে খুঁজুন →`)
+                : (english ? `View all ${totalMatchesCount.toLocaleString("en")} matching madrasas in directory →` : `মাদরাসা ডিরেক্টরিতে সব ${totalMatchesCount.toLocaleString("bn-BD")}টি ফলাফল দেখুন →`)}
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="hero-search-footer">
         <span className="hero-search-note">
           {english
-            ? `${database.madrasa_directory.imported_record_count.toLocaleString("en")} source records · Bengali & English search`
-            : `${database.madrasa_directory.imported_record_count.toLocaleString("bn-BD")}টি তথ্যসূত্রভিত্তিক রেকর্ড · বাংলা ও ইংরেজি নম্বরে প্রযোজ্য`}
+            ? `${records.length.toLocaleString("en")} madrasas · Multi-word & English search supported`
+            : `${records.length.toLocaleString("bn-BD")}টি মাদরাসা · ইংরেজি ও একাধিক শব্দে অনুসন্ধান সমর্থিত`}
         </span>
         <div className="quick-tags">
-          <span className="quick-label">{english ? "Quick search:" : "দ্রুত অনুসন্ধান:"}</span>
-          {suggestions.slice(0, 4).map((item) => (
+          <span className="quick-label">{english ? "Popular searches:" : "জনপ্রিয় অনুসন্ধান:"}</span>
+          {popularTags.map((tag) => (
             <button
-              key={item}
+              key={tag.q}
               type="button"
               className="quick-chip"
               onClick={() => {
-                setQuery(item);
-                const params = new URLSearchParams();
-                params.set("q", item);
-                navigate(`${prefix}/search?${params}`);
+                setQuery(tag.q);
+                navigate(`${prefix}/madrasas?q=${encodeURIComponent(tag.q)}`);
               }}
             >
-              {item}
+              {tag.label}
             </button>
           ))}
         </div>
@@ -572,33 +743,31 @@ function DirectoryPage({ english }) {
     [district, division, recordsWithLocations],
   );
   const affiliation = searchParams.get("affiliation") ?? "";
-  const normalizedLocality = normalizeText(locality.trim());
   const results = useMemo(() => recordsWithLocations
     .filter(({ record, district: matchedDistrict }) => {
-    if (gender && record.gender !== gender) return false;
-    if (division === "unclassified" && matchedDistrict) return false;
-    if (division && division !== "unclassified" && matchedDistrict?.division !== division) return false;
-    if (district === "unclassified" && matchedDistrict) return false;
-    if (district && district !== "unclassified" && matchedDistrict?.slug !== district) return false;
-    if (upazila && record.upazila_original !== upazila) return false;
-    if (affiliation && normalizeText(record.affiliation_code || "") !== normalizeText(affiliation)) return false;
-    if (contactOnly && record.contact_numbers.length === 0) return false;
-    const locationText = normalizeText(`${record.address_original || ""} ${record.upazila_original || ""}`);
-    if (normalizedLocality && !locationText.includes(normalizedLocality)) return false;
-    if (!normalizedQuery) return true;
-    const haystack = normalizeText([
-      record.name_bn,
-      record.address_original,
-      record.upazila_original,
-      record.affiliation_code,
-      record.id,
-      record.source_id,
-      record.original_as_submitted,
-    ].filter(Boolean).join(" "));
-    const code = normalizeText(record.affiliation_code || "");
-    return haystack.includes(normalizedQuery) || code.includes(normalizedQuery);
-  })
-    .map(({ record }) => record), [affiliation, contactOnly, district, division, gender, normalizedLocality, normalizedQuery, recordsWithLocations, upazila]);
+      if (gender && record.gender !== gender) return false;
+      if (division === "unclassified" && matchedDistrict) return false;
+      if (division && division !== "unclassified" && matchedDistrict?.division !== division) return false;
+      if (district === "unclassified" && matchedDistrict) return false;
+      if (district && district !== "unclassified" && matchedDistrict?.slug !== district) return false;
+      if (upazila && record.upazila_original !== upazila) return false;
+      if (affiliation && !matchesQuery(affiliation, [record.affiliation_code])) return false;
+      if (contactOnly && record.contact_numbers.length === 0) return false;
+      if (locality.trim() && !matchesQuery(locality, [record.address_original, record.upazila_original])) return false;
+      if (!query.trim()) return true;
+      return matchesQuery(query, [
+        record.name_bn,
+        record.address_original,
+        record.upazila_original,
+        record.affiliation_code,
+        record.id,
+        record.source_id,
+        matchedDistrict?.en,
+        matchedDistrict?.bn,
+        ...(matchedDistrict?.aliases || []),
+      ]);
+    })
+    .map(({ record }) => record), [affiliation, contactOnly, district, division, gender, locality, query, recordsWithLocations, upazila]);
   const source = sources.get(database.madrasa_directory.records[0]?.source_id);
   usePageMeta(
     english ? "Madrasa Directory | QawmiVerse" : "মাদরাসা ডিরেক্টরি | কওমিভার্স",
@@ -861,20 +1030,21 @@ function GlobalSearchPage({ english }) {
     return [...directoryItems, ...timelineItems, ...stageItems, ...syllabusItems, ...boardItems, ...sourceItems, ...termItems, ...domainItems, ...careerItems, ...lawItems, ...articleItems];
   }, [database, english, prefix, records]);
   const results = useMemo(() => {
-    if (!normalizedQuery) return [];
+    if (!query.trim()) return [];
     return items
       .map((item) => {
-        const title = normalizeText(item.title);
-        const description = normalizeText(item.description || "");
-        const content = normalizeText(item.content);
-        const score = title.includes(normalizedQuery) ? 3 : description.includes(normalizedQuery) ? 2 : content.includes(normalizedQuery) ? 1 : 0;
+        const titleMatch = matchesQuery(query, [item.title]);
+        const descMatch = matchesQuery(query, [item.description]);
+        const contentMatch = matchesQuery(query, [item.content]);
+        if (!titleMatch && !descMatch && !contentMatch) return null;
+        const score = titleMatch ? 10 : descMatch ? 5 : 2;
         return { item, score };
       })
-      .filter((result) => result.score > 0)
+      .filter(Boolean)
       .sort((a, b) => b.score - a.score)
       .slice(0, 60)
       .map((result) => result.item);
-  }, [items, normalizedQuery]);
+  }, [items, query]);
   usePageMeta(
     english ? "Search QawmiVerse" : "কওমিভার্সে খুঁজুন",
     english ? "Search madrasa records, education stages, syllabi, history, organizations and cited sources." : "মাদরাসার তথ্য, শিক্ষার ধাপ, সিলেবাস, ইতিহাস, সংগঠন ও তথ্যসূত্র খুঁজুন।",
