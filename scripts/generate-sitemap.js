@@ -43,15 +43,15 @@ const escapeXml = (value) => String(value).replace(/[<>&'"]/g, (character) => ({
 })[character]);
 const localizedPath = (locale, route) => {
   const normalized = route === "/" ? "" : route;
-  return `${baseUrl}${locale === "bn" ? "/bn" : ""}${normalized || "/"}`;
+  return `${baseUrl}${locale === "en" ? "/en" : ""}${normalized || "/"}`;
 };
 const entries = pagePaths.flatMap((route) => {
   const english = localizedPath("en", route);
   const bengali = localizedPath("bn", route);
   const alternates = [
     `<xhtml:link rel="alternate" hreflang="en" href="${escapeXml(english)}"/>`,
-    `<xhtml:link rel="alternate" hreflang="bn" href="${escapeXml(bengali)}"/>`,
-    `<xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(english)}"/>`,
+    `<xhtml:link rel="alternate" hreflang="bn-BD" href="${escapeXml(bengali)}"/>`,
+    `<xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(bengali)}"/>`,
   ].join("");
   return [english, bengali].map((url) => `<url><loc>${escapeXml(url)}</loc><lastmod>${escapeXml(lastmod)}</lastmod>${alternates}</url>`);
 }).join("");

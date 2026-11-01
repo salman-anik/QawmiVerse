@@ -95,10 +95,29 @@ function getLocalized(value, english) {
   return value ?? "";
 }
 
-function usePageMeta(title, description) {
+function usePageMeta(title, description, robots = "index, follow") {
+  const location = useLocation();
   useEffect(() => {
-    document.documentElement.lang = document.documentElement.dataset.locale || "en";
+    const english = /^\/en(?:\/|$)/.test(location.pathname);
+    const locale = english ? "en" : "bn-BD";
+    const normalizedPath = contentPath(location.pathname).replace(/\/+$/, "") || "/";
+    const englishPath = `/en${normalizedPath === "/" ? "/" : normalizedPath}`;
+    const bengaliPath = normalizedPath === "/" ? "/" : normalizedPath;
+    const englishUrl = `${window.location.origin}${englishPath}`;
+    const bengaliUrl = `${window.location.origin}${bengaliPath}`;
+    const canonicalUrl = english ? englishUrl : bengaliUrl;
+
+    document.documentElement.lang = locale;
     if (title) document.title = title;
+    const setMeta = (selector, attributes, content) => {
+      let tag = document.head.querySelector(selector);
+      if (!tag) {
+        tag = document.createElement("meta");
+        Object.entries(attributes).forEach(([key, value]) => tag.setAttribute(key, value));
+        document.head.appendChild(tag);
+      }
+      tag.content = content;
+    };
     if (description) {
       let tag = document.querySelector('meta[name="description"]');
       if (!tag) {
@@ -108,18 +127,77 @@ function usePageMeta(title, description) {
       }
       tag.content = description;
     }
+    setMeta('meta[property="og:title"]', { property: "og:title" }, title || "");
+    setMeta('meta[property="og:description"]', { property: "og:description" }, description || "");
+    setMeta('meta[property="og:url"]', { property: "og:url" }, canonicalUrl);
+    setMeta('meta[property="og:site_name"]', { property: "og:site_name" }, english ? "Qawmi Knowledge" : "কওমি জ্ঞানভান্ডার");
+    setMeta('meta[property="og:locale"]', { property: "og:locale" }, english ? "en_US" : "bn_BD");
+    setMeta('meta[property="og:locale:alternate"]', { property: "og:locale:alternate" }, english ? "bn_BD" : "en_US");
+    setMeta('meta[name="twitter:title"]', { name: "twitter:title" }, title || "");
+    setMeta('meta[name="twitter:description"]', { name: "twitter:description" }, description || "");
+    setMeta('meta[name="robots"]', { name: "robots" }, robots);
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement("link");
       canonical.rel = "canonical";
       document.head.appendChild(canonical);
     }
-    canonical.href = `${window.location.origin}${window.location.pathname}`;
-  }, [description, title]);
+    canonical.href = canonicalUrl;
+
+    const setAlternate = (language, href) => {
+      let alternate = document.head.querySelector(`link[rel="alternate"][hreflang="${language}"]`);
+      if (!alternate) {
+        alternate = document.createElement("link");
+        alternate.rel = "alternate";
+        alternate.hreflang = language;
+        document.head.appendChild(alternate);
+      }
+      alternate.href = href;
+    };
+    setAlternate("bn-BD", bengaliUrl);
+    setAlternate("en", englishUrl);
+    setAlternate("x-default", bengaliUrl);
+
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": `${window.location.origin}/#website`,
+          url: `${window.location.origin}/`,
+          name: "কওমি জ্ঞানভান্ডার",
+          alternateName: "Qawmi Knowledge",
+          inLanguage: ["bn-BD", "en"],
+          potentialAction: {
+            "@type": "SearchAction",
+            target: `${window.location.origin}/madrasas?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        },
+        {
+          "@type": "WebPage",
+          "@id": `${canonicalUrl}#webpage`,
+          url: canonicalUrl,
+          name: title,
+          description,
+          inLanguage: locale,
+          isPartOf: { "@id": `${window.location.origin}/#website` },
+        },
+      ],
+    };
+    let jsonLd = document.getElementById("page-structured-data");
+    if (!jsonLd) {
+      jsonLd = document.createElement("script");
+      jsonLd.id = "page-structured-data";
+      jsonLd.type = "application/ld+json";
+      document.head.appendChild(jsonLd);
+    }
+    jsonLd.textContent = JSON.stringify(structuredData).replace(/</g, "\\u003c");
+  }, [description, location.pathname, robots, title]);
 }
 
 function pagePrefix(english) {
-  return english ? "" : "/bn";
+  return english ? "/en" : "";
 }
 
 function contentPath(pathname) {
@@ -128,7 +206,7 @@ function contentPath(pathname) {
 
 function SiteHeader({ english, path }) {
   const location = useLocation();
-  const otherLanguage = `${english ? "/bn" : ""}${path}${location.search}`;
+  const otherLanguage = `${english ? "" : "/en"}${path}${location.search}`;
   const prefix = pagePrefix(english);
   const links = [
     ["/madrasas", english ? "Directory" : "মাদরাসা"],
@@ -1579,7 +1657,7 @@ function AboutPage({ english }) {
 }
 
 function NotFound({ english }) {
-  usePageMeta(english ? "Page not found | Qawmi Knowledge" : "পৃষ্ঠা পাওয়া যায়নি | কওমি জ্ঞানভান্ডার", english ? "The requested knowledge-base page could not be found." : "অনুরোধ করা পৃষ্ঠাটি পাওয়া যায়নি।");
+  usePageMeta(english ? "Page not found | Qawmi Knowledge" : "পৃষ্ঠা পাওয়া যায়নি | কওমি জ্ঞানভান্ডার", english ? "The requested knowledge-base page could not be found." : "অনুরোধ করা পৃষ্ঠাটি পাওয়া যায়নি।", "noindex, follow");
   return (
     <section className="not-found">
       <span className="eyebrow">404</span>
@@ -1609,7 +1687,7 @@ function RoutePage({ english, path }) {
 export default function App() {
   const location = useLocation();
   const path = contentPath(location.pathname).replace(/\/+$/, "") || "/";
-  const english = !location.pathname.startsWith("/bn");
+  const english = /^\/en(?:\/|$)/.test(location.pathname);
   const [database, setDatabase] = useState(null);
   const [loadError, setLoadError] = useState(null);
 

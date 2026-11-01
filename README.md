@@ -63,7 +63,9 @@ The Vite application is rooted at `react/`; production files are written to `dis
 
 ## SEO sitemap
 
-The deployment domain is intentionally not guessed. After choosing the actual site URL, generate localized routes and directory-record URLs:
+Bangla is the default language at `/`; English pages use the `/en/` prefix. Page titles, descriptions, canonical URLs, language alternates and WebSite/WebPage structured data are set for both languages. Directory filter query strings are excluded from canonical URLs.
+
+The deployment domain is intentionally not guessed. After deploying to the final HTTPS domain, generate localized routes and directory-record URLs:
 
 ```sh
 # PowerShell
@@ -71,7 +73,9 @@ $env:SITE_URL = "https://your-deployed-domain"
 npm run seo:sitemap
 ```
 
-The command writes `public/sitemap.xml` for all knowledge pages and all 1,972 record profiles in both languages, and adds the sitemap URL to `public/robots.txt`. Review and commit those generated files before deploying. Without `SITE_URL`, sitemap generation fails instead of publishing placeholder URLs.
+The command writes `public/sitemap.xml` for all knowledge pages and all 1,972 record profiles in both languages, with `hreflang` alternates, and adds the sitemap URL to `public/robots.txt`. Review and commit those generated files before deploying. Without `SITE_URL`, sitemap generation fails instead of publishing placeholder URLs.
+
+After deployment, add and verify the site in [Google Search Console](https://search.google.com/search-console), submit `/sitemap.xml`, and inspect the important Bangla and English URLs with URL Inspection. Search Console verification requires access to the deployed domain or its DNS/HTML verification method; this repository cannot create that ownership proof automatically. Crawling and indexing timing is controlled by Google and is not guaranteed by metadata alone.
 
 ## Static-site limitations
 
