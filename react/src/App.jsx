@@ -89,7 +89,7 @@ function usePageMeta(title, description, robots = "index, follow") {
     setMeta('meta[property="og:title"]', { property: "og:title" }, title || "");
     setMeta('meta[property="og:description"]', { property: "og:description" }, description || "");
     setMeta('meta[property="og:url"]', { property: "og:url" }, canonicalUrl);
-    setMeta('meta[property="og:site_name"]', { property: "og:site_name" }, english ? "Qawmi Knowledge" : "কওমি জ্ঞানভান্ডার");
+    setMeta('meta[property="og:site_name"]', { property: "og:site_name" }, english ? "QawmiVerse" : "কওমিভার্স");
     setMeta('meta[property="og:locale"]', { property: "og:locale" }, english ? "en_US" : "bn_BD");
     setMeta('meta[property="og:locale:alternate"]', { property: "og:locale:alternate" }, english ? "bn_BD" : "en_US");
     setMeta('meta[name="twitter:title"]', { name: "twitter:title" }, title || "");
@@ -124,8 +124,8 @@ function usePageMeta(title, description, robots = "index, follow") {
           "@type": "WebSite",
           "@id": `${window.location.origin}/#website`,
           url: `${window.location.origin}/`,
-          name: "কওমি জ্ঞানভান্ডার",
-          alternateName: "Qawmi Knowledge",
+          name: "কওমিভার্স",
+          alternateName: "QawmiVerse",
           inLanguage: ["bn-BD", "en"],
           potentialAction: {
             "@type": "SearchAction",
@@ -182,7 +182,7 @@ function SiteHeader({ english, path }) {
         <Link className="brand" to={`${prefix}/`}>
           <span className="brand-mark" aria-hidden="true">ق</span>
           <span className="brand-text">
-            <b>{english ? "Qawmi Knowledge" : "কওমি জ্ঞানভান্ডার"}</b>
+            <b>{english ? "QawmiVerse" : "কওমিভার্স"}</b>
             <small>{english ? "Bangladesh · learning, sources, directory" : "বাংলাদেশ · শিক্ষা, তথ্যসূত্র ও ডিরেক্টরি"}</small>
           </span>
         </Link>
@@ -220,7 +220,7 @@ function SiteFooter({ english }) {
     <footer className="foot">
       <div className="footer-grid">
         <div>
-          <b>{english ? "Qawmi Knowledge" : "কওমি জ্ঞানভান্ডার"}</b>
+          <b>{english ? "QawmiVerse" : "কওমিভার্স"}</b>
           <p>{english
             ? "An independent, source-led guide to Qawmi education in Bangladesh."
             : "বাংলাদেশের কওমি শিক্ষাব্যবস্থা নিয়ে একটি স্বতন্ত্র, তথ্যসূত্রভিত্তিক নির্দেশিকা।"}</p>
@@ -388,7 +388,7 @@ function HomePage({ english }) {
   const telephoneCount = records.reduce((count, record) => count + record.contact_numbers.length, 0);
   const sourceDate = database.metadata.updated_at || database.metadata.created_at;
   usePageMeta(
-    english ? "Qawmi Knowledge | Bangladesh Education Guide & Directory" : "কওমি জ্ঞানভান্ডার | শিক্ষা নির্দেশিকা ও মাদরাসা ডিরেক্টরি",
+    english ? "QawmiVerse | Bangladesh Education Guide & Directory" : "কওমিভার্স | শিক্ষা নির্দেশিকা ও মাদরাসা ডিরেক্টরি",
     english
       ? "Explore Qawmi education in Bangladesh with a sourced madrasa directory, education guides, history, syllabi, statistics and references."
       : "তথ্যসূত্রভিত্তিক মাদরাসা ডিরেক্টরি, শিক্ষাব্যবস্থা, ইতিহাস, সিলেবাস, পরিসংখ্যান ও সূত্রের মাধ্যমে বাংলাদেশের কওমি শিক্ষা জানুন।",
@@ -601,7 +601,7 @@ function DirectoryPage({ english }) {
     .map(({ record }) => record), [affiliation, contactOnly, district, division, gender, normalizedLocality, normalizedQuery, recordsWithLocations, upazila]);
   const source = sources.get(database.madrasa_directory.records[0]?.source_id);
   usePageMeta(
-    english ? "Madrasa Directory | Qawmi Knowledge" : "মাদরাসা ডিরেক্টরি | কওমি জ্ঞানভান্ডার",
+    english ? "Madrasa Directory | QawmiVerse" : "মাদরাসা ডিরেক্টরি | কওমিভার্স",
     english
       ? "Search source-transcribed Qawmi madrasa records by name, address, ilhak code, gender or recorded upazila."
       : "নাম, ঠিকানা, ইলহাক কোড, ধরন অথবা উল্লিখিত উপজেলা দিয়ে তথ্যসূত্রভিত্তিক কওমি মাদরাসার তথ্য খুঁজুন।",
@@ -876,7 +876,7 @@ function GlobalSearchPage({ english }) {
       .map((result) => result.item);
   }, [items, normalizedQuery]);
   usePageMeta(
-    english ? "Search Qawmi Knowledge" : "কওমি জ্ঞানভান্ডারে খুঁজুন",
+    english ? "Search QawmiVerse" : "কওমিভার্সে খুঁজুন",
     english ? "Search madrasa records, education stages, syllabi, history, organizations and cited sources." : "মাদরাসার তথ্য, শিক্ষার ধাপ, সিলেবাস, ইতিহাস, সংগঠন ও তথ্যসূত্র খুঁজুন।",
   );
   return (
@@ -1221,7 +1221,7 @@ function OverviewPage({ english }) {
   const system = database.education_system;
   const stages = system.stages_as_reported_in_research || [];
   usePageMeta(
-    english ? "Qawmi Education System & Comparison | Qawmi Knowledge" : "কওমি শিক্ষাব্যবস্থা ও তুলনা | কওমি জ্ঞানভান্ডার",
+    english ? "Qawmi Education System & Comparison | QawmiVerse" : "কওমি শিক্ষাব্যবস্থা ও তুলনা | কওমিভার্স",
     english
       ? "Explore Qawmi study stages, curriculum, verified equivalencies, comparisons with Alia and general education, and cited legal recognition."
       : "কওমি শিক্ষার ধাপ, পাঠ্যক্রম, যাচাইকৃত সমমান, আলিয়া ও সাধারণ শিক্ষার সঙ্গে তুলনা এবং আইনি স্বীকৃতি জানুন।",
@@ -1293,7 +1293,7 @@ function HistoryPage({ english }) {
   const timeline = [...history.timeline]
     .filter((item) => !period || String(item.date).startsWith(period.slice(0, 3)))
     .sort((a, b) => String(a.date).localeCompare(String(b.date)));
-  usePageMeta(english ? "History & Governance | Qawmi Knowledge" : "ইতিহাস ও পরিচালনা | কওমি জ্ঞানভান্ডার", english ? "A cited overview of Qawmi education history, boards and legal recognition in Bangladesh." : "বাংলাদেশের কওমি শিক্ষার ইতিহাস, বোর্ড ও আইনি স্বীকৃতির তথ্যসূত্রভিত্তিক পরিচিতি।");
+  usePageMeta(english ? "History & Governance | QawmiVerse" : "ইতিহাস ও পরিচালনা | কওমিভার্স", english ? "A cited overview of Qawmi education history, boards and legal recognition in Bangladesh." : "বাংলাদেশের কওমি শিক্ষার ইতিহাস, বোর্ড ও আইনি স্বীকৃতির তথ্যসূত্রভিত্তিক পরিচিতি।");
   return (
     <>
       <PageIntro english={english} eyebrow={english ? "CONTEXT" : "প্রেক্ষাপট"} title={english ? "History, boards & recognition" : "ইতিহাস, বোর্ড ও স্বীকৃতি"} description={getLocalized(history.regional_background, english)} />
@@ -1413,7 +1413,7 @@ function HistoryPage({ english }) {
 
 function SyllabusPage({ english }) {
   const { database } = useDatabase();
-  usePageMeta(english ? "Syllabi & Study Resources | Qawmi Knowledge" : "সিলেবাস ও পাঠ্য-রিসোর্স | কওমি জ্ঞানভান্ডার", english ? "Browse Qawmi Darsiyat examination syllabus by stage, subject, kitab and assigned portion." : "দরসিয়াতের কেন্দ্রীয় পরীক্ষার সিলেবাস স্তর, বিষয়, কিতাব ও নির্ধারিত পরিমাণ অনুযায়ী দেখুন।");
+  usePageMeta(english ? "Syllabi & Study Resources | QawmiVerse" : "সিলেবাস ও পাঠ্য-রিসোর্স | কওমিভার্স", english ? "Browse Qawmi Darsiyat examination syllabus by stage, subject, kitab and assigned portion." : "দরসিয়াতের কেন্দ্রীয় পরীক্ষার সিলেবাস স্তর, বিষয়, কিতাব ও নির্ধারিত পরিমাণ অনুযায়ী দেখুন।");
   return (
     <>
       <PageIntro
@@ -1665,7 +1665,7 @@ function StatisticsPage({ english }) {
     values[key] = (values[key] || 0) + 1;
     return values;
   }, {});
-  usePageMeta(english ? "Directory Data & Statistics | Qawmi Knowledge" : "ডিরেক্টরি ডেটা ও পরিসংখ্যান | কওমি জ্ঞানভান্ডার", english ? "Understand the supplied directory coverage, data quality and published Qawmi madrasa estimates." : "সরবরাহকৃত ডিরেক্টরির পরিসর, ডেটার মান ও প্রকাশিত কওমি মাদরাসার হিসাব বুঝুন।");
+  usePageMeta(english ? "Directory Data & Statistics | QawmiVerse" : "ডিরেক্টরি ডেটা ও পরিসংখ্যান | কওমিভার্স", english ? "Understand the supplied directory coverage, data quality and published Qawmi madrasa estimates." : "সরবরাহকৃত ডিরেক্টরির পরিসর, ডেটার মান ও প্রকাশিত কওমি মাদরাসার হিসাব বুঝুন।");
   return (
     <>
       <PageIntro english={english} eyebrow={english ? "DATA" : "ডেটা"} title={english ? "What the data says—and does not say" : "ডেটা কী বলে—এবং কী বলে না"} description={getLocalized(database.statistics.note, english)} />
@@ -1738,7 +1738,7 @@ function StatisticsPage({ english }) {
 
 function ResourcesPage({ english }) {
   const { database, sources } = useDatabase();
-  usePageMeta(english ? "Sources & Data Notes | Qawmi Knowledge" : "তথ্যসূত্র ও ডেটা নোট | কওমি জ্ঞানভান্ডার", english ? "Browse the cited sources, datasets and limitations behind the Qawmi education knowledge base." : "কওমি শিক্ষার তথ্যভান্ডারের তথ্যসূত্র, ডেটাসেট ও সীমাবদ্ধতা দেখুন।");
+  usePageMeta(english ? "Sources & Data Notes | QawmiVerse" : "তথ্যসূত্র ও ডেটা নোট | কওমিভার্স", english ? "Browse the cited sources, datasets and limitations behind the Qawmi education knowledge base." : "কওমি শিক্ষার তথ্যভান্ডারের তথ্যসূত্র, ডেটাসেট ও সীমাবদ্ধতা দেখুন।");
   return (
     <>
       <PageIntro english={english} eyebrow={english ? "TRANSPARENCY" : "স্বচ্ছতা"} title={english ? "Sources & data notes" : "তথ্যসূত্র ও ডেটা নোট"} description={english ? "Every historical claim, estimate and directory record has limits. Use the source references below to verify context." : "ইতিহাস, অনুমান ও ডিরেক্টরির প্রতিটি রেকর্ডের সীমাবদ্ধতা আছে। প্রেক্ষাপট যাচাইয়ে নিচের সূত্রগুলো দেখুন।"} />
@@ -1797,7 +1797,7 @@ function ResourcesPage({ english }) {
 function ResultsPage({ english }) {
   const { database } = useDatabase();
   const boards = database.boards_and_governance.filter((board) => board.official_website);
-  usePageMeta(english ? "Examinations & Official Results | Qawmi Knowledge" : "পরীক্ষা ও অফিসিয়াল ফলাফল | কওমি জ্ঞানভান্ডার", english ? "Find board-listed official websites for exam and result information. Always verify current notices with the issuing board." : "পরীক্ষা ও ফলাফলের তথ্যের জন্য বোর্ডের তালিকাভুক্ত অফিসিয়াল ওয়েবসাইট দেখুন। সর্বশেষ বিজ্ঞপ্তি সংশ্লিষ্ট বোর্ডে যাচাই করুন।");
+  usePageMeta(english ? "Examinations & Official Results | QawmiVerse" : "পরীক্ষা ও অফিসিয়াল ফলাফল | কওমিভার্স", english ? "Find board-listed official websites for exam and result information. Always verify current notices with the issuing board." : "পরীক্ষা ও ফলাফলের তথ্যের জন্য বোর্ডের তালিকাভুক্ত অফিসিয়াল ওয়েবসাইট দেখুন। সর্বশেষ বিজ্ঞপ্তি সংশ্লিষ্ট বোর্ডে যাচাই করুন।");
   return (
     <>
       <PageIntro english={english} eyebrow={english ? "EXAMINATIONS" : "পরীক্ষা"} title={english ? "Examinations & results" : "পরীক্ষা ও ফলাফল"} description={english ? "This knowledge base does not contain a current results feed. Use the official channels cited in the source records and confirm that notices are current." : "এই তথ্যভান্ডারে সরাসরি হালনাগাদ ফলাফল নেই। সূত্রে উল্লিখিত অফিসিয়াল চ্যানেল দেখুন এবং বিজ্ঞপ্তির তারিখ যাচাই করুন।"} />
@@ -1819,7 +1819,7 @@ function ResultsPage({ english }) {
 
 function CareersPage({ english }) {
   const { database } = useDatabase();
-  usePageMeta(english ? "Further Study & Career Pathways | Qawmi Knowledge" : "উচ্চশিক্ষা ও পেশাগত পথ | কওমি জ্ঞানভান্ডার", english ? "Read about further study and career pathways described in Qawmi education research, with qualification cautions." : "কওমি শিক্ষার গবেষণায় উল্লিখিত উচ্চশিক্ষা ও পেশাগত পথ এবং যোগ্যতা-সংক্রান্ত সতর্কতা পড়ুন।");
+  usePageMeta(english ? "Further Study & Career Pathways | QawmiVerse" : "উচ্চশিক্ষা ও পেশাগত পথ | কওমিভার্স", english ? "Read about further study and career pathways described in Qawmi education research, with qualification cautions." : "কওমি শিক্ষার গবেষণায় উল্লিখিত উচ্চশিক্ষা ও পেশাগত পথ এবং যোগ্যতা-সংক্রান্ত সতর্কতা পড়ুন।");
   return (
     <>
       <PageIntro english={english} eyebrow={english ? "NEXT STEPS" : "পরবর্তী ধাপ"} title={english ? "Further study & career pathways" : "উচ্চশিক্ষা ও পেশাগত পথ"} description={english ? "Pathways vary by qualification, institution and employer. This is a general research summary, not an eligibility decision." : "সনদ, প্রতিষ্ঠান ও নিয়োগদাতাভেদে সুযোগ ভিন্ন হয়। এটি সাধারণ গবেষণার সারাংশ—যোগ্যতার সিদ্ধান্ত নয়।"} />
@@ -1833,7 +1833,7 @@ function CareersPage({ english }) {
 
 function AboutPage({ english }) {
   const { database } = useDatabase();
-  usePageMeta(english ? "About Qawmi Knowledge" : "কওমি জ্ঞানভান্ডার সম্পর্কে", english ? "About the independent Qawmi education knowledge platform and the source database it uses." : "স্বতন্ত্র কওমি শিক্ষা জ্ঞানভান্ডার ও ব্যবহৃত তথ্যসূত্র সম্পর্কে জানুন।");
+  usePageMeta(english ? "About QawmiVerse" : "কওমিভার্স সম্পর্কে", english ? "About the independent Qawmi education knowledge platform and the source database it uses." : "স্বতন্ত্র কওমি শিক্ষা জ্ঞানভান্ডার ও ব্যবহৃত তথ্যসূত্র সম্পর্কে জানুন।");
   return (
     <>
       <PageIntro english={english} eyebrow={english ? "ABOUT THIS PROJECT" : "প্রকল্প পরিচিতি"} title={english ? "Knowledge with its sources attached" : "তথ্যসূত্রসহ জ্ঞান"} description={english ? "This independent project brings a searchable institution directory together with educational context, research references and explicit data-quality notes." : "এই স্বতন্ত্র প্রকল্পে অনুসন্ধানযোগ্য প্রতিষ্ঠান তালিকার সঙ্গে শিক্ষামূলক প্রেক্ষাপট, গবেষণার সূত্র ও ডেটার মান-সংক্রান্ত নোট যুক্ত করা হয়েছে।"} />
@@ -1858,7 +1858,7 @@ function AboutPage({ english }) {
 }
 
 function NotFound({ english }) {
-  usePageMeta(english ? "Page not found | Qawmi Knowledge" : "পৃষ্ঠা পাওয়া যায়নি | কওমি জ্ঞানভান্ডার", english ? "The requested knowledge-base page could not be found." : "অনুরোধ করা পৃষ্ঠাটি পাওয়া যায়নি।", "noindex, follow");
+  usePageMeta(english ? "Page not found | QawmiVerse" : "পৃষ্ঠা পাওয়া যায়নি | কওমিভার্স", english ? "The requested knowledge-base page could not be found." : "অনুরোধ করা পৃষ্ঠাটি পাওয়া যায়নি।", "noindex, follow");
   return (
     <section className="not-found">
       <span className="eyebrow">404</span>

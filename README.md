@@ -1,6 +1,6 @@
-# Qawmi Knowledge — Bangladesh Education Guide & Directory
+# QawmiVerse — Bangladesh Education Guide & Directory
 
-**Qawmi Knowledge** is a bilingual educational guide to Qawmi madrasa education in Bangladesh. It combines a searchable, source-transcribed institution directory with guides to the education system, study stages, selected syllabi, history, governance, published estimates, and references.
+**QawmiVerse** is a bilingual educational guide to Qawmi madrasa education in Bangladesh. It combines a searchable, source-transcribed institution directory with guides to the education system, study stages, selected syllabi, history, governance, published estimates, and references.
 
 The project is an independent educational resource. It is not affiliated with any madrasa board and does not claim that its directory is complete or independently verified.
 
