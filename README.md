@@ -1,80 +1,82 @@
 # Bangladesh Qawmi Madrasa Directory | Madrasa Finder BD
 
-**Madrasa Finder BD** is a bilingual, searchable directory of Qawmi madrasas in Bangladesh. Search madrasa names and locations, or browse listings by division, district, upazila, and marhala.
+**Madrasa Finder BD** is a bilingual, searchable directory of Qawmi madrasas in Bangladesh. Search madrasa names, locations, and Wifaq ilhak numbers, or browse listings by division, district, and upazila.
 
-The directory contains **1,425 madrasa records across 53 districts and 8 divisions**. Its data is based on the **2019 result-related madrasa list of Wifaqul Madarisil Arabia Bangladesh**. It is an independent search aid, not an official Wifaq website; addresses and other details may have changed since the source data was published.
+The directory currently contains **1,808 search records across 53 districts and 8 divisions**. It combines the **2019 result-related madrasa list of Wifaqul Madarisil Arabia Bangladesh** with user-provided madrasa lists for Dhaka, Mirpur, and Savar. Many supplemental entries do not include ilhak numbers. This is an independent search aid, not an official Wifaq website; addresses and other details may have changed.
 
 ## Features
 
 - Bengali and English interfaces, with madrasa names shown in Bengali as listed in the source.
-- Search by madrasa name, area, upazila, district, and division, with spelling-tolerant Bengali matching.
-- Filter by division, district, upazila, marhala, and women's section.
-- Browse static pages for individual madrasas, divisions, districts, and marhalas.
-- Shareable search filters reflected in the page URL.
+- Search by madrasa name, area, upazila, district, and division, with Bengali and English digit normalization.
+- Search by Wifaq ilhak number in Bengali or English numerals.
+- Filter by division, district, upazila, and branch type.
+- Browse individual madrasa, division, and district routes rendered by React.
 - Responsive layout with light and dark themes.
-- Static, crawlable HTML pages, an XML sitemap, `robots.txt`, language alternates, and structured data.
+- Vite production build, client-side route fallback, XML sitemap, and `robots.txt`.
 
 ## Preview locally
 
-This project has no build step or package dependencies. Serve the repository root with a local web server (Python 3 is required):
+Install dependencies and start the Vite development server:
 
-```bash
-python -m http.server 8000
+```sh
+npm install
+npm run dev
 ```
 
-Then open <http://localhost:8000>. Use a web server rather than opening `index.html` directly, because the search loads its dataset from `/data/madrasas.json`.
+Create and preview a production build:
+
+```sh
+npm run build
+npm run preview
+```
 
 ## Deploy
 
-Deploy the repository root to a static web host. For Cloudflare Pages, use the repository root as the output directory and leave the build command empty; the `_headers` file provides cache headers there.
+Deploy the generated `dist/` directory to a static host. For Cloudflare Pages, use `npm run build` as the build command and `dist` as the output directory. The `public/_redirects` file routes directory URLs to the React app entry point. The current configuration expects deployment at a domain root; a repository subpath requires setting Vite's `base` option and matching the router basename.
 
-The site uses root-relative paths such as `/assets/style.css` and `/data/madrasas.json`. It is designed to be served from a domain root, not a path such as `username.github.io/repository/`, unless those paths are adjusted for that hosting setup.
+The React app downloads `data/madrasas.json` as a separate JSON asset at runtime. District, division, and madrasa pages are routed by React; the static host must support the included SPA fallback.
 
-### Production SEO setup
-
-Before deploying under a real domain, replace the `https://example.com/` placeholders in the generated HTML pages, `robots.txt`, and `sitemap.xml` with the production origin. Update canonical URLs, Open Graph URLs, hreflang links, and structured-data URLs consistently. The pages also reference `/assets/og.png`; add that image or update the reference to an existing social preview image.
+Before deploying under a real domain, replace the `https://example.com/` placeholder in `robots.txt` and `sitemap.xml` with the production origin. React updates page titles, descriptions, and canonical URLs as routes change.
 
 ## Project structure
 
 ```text
 .
-├── index.html             # Bengali homepage and search
-├── en/                    # English pages
-├── madrasa/               # Bengali madrasa detail pages
-├── district/              # Bengali district listing pages
-├── division/              # Bengali division listing pages
-├── marhala/               # Bengali marhala listing pages
+├── react/
+│   ├── index.html          # Vite HTML entry
+│   └── src/                # React application and styles
+├── public/
+│   ├── _redirects          # SPA route fallback for static hosts
+│   └── assets/
+├── vite.config.js
+├── package.json
 ├── data/
-│   └── madrasas.json      # Search dataset
+│   ├── madrasas.json       # Search dataset used by React
+│   ├── supplemental-mirpur.json
+│   └── supplemental-savar.json
+├── scripts/
+│   └── import-supplemental-madrasas.js
 ├── assets/
-│   ├── app.js             # Search, filters, and theme behavior
-│   ├── style.css          # Site styles
+│   ├── app.js              # Legacy static-page behavior
+│   ├── style.css           # Shared site styles
 │   └── favicon.svg
-├── madrasas_list.json     # Source dataset (1,596 source records)
+├── madrasas_list.json      # Source dataset (1,826 records)
 ├── sitemap.xml
-├── robots.txt
-└── _headers               # Static-host cache headers
+└── robots.txt
 ```
 
 ## Data format
 
-The browser search reads `data/madrasas.json`. It contains division and district lookup tables and an `items` array. Each item is an array containing:
+`data/madrasas.json` contains division and district lookup tables plus an `items` array of records. Each record includes `id`, `name`, `area`, `upazila`, `districtIndex`, `type`, `isWomen`, `ilhakCodes`, `level`, `levelCodes`, `phone`, and an optional `locationUnverified` flag. `level` and `phone` are `null` when not verified; historical numeric Wifaq stage values are retained separately in `levelCodes` and are not displayed as named levels. Do not infer a phone number or label a madrasa as Takmil without a supporting source.
 
-1. Madrasa ID
-2. Name
-3. Area
-4. Upazila or thana
-5. District index
-6. Women's-section flag (`0` or `1`)
-7. Comma-separated marhala values
-8. Comma-separated Wifaq codes
-
-`madrasas_list.json` is the larger source dataset (1,596 records); `data/madrasas.json` is the 1,425-entry dataset used by the search interface. Update the search dataset and the corresponding pre-generated HTML pages and sitemap together when changing published directory data.
+`madrasas_list.json` is the source dataset (1,979 records); `data/madrasas.json` is the 1,808-entry search dataset. The 249 pasted Mirpur and Savar records yielded 153 new records after deduplication. Supplemental entries use empty ilhak-code arrays where the supplied sources did not contain codes. To re-import the checked-in Mirpur and Savar source lists idempotently, run `npm run data:import`; this updates both datasets and the sitemap.
 
 ## Data notes
 
 - **Source year:** 2019
-- **Coverage:** 1,425 entries, 53 districts, 8 divisions
+- **Coverage:** 1,808 search records, 53 districts, 8 divisions
+- **Supplemental sources:** User-provided Dhaka women's, Mirpur, and Savar madrasa lists
+- **Contact information:** Phone numbers and named levels are shown only when supported by a source.
 - **Important:** This directory is not affiliated with or operated by Wifaqul Madarisil Arabia Bangladesh. Verify contact details and addresses before relying on them.
 
 ## Contributing
