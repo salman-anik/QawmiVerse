@@ -1700,7 +1700,7 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.dataset.locale = english ? "en" : "bn";
-    document.documentElement.lang = english ? "en" : "bn";
+    document.documentElement.lang = english ? "en" : "bn-BD";
   }, [english]);
 
   useEffect(() => {
